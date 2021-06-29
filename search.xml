@@ -1,0 +1,1376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>📗 学习 - Vue</title>
+      <link href="/blog/posts/64015/"/>
+      <url>/blog/posts/64015/</url>
+      
+        <content type="html"><![CDATA[<p>😃 记录着使用 Vue 开发时的各种心得、配置，以及坑。</p><span id="more"></span><h2 id="解决跨域问题，设置反向代理"><a href="#解决跨域问题，设置反向代理" class="headerlink" title="解决跨域问题，设置反向代理"></a>解决跨域问题，设置反向代理</h2><pre><code class="javascript">// vue.config.jsmodule.exports = &#123;  devServer: &#123;    proxy: &#123;      &#39;/dev-api&#39;: &#123;        target: &#39;http://47.97.154.202:1091&#39;,        changeOrigin: true,        pathRewrite: &#123; &#39;^/dev-api&#39;: &#39;&#39; &#125;      &#125;    &#125;  &#125;&#125;</code></pre><h2 id="静态文件转为-Base64-格式引入"><a href="#静态文件转为-Base64-格式引入" class="headerlink" title="静态文件转为 Base64 格式引入"></a>静态文件转为 Base64 格式引入</h2><blockquote><p>下面是将字体文件，转为 base64 的配置<br>问题来自 element-ui IE11 部分版本图标不显示<br>但是转为 base64 就好了</p></blockquote><pre><code class="javascript">// vue.config.jsmodule.exports = &#123;  chainWebpack: config =&gt; &#123;    const fontsRule = config.module.rule(&#39;fonts&#39;)    fontsRule.uses.clear()    fontsRule.test(/\.(woff|eot|ttf|otf)(\?.*)?$/i)    fontsRule.use(&#39;file-loader&#39;)      .loader(&#39;url-loader&#39;)      .options(&#123;        fallback: &#123;          loader: &#39;file-loader&#39;,          options: &#123;            name: &#39;fonts/[name].[hash:8].[ext]&#39;          &#125;        &#125;      &#125;)  &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+            <tag> 配置 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>💿 酷库 - 本地存储</title>
+      <link href="/blog/posts/61141/"/>
+      <url>/blog/posts/61141/</url>
+      
+        <content type="html"><![CDATA[<p>JS 自带的本地存储很蛋疼的，不管是 cookie、sessionStorage 还是 localStorage 都只能存储字符串，<br>通常会将数据整理成一个对象， JSON.stringify 转一下存入， 获取时再 JSON.parse，<br>同时原生的方法还稍稍微微有些兼容问题。</p><span id="more"></span><h2 id="localForage"><a href="#localForage" class="headerlink" title="localForage"></a>localForage</h2><blockquote><p>不局限于存储字符串，可以存储数字、对象、数组、Blob 等类型。<br>优雅降级策略，若浏览器不支持 IndexedDB 或 WebSQL，则使用 localStorage。<br>异步读取，提供了 callback 和 Promise 两种异步处理形式。</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/localForage/localForage"><img src="https://github-readme-stats.vercel.app/api/pin/?username=localForage&repo=localForage&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote><p>看官方文档吧，很简单<br>中文版文档如下</p></blockquote><div class="tag link"><a class="link-card" title="中文文档" href="https://localforage.docschina.org"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">中文文档</p><p class="url">https://localforage.docschina.org</p></div></a></div><h2 id="vlf"><a href="#vlf" class="headerlink" title="vlf"></a>vlf</h2><blockquote><p>localForage vue 的封装</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/dmlzj/vlf"><img src="https://github-readme-stats.vercel.app/api/pin/?username=dmlzj&repo=vlf&show_owner=true"/></a><h3 id="使用文档"><a href="#使用文档" class="headerlink" title="使用文档"></a>使用文档</h3><pre><code class="javascript">import Vlf from &#39;vlf&#39;import localforage from &#39;localforage&#39;Vue.use(Vlf, localforage)</code></pre><pre><code class="javascript">// 创建实例this.$vlf.createInstance(&#123;    storeName: &#39;user&#39;&#125;)// 迭代this.$vlf.iterate((value, key, num) =&gt; &#123;    console.log(key);&#125;);// 设置值this.$vlf.setItem(&#39;test&#39;, &#39;hello&#39;).then(v =&gt; &#123;    console.log(v);&#125;);// ...和官方调用一致// The other methods of use are the same as the official website, just add a this.$vlf in front, the same behind!</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 存储 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📢 学习 - 监听游览器页面的关闭</title>
+      <link href="/blog/posts/64077/"/>
+      <url>/blog/posts/64077/</url>
+      
+        <content type="html"><![CDATA[<p>项目中常见在页面/游览器关闭时，需要做某些特定操作，<br>难点在于如何的监听，原生的使用方法有点绕。</p><span id="more"></span><h2 id="beforeunload"><a href="#beforeunload" class="headerlink" title="beforeunload"></a>beforeunload</h2><p>用户关闭、刷新页面，关闭游览器等操作时会触发。<br>触发的同时游览器会弹出一个丑陋的类似 window.confirm 的窗口。<br>无法修改内容，无法替换，无法获取用户点击的结果，但是可以隐藏。</p><pre><code class="javascript">window.addEventListener(&#39;beforeunload&#39;, function (event) &#123;  // returnValue 只要设置了任意值，就会弹框提示用户。  // 若不设置，则不会弹框。  if (event) &#123;    e.returnValue = true  &#125;    // 其他操作...&#125;)window.removeEventListener(&#39;beforeunload&#39;, handler)</code></pre><h2 id="unload"><a href="#unload" class="headerlink" title="unload"></a>unload</h2><blockquote><p>吐槽：这个事件，对于开发，并没有什么卵用</p></blockquote><p>这玩意知道了就行了，实际上完全被 beforeunload 所替代。<br>理论上部分操作是需要在 “用户确定关闭/刷新页面后” 执行，<br>但是实际上在 unload 回调中，限制很多，<br>比如说无法发送请求等等等等…..</p><p>目前已知的可行操作：</p><ul><li>可以向 localStorage、sessionStorage 中写入。</li></ul><pre><code class="javascript">window.addEventListener(&#39;unload&#39;, function () &#123;  // 限制太多，啥也干不了.....&#125;)window.removeEventListener(&#39;unload&#39;, handler)</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>真的碰到了 “用户离开/刷新页面前执行特定逻辑” 的这种需求时，<br>建议用 beforeunload 事件，而不是 unload，因为限制太多了。<br>beforeunload 弹出的 “丑陋的框” 中，<br>不管用户点击的是什么，都执行逻辑，因为根本也获取不到用户点击的结果。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 监听 </tag>
+            
+            <tag> 原生方法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>💎 酷库 - UUID</title>
+      <link href="/blog/posts/63023/"/>
+      <url>/blog/posts/63023/</url>
+      
+        <content type="html"><![CDATA[<p>万物皆需要一个 “身份证号” 来标识自己的身份，<br>难点在于如何做到不重复，在项目中，通常的 id 都是来自数据库的自增 id，<br>但是部分场景也需要我们自己定义 id 值。</p><span id="more"></span><h2 id="uuid"><a href="#uuid" class="headerlink" title="uuid"></a>uuid</h2><blockquote><p>用就完事了。</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/uuidjs/uuid"><img src="https://github-readme-stats.vercel.app/api/pin/?username=uuidjs&repo=uuid&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><pre><code class="javascript">import &#123; v4 as uuidv4 &#125; from &#39;uuid&#39;;uuidv4();// ⇨ &#39;9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d&#39;</code></pre><pre><code class="html">&lt;script src=&quot;https://unpkg.com/uuid@latest/dist/umd/uuidv4.min.js&quot;&gt;&lt;/script&gt;&lt;script&gt;  window.uuidv4()  // ⇨ &#39;9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d&#39;&lt;/script&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 唯一值 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🧚‍♂ 优化 - 耗时异步操作的客户端体验</title>
+      <link href="/blog/posts/42460/"/>
+      <url>/blog/posts/42460/</url>
+      
+        <content type="html"><![CDATA[<p>现在的客户端多多少少都会带一点异步操作，举例的话当时是和服务器的交互请求了，<br>有时，这种异步操作会异常的慢，通常还有网络环境的干扰，<br>这时如果不给出用户友好的提示，那用户还以为这个页面坏掉了。</p><span id="more"></span><h2 id="思路一（全屏-Loading）"><a href="#思路一（全屏-Loading）" class="headerlink" title="思路一（全屏 Loading）"></a>思路一（全屏 Loading）</h2><p>在耗时操作的开始，开始计时<br>若计时超过一定时长，则给出用户全屏 Loading<br>一是给出用户友好提示<br>二是防止用户操作页面其他地方</p><p>在考试操作的结束，结束计时。<br>若之前已经显示了全屏 Loading 则关闭。</p><p>优化：<br>在结束计时时，判断计时总时长，若小于 500/1000 毫秒<br>则暂不做操作，直到总时长到达 500/1000 毫秒后才关闭 Loading<br>这样做的目的是防止页面闪烁，Loading 刚开始就关闭的情况。</p><h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="full-loading.jpg" alt="全屏的加载中状态"/></div><span class="image-caption">全屏的加载中状态</span></div><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>代码上通常可以统一定义，比如在 axios 库中通过请求、响应拦截器统一处理。</p><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>Loading 是全屏的，样式相对于比较单调。<br>不灵活，如果异步操作有取消逻辑的话，不适用。</p><h2 id="思路二（局部-Loading）"><a href="#思路二（局部-Loading）" class="headerlink" title="思路二（局部 Loading）"></a>思路二（局部 Loading）</h2><p>在耗时操作的相关部分，比如说点击的按钮，<br>网页里，加载中的一部分区域，<br>显示 Loading 样式，如下图</p><h3 id="效果图-1"><a href="#效果图-1" class="headerlink" title="效果图"></a>效果图</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="btn-loading.jpg" alt="按钮的加载中状态"/></div><span class="image-caption">按钮的加载中状态</span></div><div class="img-wrap"><div class="img-bg"><img class="img" src="part-loading.jpg" alt="仅页面一部分的加载中状态"/></div><span class="image-caption">仅页面一部分的加载中状态</span></div><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>灵活，哪里用到哪里显示局部 loading</p><h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>代码上需要在多处注入判断 Loading 状态的相关代码，无法统一定义。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>建议项目在开发时，用思路一。<br>之后再看需要慢慢优化为思路二。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 优化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 用户体验 </tag>
+            
+            <tag> 异步 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📷 酷库 - 智能图片</title>
+      <link href="/blog/posts/36844/"/>
+      <url>/blog/posts/36844/</url>
+      
+        <content type="html"><![CDATA[<p>🤩 图片的内容和尺寸千变万化，想按照固定的格式友好的展示所有图片是很难的，<br>这里整理一下可以智能计算图片内容的库。</p><span id="more"></span><h2 id="smartcrop-js"><a href="#smartcrop-js" class="headerlink" title="smartcrop.js"></a>smartcrop.js</h2><blockquote><p>根据传入的长宽比，计算出图片的主要内容区域<br>同时支持游览器和 node 端。</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/jwagner/smartcrop.js"><img src="https://github-readme-stats.vercel.app/api/pin/?username=jwagner&repo=smartcrop.js&show_owner=true"/></a><h3 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h3><img src="/blog/posts/36844/smartcrop.jpg" class=""><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><img src="/blog/posts/36844/smartcrop-2.jpg" class=""><h2 id="grade"><a href="#grade" class="headerlink" title="grade"></a>grade</h2><blockquote><p>根据图片的主题色，生成渐变色背景。</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/benhowdle89/grade"><img src="https://github-readme-stats.vercel.app/api/pin/?username=benhowdle89&repo=grade&show_owner=true"/></a><h3 id="效果展示-1"><a href="#效果展示-1" class="headerlink" title="效果展示"></a>效果展示</h3><img src="/blog/posts/36844/grade.jpg" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图片 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🚰 酷库 - VUE 过滤器</title>
+      <link href="/blog/posts/51921/"/>
+      <url>/blog/posts/51921/</url>
+      
+        <content type="html"><![CDATA[<p>整理 vue filter 还不错的库，filter 常用于简单转换数据格式的场景。</p><span id="more"></span><h2 id="vue-filter"><a href="#vue-filter" class="headerlink" title="vue-filter"></a>vue-filter</h2><blockquote><p>像 lodash 一样，提供了大量的方法。<br>虽然很长时间没有更新了，但是也够用了，<br>方法基于 underscore.js 实现</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/wy-ei/vue-filter"><img src="https://github-readme-stats.vercel.app/api/pin/?username=wy-ei&repo=vue-filter&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote><p>具体使用方法去 github 查手册吧</p></blockquote><pre><code class="javascript">import VueFilter from &#39;vue-filter&#39;;import Vue from &#39;vue&#39;;// Vue.install(vueFilter); // Vue V1 Vue.use(VueFilter);        // Vue V2</code></pre><h2 id="vue-moment"><a href="#vue-moment" class="headerlink" title="vue-moment"></a>vue-moment</h2><blockquote><p>moment 的封装，常用于时间、时长转换的场景。</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/brockpetrie/vue-moment"><img src="https://github-readme-stats.vercel.app/api/pin/?username=brockpetrie&repo=vue-moment&show_owner=true"/></a><h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote><p>具体使用方法去 github 查手册吧</p></blockquote><pre><code class="javascript">import Vue from &#39;vue&#39;import VueMoment from &#39;vue-moment&#39;import moment from &#39;moment-timezone&#39;Vue.use(VueMoment, &#123;    moment,&#125;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> 过滤器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>💿 破解 - 百度云限速破解</title>
+      <link href="/blog/posts/17895/"/>
+      <url>/blog/posts/17895/</url>
+      
+        <content type="html"><![CDATA[<p>百度云啥都好，大品牌、免费的大存储容量，最关键的是所有人都常用它来分享文件，<br>找资源最方便，可是蛋疼的是它限制下载速度，充钱开 VIP 能解决 😒，像我这种偶尔用一下的人来说，<br>总不可能一直续着 VIP 😷，需求是最大的生产力，破解方案来喽~~~</p><span id="more"></span><h2 id="1-下载火狐游览器"><a href="#1-下载火狐游览器" class="headerlink" title="1. 下载火狐游览器"></a>1. 下载火狐游览器</h2><h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><div class="tag link"><a class="link-card" title="火狐游览器" href="http://www.firefox.com.cn/"><div class="left"><img src="https://www.firefox.com.cn/media/protocol/img/logos/firefox/browser/logo-lg.3d9087ac44e8.png"/></div><div class="right"><p class="text">火狐游览器</p><p class="url">http://www.firefox.com.cn/</p></div></a></div><h2 id="2-安装扩展"><a href="#2-安装扩展" class="headerlink" title="2. 安装扩展"></a>2. 安装扩展</h2><blockquote><p>在火狐里面打开阿</p></blockquote><h3 id="安装地址"><a href="#安装地址" class="headerlink" title="安装地址"></a>安装地址</h3><div class="tag link"><a class="link-card" title="Tampermonkey" href="https://addons.mozilla.org/zh-CN/firefox/addon/tampermonkey/"><div class="left"><img src="https://addons.cdn.mozilla.net/user-media/addon_icons/683/683490-64.png?modified=1565719090"/></div><div class="right"><p class="text">Tampermonkey</p><p class="url">https://addons.mozilla.org/zh-CN/firefox/addon/tampermonkey/</p></div></a></div><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><div class="gallery " data-group='default'><p><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='install-tampermonkey-1.jpg' data-fancybox='default' data-caption='1. 安装'><img fancybox src="install-tampermonkey-1.jpg" alt="1. 安装"></a>        <span class='image-caption'>1. 安装</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='install-tampermonkey-2.jpg' data-fancybox='default' data-caption='2. 添加'><img fancybox src="install-tampermonkey-2.jpg" alt="2. 添加"></a>        <span class='image-caption'>2. 添加</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='install-tampermonkey-3.jpg' data-fancybox='default' data-caption='3. 安装成功后的提示'><img fancybox src="install-tampermonkey-3.jpg" alt="3. 安装成功后的提示"></a>        <span class='image-caption'>3. 安装成功后的提示</span>      </div></p></div><h3 id="完成检测"><a href="#完成检测" class="headerlink" title="完成检测"></a>完成检测</h3><blockquote><p>安装完成后，火狐游览器右上角会</p></blockquote><h2 id="3-安装插件"><a href="#3-安装插件" class="headerlink" title="3. 安装插件"></a>3. 安装插件</h2><blockquote><p>在火狐里面打开阿</p></blockquote><h3 id="安装地址-1"><a href="#安装地址-1" class="headerlink" title="安装地址"></a>安装地址</h3><div class="tag link"><a class="link-card" title="百度网盘简易下载助手" href="https://greasyfork.org/zh-CN/scripts/418182-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E7%AE%80%E6%98%93%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E7%9B%B4%E9%93%BE%E4%B8%8B%E8%BD%BD%E5%A4%8D%E6%B4%BB%E7%89%88"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">百度网盘简易下载助手</p><p class="url">https://greasyfork.org/zh-CN/scripts/418182-%E7%99%BE%E5%BA%A6%E7%BD%91%E7%9B%98%E7%AE%80%E6%98%93%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B-%E7%9B%B4%E9%93%BE%E4%B8%8B%E8%BD%BD%E5%A4%8D%E6%B4%BB%E7%89%88</p></div></a></div><h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><div class="gallery " data-group='default'><p><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='install-plugin-1.jpg' data-fancybox='default' data-caption='1. 安装'><img fancybox src="install-plugin-1.jpg" alt="1. 安装"></a>        <span class='image-caption'>1. 安装</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='install-plugin-2.jpg' data-fancybox='default' data-caption='2. 安装'><img fancybox src="install-plugin-2.jpg" alt="2. 安装"></a>        <span class='image-caption'>2. 安装</span>      </div></p></div><h2 id="4-安装-IDM-软件"><a href="#4-安装-IDM-软件" class="headerlink" title="4. 安装 IDM 软件"></a>4. 安装 IDM 软件</h2><h3 id="下载地址-1"><a href="#下载地址-1" class="headerlink" title="下载地址"></a>下载地址</h3><div class="btns rounded grid5">            <a class="button" href='IDMv6.38.7.2.rar' title='下载IDM'><i class='fas fa-download'></i>下载IDM</a>          </div><h3 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h3><blockquote><p>下载并解压后，打开 IDMan.exe，点击选项。<br>softxm;netdisk</p></blockquote><div class="gallery " data-group='default'><p><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='IDM-config-1.jpg' data-fancybox='default' data-caption='1. 打开选项'><img fancybox src="IDM-config-1.jpg" alt="1. 打开选项"></a>        <span class='image-caption'>1. 打开选项</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='IDM-config-2.jpg' data-fancybox='default' data-caption='2. 将默认最大连接数，设置为 4'><img fancybox src="IDM-config-2.jpg" alt="2. 将默认最大连接数，设置为 4"></a>        <span class='image-caption'>2. 将默认最大连接数，设置为 4</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='IDM-config-3.jpg' data-fancybox='default' data-caption='3. 配置UA为 softxm;netdisk'><img fancybox src="IDM-config-3.jpg" alt="3. 配置UA为 softxm;netdisk"></a>        <span class='image-caption'>3. 配置UA为 softxm;netdisk</span>      </div></p></div><h2 id="5-阶段性胜利"><a href="#5-阶段性胜利" class="headerlink" title="5. 阶段性胜利"></a>5. 阶段性胜利</h2><blockquote><p>到目前为止，所有的准备工作都完成啦~ 😇</p></blockquote><h2 id="6-下载网盘资源"><a href="#6-下载网盘资源" class="headerlink" title="6. 下载网盘资源"></a>6. 下载网盘资源</h2><blockquote><p>首先要将需要下载的资源，放到自己的网盘中<br>然后打开网盘，选中需要下载的文件<br>注意：需要一个文件一个文件的下载，不能多选，也不能直接选择文件夹</p></blockquote><h4 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h4><div class="gallery " col='3' data-group='2'><p><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='download-1.jpg' data-fancybox='2' data-caption='1. 百度云页面会多一个按钮，点击它'><img fancybox src="download-1.jpg" alt="1. 百度云页面会多一个按钮，点击它"></a>        <span class='image-caption'>1. 百度云页面会多一个按钮，点击它</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='download-2.jpg' data-fancybox='2' data-caption='2. 获取直链地址'><img fancybox src="download-2.jpg" alt="2. 获取直链地址"></a>        <span class='image-caption'>2. 获取直链地址</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='download-3.jpg' data-fancybox='2' data-caption='3. 点击复制直链地址'><img fancybox src="download-3.jpg" alt="3. 点击复制直链地址"></a>        <span class='image-caption'>3. 点击复制直链地址</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='download-4.jpg' data-fancybox='2' data-caption='4. 回到 IDM 软件，点击新建'><img fancybox src="download-4.jpg" alt="4. 回到 IDM 软件，点击新建"></a>        <span class='image-caption'>4. 回到 IDM 软件，点击新建</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='download-5.jpg' data-fancybox='2' data-caption='5. 复制得到的直链地址，点击确定'><img fancybox src="download-5.jpg" alt="5. 复制得到的直链地址，点击确定"></a>        <span class='image-caption'>5. 复制得到的直链地址，点击确定</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='download-6.jpg' data-fancybox='2' data-caption='6. 设置好保存的路径，点击开始下载'><img fancybox src="download-6.jpg" alt="6. 设置好保存的路径，点击开始下载"></a>        <span class='image-caption'>6. 设置好保存的路径，点击开始下载</span>      </div></p></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 破解 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 下载 </tag>
+            
+            <tag> 百度云 </tag>
+            
+            <tag> 破解 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>✨ 工具 - nvm</title>
+      <link href="/blog/posts/10982/"/>
+      <url>/blog/posts/10982/</url>
+      
+        <content type="html"><![CDATA[<p>切换 node 和 npm 版本是项目中常见的需求，<br>用常规的方式升降版本，只能重新下载、安装 node，<br>这里介绍一个 node、npm 版本管理工具 “nvm”，<br>他可以做到同时本地存储多个 node、npm 版本，<br>以命令行的形式切换使用，并且每个版本都有自己的 node_modules, 相互不共享。😍</p><span id="more"></span><h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/coreybutler/nvm-windows"><img src="https://github-readme-stats.vercel.app/api/pin/?username=coreybutler&repo=nvm-windows&show_owner=true"/></a><h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><div class="img-wrap"><div class="img-bg"><img class="img" src="install-1.png" alt="去 github 上下载 nvm"/></div><span class="image-caption">去 github 上下载 nvm</span></div><div class="img-wrap"><div class="img-bg"><img class="img" src="install-2.png" alt="安装，并指定 nvm 安装目录"/></div><span class="image-caption">安装，并指定 nvm 安装目录</span></div><div class="img-wrap"><div class="img-bg"><img class="img" src="install-3.png" alt="指定安装所有 node 版本的目录，建议 nvm/node"/></div><span class="image-caption">指定安装所有 node 版本的目录，建议 nvm/node</span></div><pre><code class="bash"># 测试是否安装成功nvm -v# Running version 1.1.7</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><blockquote><p>nvm install 时，因为网络原因，往往会失败。<br>这里指定下淘宝镜像地址。</p></blockquote><pre><code class="bash"># in nvm/setting.txtroot: # 不重要path: # 不重要node_mirror: https://npm.taobao.org/mirrors/node/npm_mirror: https://npm.taobao.org/mirrors/npm/</code></pre><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><pre><code class="bash">nvm off                     # 禁用node.js版本管理(不卸载任何东西)nvm on                      # 启用node.js版本管理nvm install &lt;version&gt;       # 安装node.js的命名 version是版本号 例如：nvm install 8.12.0nvm uninstall &lt;version&gt;     # 卸载node.js是的命令，卸载指定版本的nodejs，当安装失败时卸载使用nvm list                    # 显示所有安装的node.js版本nvm list available          # 显示可以安装的所有node.js的版本nvm use &lt;version&gt;           # 切换到使用指定的nodejs版本</code></pre><h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><ol><li>安装 nvm 时，将电脑上的所有 node 删除。</li><li>nvm list 输出带 * 号的即为当前版本。</li><li>每个 node、npm 版本，都有自己的 node_modules，和其他版本不公用。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> node </tag>
+            
+            <tag> 版本管理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>👽 学习 - Ionic</title>
+      <link href="/blog/posts/53768/"/>
+      <url>/blog/posts/53768/</url>
+      
+        <content type="html"><![CDATA[<p>吐槽：<br>谁没事用 angular 啊！各个版本跨度大，上网找文档都费劲 😡，<br>可是没办法，工作中需要，向生活低头 😔</p><p>不过 ionic 这个框架还是不错的，现在可以用 vue 和 react 进行开发，组件样式也很好看，<br>但是不支持打包国内的小程序，跨端不如用 uni-app，更适合国人一些 😇</p><span id="more"></span><h2 id="完整技术栈以及顺序："><a href="#完整技术栈以及顺序：" class="headerlink" title="完整技术栈以及顺序："></a>完整技术栈以及顺序：</h2><ul><li>typescript（angular 要求使用，vue、react 不硬性要求）</li><li>angular/vue/react</li><li>ionic</li><li>android、ios</li></ul><hr><h2 id="typescript"><a href="#typescript" class="headerlink" title="typescript"></a>typescript</h2><blockquote><p>基于 ES 的增强语言，完全兼容 ES 的写法。<br>增加了类型定义、类型检测、接口等强语言特性。<br>学习曲线很友好，只有接口部分较为复杂，需要理解用法。</p></blockquote><pre><code class="typescript">interface Dog &#123;  name: string&#125;let obj1: &#123; [ propName: string ]: FormControl &#125; | null = null;let obj2: Dog | null = null;let obj3: &#123; name: string &#125; | null = null;let arr1: Array&lt;string&gt; | Array&lt;Array&lt;string&gt;&gt; = [];let arr2: Array&lt;Dog&gt; | Array&lt;Array&lt;Dog&gt;&gt; = [];let arr3: Array&lt;&#123; name: string &#125;&gt; = [];</code></pre><pre><code class="typescript">/** *  定义一个接口 *  key 后面加 ? 代表这个属性/方法可有可无 **/interface PersonBase &#123;  name: string  age: number  country?: string    getName(): string,  getCountry?(): string  sayName(): void&#125;// 定义一个对象，使其实现接口let user: PersonBase = &#123;  name: &#39;jason&#39;,  age: 18,  country: &#39;中国&#39;,  getName(): string &#123;    return this.name  &#125;,  getCountry(): string &#123;    return this.country  &#125;,  sayName(): void &#123;    console.log(this.name)  &#125;&#125;// 定义一个类，使其实现接口class User implements PersonBase &#123;  name: string  age: number  getName(): string &#123;    return this.name  &#125;  sayName() &#123;    console.log(this.name)  &#125;&#125;</code></pre><hr><h2 id="angular"><a href="#angular" class="headerlink" title="angular"></a>angular</h2><p>一个很蛋疼的框架，国内的开发基本都不用这玩意<br>使用起来也不如 vue 方便</p><h3 id="基本的模板语法"><a href="#基本的模板语法" class="headerlink" title="基本的模板语法"></a>基本的模板语法</h3><pre><code class="html">&lt;!-- 通过标签向组件传递数据 --&gt;&lt;!-- [dataA] 为单向绑定 --&gt;&lt;!-- [(dataB)] 为双向绑定（语法糖） --&gt;&lt;!-- (dataAChange) 为事件，其中 $event 为 emit 时的参数 --&gt;&lt;app-list  [dataA]=&quot;dataA&quot;  [(dataB)]=&quot;dataB&quot;  (dataAChange)=&quot;this.dataA = $event&quot;&gt;&lt;/app-list&gt;&lt;!-- 通过 [hidden] 来确定组件是否显示 --&gt;&lt;p [hidden]=&quot;isShow&quot;&gt;&lt;/p&gt;&lt;!-- 通过 ngIf 来确定组件是否渲染 --&gt;&lt;ul *ngIf=&quot;isShow&quot;&gt;  &lt;!-- For 指令可以指定局部变量，常用的有以下 --&gt;  &lt;!-- let i = index --&gt;  &lt;!-- let count = count --&gt;  &lt;!-- let first = first --&gt;  &lt;!-- let last = last --&gt;  &lt;!-- let odd = odd --&gt;  &lt;!-- let even = even --&gt;  &lt;li *ngFor=&quot;let item of data; let i = index;&quot;&gt;    &#123;&#123; i &#125;&#125;  &lt;/li&gt;&lt;/ul&gt;&lt;!-- 原生事件 angular 做了封装 --&gt;&lt;button (click)=&quot;submit()&quot;&gt;  点击我触发&lt;/button&gt;</code></pre><h3 id="生成一个组件"><a href="#生成一个组件" class="headerlink" title="生成一个组件"></a>生成一个组件</h3><blockquote><p>建议通过命令行的方式生成</p></blockquote><pre><code class="bash"># 生成一个组件ng generate component &lt;component-name&gt;# 将会在 src/app 目录下生成 &lt;component-name&gt; 目录# 并在 app.module.ts 引入并注册</code></pre><h3 id="组件的通讯"><a href="#组件的通讯" class="headerlink" title="组件的通讯"></a>组件的通讯</h3><blockquote><p>父子组件的通讯就像 vue 一样是单向数据流的。<br>属性向下、事件向上。</p></blockquote><pre><code class="typescript">/** *  子组件 component.js **/export class ListComponent implements OnInit &#123;  /**   *  通过 @Input 装饰器修饰属性来接收父组件传来的值   *  Input 在 @angular/core 模块中   **/  @Input() title?: string  @Input() data: Array&lt;string&gt; = []    /**   *  通过 @Output 装饰器修饰属性来向父组件发送消息   *  被 Output 修饰的属性，值应该定义为 EventEmitter 的实例   *  Output 和 EventEmitter 在 @angular/core 模块中   *     *  若想实现 &quot;双向绑定&quot; 的语法糖，事件的 key 必须为 inputChange 模式   *  这样父组件模板中可以 [(input)]=&quot;data&quot; 的形式即可实现 &quot;双向绑定&quot;   **/  @Output() dataChange = new EventEmitter&lt;Array&lt;string&gt;&gt;()    // 在组件内部使用 this.dataChange.emit(payload) 向父组件发出事件  onClick () &#123;    this.dataChange.emit([&#39;a&#39;, &#39;b&#39;])  &#125;&#125;</code></pre><pre><code class="html">&lt;!-- 父组件 component.html --&gt;&lt;app-list  [title]=&quot;title&quot;  [data]=&quot;data&quot;  (dataChange)=&quot;this.data = $event&quot;&gt;&lt;/app-list&gt;&lt;!-- OR --&gt;&lt;app-list  [title]=&quot;title&quot;  [(data)]=&quot;data&quot;&gt;&lt;/app-list&gt;</code></pre><h3 id="组件的计算属性"><a href="#组件的计算属性" class="headerlink" title="组件的计算属性"></a>组件的计算属性</h3><blockquote><p>可以通过 getter 实现计算属性</p></blockquote><pre><code class="typescript">export class AppComponent implements OnChanges &#123;  name: string = &#39;jason&#39;  get fullName (): string &#123;    return &#39;my is &#39; + this.name  &#125;&#125;</code></pre><h3 id="组件属性的监听"><a href="#组件属性的监听" class="headerlink" title="组件属性的监听"></a>组件属性的监听</h3><blockquote><p>ngOnChanges 方法可以监听 @Input 进来的属性<br>使用 set 可以监听组件内部的属性</p></blockquote><pre><code class="typescript">export class AppComponent implements OnChanges &#123;  @Input() data: Array&lt;string&gt; = []    _name: String = &#39;&#39;  set name (val: String) &#123;    // 在 set 中实现监听    this._name = val  &#125;  // 当 data 改变时会触发   ngOnChanges (changes: SimpleChanges) &#123;    /**     *  &#123;     *    data: &#123;     *      // 新值     *      currentValue,     *      // 是否为传入时触发     *      firstChange,     *      // 老值，首次传入时触发时，此值为 undefined     *      previousValue     *    &#125;     *  &#125;     **/    console.log(changes)  &#125;&#125;</code></pre><h3 id="组件的插槽用法"><a href="#组件的插槽用法" class="headerlink" title="组件的插槽用法"></a>组件的插槽用法</h3><blockquote><p>主要使用内置的 ng-content 标签实现。<br>ng-content 默认显示所有父组件定义的内容。<br>可以通过 select 属性来指定显示位置，匹配规则为 css 选择器。</p></blockquote><pre><code class="html">&lt;!-- 子组件(app-list) component.html  --&gt;&lt;div&gt;  &lt;ng-content select=&quot;[slot=&#39;header&#39;]&quot;&gt;&lt;/ng-content&gt;  &lt;ng-content&gt;&lt;/ng-content&gt;  &lt;ng-content select=&quot;[slot=&#39;footer&#39;]&quot;&gt;&lt;/ng-content&gt;&lt;/div&gt;</code></pre><pre><code class="html">&lt;!-- 父组件 component.html --&gt;&lt;app-list&gt;  &lt;div&gt;我是内容，匹配子组件的 ng-content&lt;/div&gt;  &lt;div slot=&quot;header&quot;&gt;我是头部，匹配子组件的 ng-content[slot=&quot;header&quot;]&lt;/div&gt;  &lt;div slot=&quot;footer&quot;&gt;我是内容，匹配子组件的 ng-content[slot=&quot;footer&quot;]&lt;/div&gt;&lt;/app-list&gt;</code></pre><h3 id="管道（vue-中的过滤器）"><a href="#管道（vue-中的过滤器）" class="headerlink" title="管道（vue 中的过滤器）"></a>管道（vue 中的过滤器）</h3><blockquote><p>将值进行处理后显示。<br>angular 内置了非常多的实用 pipe，文档如下：<br><a href="https://angular.cn/api/common#%E7%AE%A1%E9%81%93">https://angular.cn/api/common#%E7%AE%A1%E9%81%93</a><br>自定义方法如下：</p></blockquote><pre><code class="typescript">/** *  创建 pipe 的 ts 文件 *  用 Pipe 修饰器修饰 *  继承 PipeTransform 接口 *  在 @NgModule declarations 中注册 **/import &#123; Pipe, PipeTransform &#125; from &#39;@angular/core&#39;;@Pipe(&#123; name: &#39;hash&#39; &#125;)export class hashPipe implements PipeTransform &#123;  transform (value: any, p1?: any, p2?: any): string &#123;    return value + &#39;...&#39; + p1 + p2  &#125;&#125;</code></pre><pre><code class="html">&lt;!-- 注意传参方式，很特别 --&gt;&#123;&#123; 1621324650486 | date:"YYYY/MM/dd HH:mm:SS" &#125;&#125;&#123;&#123; fullName | hash: 50: 20 &#125;&#125;</code></pre><h3 id="表单（暂时放一放，用法不确定）"><a href="#表单（暂时放一放，用法不确定）" class="headerlink" title="表单（暂时放一放，用法不确定）"></a>表单（暂时放一放，用法不确定）</h3><blockquote><p>angular 提供了两种方法实现表单数据的管理<br>简单来说，复杂的用 “响应式表单”，简单的用 “模板驱动表单”<br>在实际情况中，可以只用 “响应式表单”，能满足所有情况下使用。</p></blockquote><p>主要使用 @angular/forms 模块的 FormGroup, FormControl。<br>具体看代码吧</p><pre><code class="typescript">import &#123; FormGroup, FormControl &#125; from &quot;@angular/forms&quot;;export class FormComponent implements OnInit &#123;  form: FormGroup = new FormGroup(&#123;    username: new FormControl(&#39;默认值&#39;),    password: new FormControl(&#39;默认值&#39;)  &#125;)   submit () &#123;    // 输出 FormGroup 实例    console.log(this.form)    // 输出 FormControl 实例组成的对象    console.log(this.form.controls)    // 输出 value 组成的对象    console.log(this.form.value)  &#125;    ngOnInit () &#123;    // 可以通过 addControl 方法动态向 FormGroup 实例中添加控件    this.form.addControl(&#39;gender&#39;, new FormControl(&#39;男&#39;))  &#125;&#125;</code></pre><pre><code class="html">&lt;form   [formGroup]=&quot;form&quot;  (submit)=&quot;submit()&quot;&gt;  &lt;div&gt;    用户名：    &lt;input formControlName=&quot;username&quot; type=&quot;text&quot;&gt;  &lt;/div&gt;  &lt;div&gt;    密码：    &lt;input formControlName=&quot;password&quot; type=&quot;password&quot;&gt;  &lt;/div&gt;  &lt;div&gt;    性别：    &lt;input formControlName=&quot;gender&quot; type=&quot;radio&quot; value=&quot;男&quot;&gt;    &lt;input formControlName=&quot;gender&quot; type=&quot;radio&quot; value=&quot;女&quot;&gt;  &lt;/div&gt;  &lt;div&gt;    &lt;button&gt;提交&lt;/button&gt;  &lt;/div&gt;&lt;/form&gt;</code></pre><h3 id="服务基础"><a href="#服务基础" class="headerlink" title="服务基础"></a>服务基础</h3><blockquote><p>服务是 angular 比较重要，并且强大的功能。<br>简单来说就是预先定义好 “服务类”，类中有属性和方法，<br>在注入到组件中，使组件可以使用 “服务类” 中的属性和方法<br>并且不同的组件可以通过 “作用域相同” 的 “服务类” 共享数据，类似于 vuex。</p></blockquote><pre><code class="bash"># 命令行生成一个服务ng generate service heroes/hero</code></pre><pre><code class="typescript">// src/app/heroes/hero.service.tsimport &#123; Injectable &#125; from &#39;@angular/core&#39;;@Injectable(&#123;  // 表示注入到最顶层，在整个应用中都是可见的  // 是最顶层的注入方式  providedIn: &#39;root&#39;,&#125;)export class HeroService &#123;  constructor() &#123; &#125;&#125;</code></pre><pre><code class="typescript">// 在组件中，或服务中（服务也可以注入服务）export class AppComponent implements OnInit &#123;  // 在构造器中注入，注意加 private 修饰符。  constructor (private heroService: HeroService) &#123;  &#125;    async ngOnInit () &#123;    // 在内部即可调用    console.log(this.heroService)  &#125;&#125;</code></pre><h3 id="服务的实例以及作用域"><a href="#服务的实例以及作用域" class="headerlink" title="服务的实例以及作用域"></a>服务的实例以及作用域</h3><blockquote><p>服务可以注册到 “root”、”模块”、”组件” 这三个不同的作用域中。<br>并且按照 “先内后外” 的顺序确定作用域。<br>服务也可以注入服务中，但是需要在相同的作用域中。</p></blockquote><pre><code class="typescript">// 在服务内部 providedIn: &#39;root&#39; 代表注册到最顶级作用域// 在整个项目中都可以使用，并且共用一个服务实例@Injectable(&#123;  providedIn: &#39;root&#39;&#125;)export class HeroService &#123;&#125;</code></pre><pre><code class="typescript">// 在模块中，指定注入服务// 该模块中的所有组件、服务，共享一个服务实例@NgModule(&#123;  // ...  providers: [    HeroService  ]  // ...&#125;)export class AppModule &#123;&#125;</code></pre><pre><code class="typescript">// 在组件中注册服务// 此时只有在当前的组件中才能使用该服务// 并且与其他的组件不会共享同一个实例。@NgModule(&#123;  // ...  providers: [    HeroService  ]  // ...&#125;)export class AppModule &#123;&#125;</code></pre><h3 id="SPA-路由-基础"><a href="#SPA-路由-基础" class="headerlink" title="SPA 路由 - 基础"></a>SPA 路由 - 基础</h3><blockquote><p>依赖 @angular/router 模块</p></blockquote><pre><code class="typescript">// 创建 app-routing.module.tsimport &#123; NgModule &#125; from &#39;@angular/core&#39;;import &#123; RouterModule, Routes &#125; from &#39;@angular/router&#39;;import &#123; ListComponent &#125; from &quot;./pages/list/list.component&quot;;import &#123; ListChildComponent &#125; from &quot;./pages/list/list-child/list-child.component&quot;;import &#123; DetailComponent &#125; from &quot;./pages/detail/detail.component&quot;;const routes: Routes = [  &#123;    path: &#39;list&#39;,    component: ListComponent,    children: [      &#123;        path: &#39;child&#39;,        component: ListChildComponent      &#125;    ]  &#125;,  &#123; path: &#39;detail&#39;, component: DetailComponent &#125;,  // 通配符路由，写在最后  &#123; path: &#39;**&#39;, redirectTo: &#39;list&#39; &#125;];@NgModule(&#123;  imports: [ RouterModule.forRoot(routes) ],  exports: [ RouterModule ]&#125;)export class AppRoutingModule &#123;&#125;</code></pre><pre><code class="typescript">// 在 app.module.ts 中导入路由模块import &#123; AppRoutingModule &#125; from &#39;./app-routing.module&#39;;@NgModule(&#123;  // ....  imports: [    AppRoutingModule  ]  // ....&#125;)</code></pre><pre><code class="html">&lt;!-- 在组件中使用 router-outlet 标签渲染页面组件 --&gt;&lt;router-outlet&gt;&lt;/router-outlet&gt;</code></pre><h3 id="SPA-路由-跳转和传参"><a href="#SPA-路由-跳转和传参" class="headerlink" title="SPA 路由 - 跳转和传参"></a>SPA 路由 - 跳转和传参</h3><blockquote><p>有两种方式，html 和 js 传参。</p></blockquote><pre><code class="html">&lt;!-- /detail?id=10 --&gt;&lt;a routerLink=&quot;/detail&quot; [queryParams]=&quot;&#123; id: 10 &#125;&quot;&gt;detail&lt;/a&gt;&lt;!-- /detail/:id/:other =&gt; /detail/10 --&gt;&lt;a routerLink=&quot;/detail/10/other&quot;&gt;detail&lt;/a&gt;&lt;a [routerLink]=&quot;[&#39;/detail&#39;, 10, &#39;other&#39;]&quot;&gt;detail&lt;/a&gt;&lt;!-- queryParamsHandling 参数 --&gt;&lt;!-- 值为 preserve，则放弃当前页面的查询参数，用自定义的查询参数，跳转页面 --&gt;&lt;!-- 值为 merge，则保留当前页面查询参数，与新的查询参数进行合并后，跳转给下一个页面使用 --&gt;&lt;!-- 跳转前：/list?pagenum=20&amp;page=1 --&gt;&lt;a routerLink=&quot;/list&quot; [queryParams]=&quot;&#123; page: 2 &#125;&quot; queryParamsHandling=&quot;merge&quot;&gt;list&lt;/a&gt;&lt;!-- 跳转后：/list?pagenum=20&amp;page=2 --&gt;</code></pre><pre><code class="typescript">// 在 JS 中引入 Router 服务import &#123; Router &#125; from &quot;@angular/router&quot;;export class ListComponent implements OnInit &#123;  // 注入 Router  constructor (public router: Router) &#123;  &#125;    // 使用 router.navigate 方法进行跳转、传参  go (path: string) &#123;    this.router.navigate([&#39;/detail&#39;], &#123;      queryParams: &#123;        id: 10086      &#125;    &#125;)    // =&gt; /detail?10086        this.router.navigate([&#39;/detail&#39;, 10, &#39;other&#39;])    // =&gt; /detail/10/other    // 当前是 /list?pagenum=10&amp;page=1&amp;other=other    this.router.navigate([&#39;/list&#39;], &#123;      queryParamsHandling: &#39;merge&#39;,      queryParams: &#123;        page: 2      &#125;    &#125;)    // =&gt; /list?pagenum=10&amp;page=2&amp;other=other  &#125;&#125;</code></pre><h3 id="SPA-路由-接收参数"><a href="#SPA-路由-接收参数" class="headerlink" title="SPA 路由 - 接收参数"></a>SPA 路由 - 接收参数</h3><pre><code class="typescript">import &#123; ActivatedRoute &#125; from &quot;@angular/router&quot;;export class DetailComponent implements OnInit &#123;  // 需要注入 ActivatedRoute 服务  constructor (private route: ActivatedRoute) &#123;  &#125;  ngOnInit (): void &#123;    // http://localhost:4200/detail/10?id=10086    // 从查询参数中获取    this.route.queryParamMap.subscribe(params =&gt; &#123;      console.log(        params.get(&#39;id&#39;)      )      // =&gt; 10086    &#125;);    // 从路径中获取    this.route.paramMap.subscribe(params =&gt; &#123;      console.log(        params.get(&#39;id&#39;)      )      // =&gt; 10    &#125;);  &#125;&#125;</code></pre><hr><h2 id="ionic3"><a href="#ionic3" class="headerlink" title="ionic3"></a>ionic3</h2><blockquote><p>ionic3 和 ionic4+ 提供的方法跨度比较大。<br>基本需要重新学习，至少路由部分是这样的。</p></blockquote><h3 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h3><div class="tag link"><a class="link-card" title="ionic3文档" href="https://ionicframework.com/docs/v3/intro/installation/"><div class="left"><img src="https://ionicframework.com/docs/v3/img/ionic-side-icon.png"/></div><div class="right"><p class="text">ionic3文档</p><p class="url">https://ionicframework.com/docs/v3/intro/installation/</p></div></a></div><h3 id="命令行工具"><a href="#命令行工具" class="headerlink" title="命令行工具"></a>命令行工具</h3><pre><code class="bash"># 生成页面，pipe，服务等# 建议使用该命令生成所需要的部分ionic generate</code></pre><h3 id="页面生命周期"><a href="#页面生命周期" class="headerlink" title="页面生命周期"></a>页面生命周期</h3><p><img src="ionic3-lifecycle.webp" alt="ionic3-lifecycle.webp"></p><h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><blockquote><p><a href="https://ionicframework.com/docs/v3/api/config/Config/">https://ionicframework.com/docs/v3/api/config/Config/</a></p></blockquote><pre><code class="typescript">// 是否隐藏子页面上的选项卡，如果 true 不会在子页面上显示选项卡。// 很奇葩的是这个值默认居然是 false。tabsHideOnSubPages: false</code></pre><h3 id="路由定义"><a href="#路由定义" class="headerlink" title="路由定义"></a>路由定义</h3><blockquote><p>是通过 @IonicPage 修饰符来定义页面<br><a href="https://ionicframework.com/docs/v3/api/navigation/IonicPage/">https://ionicframework.com/docs/v3/api/navigation/IonicPage/</a></p></blockquote><h3 id="渲染路由（ion-nav-组件）"><a href="#渲染路由（ion-nav-组件）" class="headerlink" title="渲染路由（ion-nav 组件）"></a>渲染路由（ion-nav 组件）</h3><blockquote><p><a href="https://ionicframework.com/docs/v3/api/components/nav/Nav/">https://ionicframework.com/docs/v3/api/components/nav/Nav/</a></p></blockquote><h3 id="跳转页面、传参"><a href="#跳转页面、传参" class="headerlink" title="跳转页面、传参"></a>跳转页面、传参</h3><blockquote><p><a href="https://ionicframework.com/docs/v3/api/navigation/NavController/">https://ionicframework.com/docs/v3/api/navigation/NavController/</a><br><a href="https://ionicframework.com/docs/v3/api/components/nav/NavPush/">https://ionicframework.com/docs/v3/api/components/nav/NavPush/</a><br><a href="https://ionicframework.com/docs/v3/api/components/nav/NavPop/">https://ionicframework.com/docs/v3/api/components/nav/NavPop/</a></p></blockquote><blockquote><p>tabs 页面跳转：<br><a href="https://ionicframework.com/docs/v3/api/components/tabs/Tabs/">https://ionicframework.com/docs/v3/api/components/tabs/Tabs/</a></p></blockquote><h3 id="接收页面参数"><a href="#接收页面参数" class="headerlink" title="接收页面参数"></a>接收页面参数</h3><blockquote><p><a href="https://ionicframework.com/docs/v3/api/navigation/NavParams/">https://ionicframework.com/docs/v3/api/navigation/NavParams/</a></p></blockquote><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> typescript </tag>
+            
+            <tag> angular </tag>
+            
+            <tag> ionic </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🐊 学习 - chrome插件开发</title>
+      <link href="/blog/posts/56317/"/>
+      <url>/blog/posts/56317/</url>
+      
+        <content type="html"><![CDATA[<p>在工作中无意间用到了 chrome 插件，<br>之前都是用来做一些黑科技操作，网页翻译、获取百度云直链地址等，<br>没想到竟然是使用 JS 写的 😮，学习了一下，打开了新世界，<br>可以做一些小插件，完成自己的目的了。<br>做的人不多，文档找起来比较费劲，这里整理一下常用的使用方法。</p><span id="more"></span><h2 id="manifest-json"><a href="#manifest-json" class="headerlink" title="manifest.json"></a>manifest.json</h2><blockquote><p>chrome 插件的配置文件</p></blockquote><pre><code class="json">&#123;  // 必须要有的，指定 2 即可，和使用的 chrome 版本有关系  &quot;manifest_version&quot;: 2,  // 插件名称，会根据这个字段，显示在游览器的各个地方  &quot;name&quot;: &quot;chrome-plugin-name&quot;,  // 插件描述，会根据这个字段，显示在游览器的各个地方  &quot;description&quot;: &quot;This extension demonstrates a browser action with kittens.&quot;,  // 当前插件版本号  &quot;version&quot;: &quot;1.0&quot;,  // 用来创建一个游览器的插件图标  &quot;browser_action&quot;: &#123;    // 指定插件的图标，百度建议说是 19px 大小为最佳    // icon 在使用 chrome.browserAction.onClicked.addListener 时必须指定    &quot;default_icon&quot;: &quot;icon.png&quot;,        // 点击插件图标后，将显示一个小弹框网页    // 若指定了该字段，那么 chrome.browserAction.onClicked.addListener 将不会触发    &quot;default_popup&quot;: &quot;popup/index.html&quot;  &#125;,    // 权限管理，需要啥就写啥，没有的就上网继续查吧  // 注意，如果用到了 ajax，接口地址也要写在这里  &quot;permissions&quot;: [    &quot;webNavigation&quot;,    &quot;tabs&quot;,    &quot;activeTab&quot;,    &quot;notifications&quot;,    &quot;storage&quot;,    &quot;contextMenus&quot;  ],  // background 配置  &quot;background&quot;: &#123;    // 改变 background 的执行时间，官方推荐加上。    &quot;persistent&quot;: false,    // 指定 background 的执行文件    // 若有依赖，比如 lodash 等，需要写在 background.js 的前面    &quot;scripts&quot;: [      &quot;background.js&quot;    ]  &#125;,    // 通过 matches 匹配网页  // 在匹配到的网页上执行自定义的 css 和 js  // 若有依赖，依赖的 css 和 js 需要写在前面  // 从而达到修改网页的目的  &quot;content_scripts&quot;: [    &#123;      &quot;matches&quot;: [        &quot;https://www.baidu.com/*&quot;      ],      &quot;css&quot;: [        &quot;./content/baidu.css&quot;      ],      &quot;js&quot;: [        &quot;./content/baidu.js&quot;      ]    &#125;  ]&#125;</code></pre><hr><h2 id="background"><a href="#background" class="headerlink" title="background"></a>background</h2><blockquote><p>翻译过来是 “背景页”，也是比较形象了。</p></blockquote><p>在插件开始运行时就会执行，通常用来存储插件运行时的全局数据。<br>插件不关，就一直不会销毁。<br>在这里可以通过 tabId 向指定的页面发送消息<br>也可以通过监听，监听从页面发来的消息。、<br>下面是常用的 API 整理：</p><pre><code class="javascript">/** *  向指定的页面发送消息 *  需要知道页面的 tabId **/chrome.tabs.sendMessage(tabId, &#123; action: &#39;START&#39;, payload: &#123;&#125; &#125;, (response) =&gt; &#123;  // response 是页面回复的内容&#125;)/** *  监听来自页面的消息 **/chrome.runtime.onMessage.addListener((request, sender, sendResponse) =&gt; &#123;  // request 是消息的内容    // 对页面进行消息回复  sendResponse(/*...*/)&#125;)/** *  监听插件图标的点击事件 *  注意： *    1. 必须设置 browser_action.default_icon，否则会报错。 *    2. 不能设置 browser_action.default_popup 否则不会触发。 **/chrome.browserAction.onClicked.addListener(function (tab) &#123;  // tab 是点击时，激活的页面 tab 对象  let tabId = tab.id&#125;)/** *  获取 tab 的信息 *  注意： *    1. 第一个参数必须传入，至少是 &#123;&#125;。 *    2. 默认获取所有 tab 的信息。 *    3. 指定 &#123; active: true, currentWindow: true &#125; 则可以获得当前激活的 tab 的信息。 **/chrome.tabs.query(&#123; active: true, currentWindow: true &#125;, (tabArr) =&gt; &#123;  let tabId = tabArr[ 0 ].id&#125;)</code></pre><hr><h2 id="popup"><a href="#popup" class="headerlink" title="popup"></a>popup</h2><blockquote><p>可以理解为插件管理页面？</p></blockquote><p>点击图标按钮时，将会弹出一个页面。<br>所需要的 CSS 和 JS 在 popup.html 中定义即可<br>以下为常用 JS Api：</p><pre><code class="javascript">// popup.js 可以直接调用 background.js 全局定义的方法和属性let bg = chrome.extension.getBackgroundPage()/** *  向指定的页面发送消息 *  需要知道页面的 tabId **/chrome.tabs.sendMessage(tabId, &#123; action: &#39;START&#39;, payload: &#123;&#125; &#125;, (response) =&gt; &#123;  // response 是页面回复的内容&#125;)/** *  获取 tab 的信息 *  注意： *    1. 第一个参数必须传入，至少是 &#123;&#125;。 *    2. 默认获取所有 tab 的信息。 *    3. 指定 &#123; active: true, currentWindow: true &#125; 则可以获得当前激活的 tab 的信息。 **/chrome.tabs.query(&#123; active: true, currentWindow: true &#125;, (tabArr) =&gt; &#123;  let tabId = tabArr[ 0 ].id&#125;)</code></pre><hr><h2 id="content"><a href="#content" class="headerlink" title="content"></a>content</h2><blockquote><p>插件注入网页执行的 CSS 和 JS。</p></blockquote><p>根据规则匹配到页面，就会执行相应的 CSS 和 JS。<br>从而实现修改页面等操作。<br>以下是常用的 JS API：</p><pre><code class="javascript">// 向插件的 background.js 发送消息chrome.runtime.sendMessage(&#123; action: &#39;START&#39;, payload: &#123;&#125; &#125;, (response) =&gt; &#123;  // response 是 background 回复的内容&#125;)// 监听来自 background 或 popup 发来的消息chrome.runtime.onMessage.addListener((request, sender, sendResponse) =&gt; &#123;  // request 是消息的内容    // 回复消息给 background 或 popup  sendResponse(/*...*/);&#125;);</code></pre><hr><h2 id="background-js、popup-js、content-script-js-三方通讯规则"><a href="#background-js、popup-js、content-script-js-三方通讯规则" class="headerlink" title="background.js、popup.js、content_script.js 三方通讯规则"></a>background.js、popup.js、content_script.js 三方通讯规则</h2><blockquote><p>参考：<br><a href="https://blog.csdn.net/summerxiachen/article/details/78698878">https://blog.csdn.net/summerxiachen/article/details/78698878</a></p></blockquote><img src="/blog/posts/56317/event.png" class=""><hr><h2 id="使用心得"><a href="#使用心得" class="headerlink" title="使用心得"></a>使用心得</h2><pre><code class="javascript">// 消息发送时，建议添加一个固定的 action 和 payload 参数// action 用来确定消息类型，接收方根据不同的 action 进行不同的处理// payload 用来储存参数chrome.tabs.sendMessage(tabId, &#123; action: &#39;START&#39;, payload: &#123;/*...*/&#125; &#125;, (response) =&gt; &#123;  //....&#125;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> chrome </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🏥 生活 - 医保</title>
+      <link href="/blog/posts/21772/"/>
+      <url>/blog/posts/21772/</url>
+      
+        <content type="html"><![CDATA[<p>人生在世，应该积累下来这些经验，以防不时之需，<br>当我真正的开始研究各种各样的 “医保报销” 后，😵‍💫 感觉….太复杂了！！！<br>但是不得不说，体系制度还是非常完善的。<br>只要肯下功夫研究，就会少走很多冤枉路，少花很多冤枉钱。</p><span id="more"></span><h2 id="1-社保卡（医保卡）"><a href="#1-社保卡（医保卡）" class="headerlink" title="1. 社保卡（医保卡）"></a>1. 社保卡（医保卡）</h2><blockquote><p>人在这个国家生活的第二张 “身份证”。<br>通常叫的医保卡也就是社保卡，医保卡的叫法是老一辈的概念，之前社保卡和医保卡是分开的<br>现在已经合并成一张卡了。</p></blockquote><p>办理方法：</p><ul><li>不论年龄只要缴纳了医保后（”居民医疗保险” 或 “职工医疗保险”）</li><li>拿着身份证去合作银行（工商、农业等），就能办理出来。</li></ul><h2 id="2-“居民医疗保险”-和-“职工医疗保险”"><a href="#2-“居民医疗保险”-和-“职工医疗保险”" class="headerlink" title="2. “居民医疗保险” 和 “职工医疗保险”"></a>2. “居民医疗保险” 和 “职工医疗保险”</h2><blockquote><p>两者报销比例差不少（20% ~ 30%）<br>尽量别断下，按时缴纳，否则过了补缴期就不享受医保了（万一住院就爽歪歪了，呸呸呸- -）<br>职工离职暂未找到工作也可以通过 “灵活就业人员” 的形式继续自己缴纳。</p></blockquote><ul><li>居民医疗保险报销比例低，按年缴纳，每年只需要交 400 ~ 500，通常婴儿、学生和没有劳动能力的老百姓，都会缴纳这个医保</li><li>职工医疗保险报销比例高，按月缴纳，根据工资基数确定缴多少，通常职工五险或者有一定经济基础的老百姓，通过 “灵活就业人员” 的方式自行缴纳社保（养老 + 医疗）。</li></ul><h2 id="3-社区诊所以及报销（小病）"><a href="#3-社区诊所以及报销（小病）" class="headerlink" title="3. 社区诊所以及报销（小病）"></a>3. 社区诊所以及报销（小病）</h2><blockquote><p>国家提倡 “小病到社区，大病进医院”</p></blockquote><p>拥有了 “居民” 或 “社区” 任意一个医疗保险后，<br>就可以选择一个家附近的社区诊所进行 “定点”（拿着社保卡去社区诊所办理），<br>“定点” 的意思是，把这里作为看 “小病” 的一个点，<br>在这里看小病，打吊瓶，拿药等，可以报销（缴费时自动报销）<br>如果直接去医院，全部自费，不给报销。</p><p>注意：报销有限额的，但是平常人正常使用限额通常是用不完的。</p><h2 id="4-住院以及报销（大病）"><a href="#4-住院以及报销（大病）" class="headerlink" title="4. 住院以及报销（大病）"></a>4. 住院以及报销（大病）</h2><blockquote><p>医保的最大作用其实是 “住院报销”（住院并且有医保，就可以报销）<br>若先去的急诊或者门诊进行了治疗或检查（在急诊或者门诊缴费了）<br>再进行了住院，急诊或者门诊的费用也可以并入住院一齐报销（需要去办理并费流程）<br>PS: 救护车的钱也可以通过医保报销的，需要正规的发票就可以</p></blockquote><blockquote><p>报销比例参考：<br><a href="http://qd.bendibao.com/live/2020421/58640.shtm">http://qd.bendibao.com/live/2020421/58640.shtm</a></p></blockquote><p>不管什么病，住院如果全部自费是非常非常非常恐怖的（千万别小瞧）<br>简直就是 “移动的提款机”<br>如果病情严重，进的是 ICU（抢救室）<br>那称为 “倾家荡产” 一点都不为过<br>这也是为什么一定不要断缴 “医保” 的原因！</p><p>一定要想清楚！<br>亲人不幸染上大病没有医保，自己无力承担费用时的绝望<br>所以若身边有没有医保的亲人，一定千万别犹豫，去研究着上一个 “医保”<br>至少是一个 “居民医疗保险”</p><p>人到老年，身体不断的走下坡<br>一年中，不定哪时需要去医院住院<br>不一定是治病，没准就是复查、体检，以防出现其他疾病。<br>若没有医保！去不起！<br>有 “居民医保”，好贵啊！<br>有 “职工医保”，有点贵！</p><h2 id="5-门诊大病（俗称-“大病”）"><a href="#5-门诊大病（俗称-“大病”）" class="headerlink" title="5. 门诊大病（俗称 “大病”）"></a>5. 门诊大病（俗称 “大病”）</h2><blockquote><p>简单来说就是人一旦得了严重的病（在大病病种范围内）<br>经过治疗出院后，需要长久的吃药，”大病” 就是用来报销吃药这一部分的<br>大病有病种限制，而病种需要办理的时候申请添加，特定的病种才能拿特定的药<br>比如说糖尿病病种，可以用大病拿糖尿病的药，但是不能拿非糖尿病的药</p></blockquote><h3 id="办理："><a href="#办理：" class="headerlink" title="办理："></a>办理：</h3><ol><li>出院后，并且要有医保（硬性条件，居民医保或者职工医保都可以）</li><li>带好医院给的检查报告，打印好住院病历（通常是出院后几个工作日后，去医院打印即可）</li><li>提前想好，需要定点在哪里、根据出院报告想好，申请哪些病种（<a href="http://qd.bendibao.com/live/2015113/46444.shtm">参考</a>）</li><li>去 社会保险事业局服务大厅（青岛的叫这个名，福州南路8号）办理即可（不用本人去，家属带着自己的身份证和病人的东西去就行）</li></ol><h3 id="定点："><a href="#定点：" class="headerlink" title="定点："></a>定点：</h3><p>大病也是需要定点的，社区和医院都可以，定点后一年中可以修改一次还是几次的。<br>通常定点在家附近，拿药方便，选择定点需要考虑的因素：</p><ol><li>大病每年有 “起付标准”，”起付标准” 以下的拿药不报销，社区诊所是 300 元，医院是 800 元（不一定准确，但是社区一定比医院便宜）<blockquote><p>比如定点在社区诊所（起付标准 300）<br>今年第一次拿药花了 200，则全额自费 200，不报销。<br>第二次去拿药又花了 200，则全额自费 100，剩余的 100 走医保，自己再拿报销后的部分。<br>第三次去拿药则就直接开始按照医保报销了。</p></blockquote></li><li>社区诊所的资质比医院低，有些重大疾病办理大病的时候就告诉了，只能定点在医院，不能定点在社区诊所。</li><li>医院比社区的药全面，出院后，大夫嘱咐的药，社区可能没有（需要去想去的社区问问有没有想要的药）</li></ol><h3 id="拿药："><a href="#拿药：" class="headerlink" title="拿药："></a>拿药：</h3><p>大病办理好了之后，就可以去指定的定点诊所或医院拿药了，挂方便门诊（一块钱），大夫会根据病历或出院记录开药（自己想拿什么药需要想明白）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 医保报销 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🔗 酷库 - 检测密码强度</title>
+      <link href="/blog/posts/9564/"/>
+      <url>/blog/posts/9564/</url>
+      
+        <content type="html"><![CDATA[<p>😎 注册、重置密码时经常用到的密码强度检测~</p><span id="more"></span><h2 id="zxcvbn"><a href="#zxcvbn" class="headerlink" title="zxcvbn"></a>zxcvbn</h2><blockquote><p>无任何依赖，一个体积很大的库…</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/dropbox/zxcvbn"><img src="https://github-readme-stats.vercel.app/api/pin/?username=dropbox&repo=zxcvbn&show_owner=true"/></a><h3 id="用法记录"><a href="#用法记录" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">import zxcvbn from &#39;zxcvbn&#39;let result, &#123; score &#125; = zxcvbn(password)// score(0 ~ 4)(简单 ~ 复杂)</code></pre><h2 id="vue-password-strength-meter"><a href="#vue-password-strength-meter" class="headerlink" title="vue-password-strength-meter"></a>vue-password-strength-meter</h2><blockquote><p>vue 组件<br>作者也感觉 zxcvbn 体积太大了，换用正则的方式实现。</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/apertureless/vue-password-strength-meter"><img src="https://github-readme-stats.vercel.app/api/pin/?username=apertureless&repo=vue-password-strength-meter&show_owner=true"/></a><h3 id="用法记录-1"><a href="#用法记录-1" class="headerlink" title="用法记录"></a>用法记录</h3><blockquote><p>还没用过</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 检测密码强度 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>⏲ 酷库 - 定时任务</title>
+      <link href="/blog/posts/64090/"/>
+      <url>/blog/posts/64090/</url>
+      
+        <content type="html"><![CDATA[<p>😺 用于项目中常见的定时执行的功能。</p><span id="more"></span><h2 id="cronosjs"><a href="#cronosjs" class="headerlink" title="cronosjs"></a>cronosjs</h2><blockquote><p>用的人应该不多…</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/jaclarke/cronosjs"><img src="https://github-readme-stats.vercel.app/api/pin/?username=jaclarke&repo=cronosjs&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><pre><code class="javascript">import &#123; scheduleTask &#125; from &#39;cronosjs&#39;// 每分钟 0 秒时执行let task = scheduleTask(&#39;0 * * * * *&#39;, (timestamp) =&gt; &#123;  console.log(`Task triggered at $&#123; timestamp &#125;`)&#125;)setTimeout(() =&gt; &#123;  // 停止定时任务  task.stop()&#125;, 60 * 1000)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 定时任务 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📶 酷库 - websocket重连</title>
+      <link href="/blog/posts/57552/"/>
+      <url>/blog/posts/57552/</url>
+      
+        <content type="html"><![CDATA[<p>通常 ws/wss 链接都会有长时间无互动就会自动断开的逻辑，<br>通常会用 “心跳” 来保持长连接（每个一段时间发送无用信息，保持活跃），<br>但是 “心跳” 无法处理断开后自动重连，比如断网后重连。</p><span id="more"></span><h2 id="reconnecting-websocket"><a href="#reconnecting-websocket" class="headerlink" title="reconnecting-websocket"></a>reconnecting-websocket</h2><blockquote><p>实现了 ws 连接超时重连。</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/pladaria/reconnecting-websocket"><img src="https://github-readme-stats.vercel.app/api/pin/?username=pladaria&repo=reconnecting-websocket&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote><p>目前还没使用过，等下次使用整理心得。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> websocket </tag>
+            
+            <tag> 重连 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🔢 酷库 - 数字格式化</title>
+      <link href="/blog/posts/15085/"/>
+      <url>/blog/posts/15085/</url>
+      
+        <content type="html"><![CDATA[<p>不管啥语言，加减乘除都会碰到精度问题，0.1 + 0.2 != 0.3，<br>我和我的小伙伴都惊呆了 😱😱😱</p><span id="more"></span><h2 id="numeral"><a href="#numeral" class="headerlink" title="numeral"></a>numeral</h2><blockquote><p>解决计算精度问题，并且可以将数字，格式化为各种单位（百分数，时间，文件体积等）</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/adamwdraper/Numeral-js"><img src="https://github-readme-stats.vercel.app/api/pin/?username=adamwdraper&repo=Numeral-js&show_owner=true"/></a><h3 id="用法记录"><a href="#用法记录" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">const numeral = require(&#39;numeral&#39;)console.log(  0.1 + 0.2,  45685 * 667.7,  numeral(0.1).add(0.2).value(),  numeral(45685).multiply(667.7).value())// =&gt; 0.30000000000000004// =&gt; 30503874.500000004// =&gt; 30503874.5console.log(  numeral(1).format(&#39;%&#39;),  numeral(0.5).format(&#39;0.00%&#39;))// =&gt; 100%// =&gt; 50.00%console.log(  numeral(5).format(&#39;000&#39;),  numeral(5.156).format(&#39;0.00&#39;))// =&gt; 005// =&gt; 5.16console.log(  numeral(3842456456).format(&#39;0.000b&#39;))// =&gt; 3.842GB</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数字格式化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📷 酷库 - 图片裁剪</title>
+      <link href="/blog/posts/16315/"/>
+      <url>/blog/posts/16315/</url>
+      
+        <content type="html"><![CDATA[<p>前端裁剪图片，后台经常会用到这个功能，用户上传图片、头像时也会用到，<br>也可以加一层裁剪逻辑，确定用户上传的是符合规定的图片，<br>防止用户上传乱七八糟的尺寸 😒</p><span id="more"></span><h2 id="vue-cropper"><a href="#vue-cropper" class="headerlink" title="vue-cropper"></a>vue-cropper</h2><blockquote><p>pc端、移动端均可用</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/xyxiao001/vue-cropper"><img src="https://github-readme-stats.vercel.app/api/pin/?username=xyxiao001&repo=vue-cropper&show_owner=true"/></a><h2 id="ThorUI-uniapp"><a href="#ThorUI-uniapp" class="headerlink" title="ThorUI-uniapp"></a>ThorUI-uniapp</h2><blockquote><p>tui-image-cropper 组件<br>该 UI 库同时支持 h5 和 小程序端所以可以实现跨端</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/dingyong0214/ThorUI-uniapp"><img src="https://github-readme-stats.vercel.app/api/pin/?username=dingyong0214&repo=ThorUI-uniapp&show_owner=true"/></a><p>注意：<br>该组件在 1.5.1 版本测试时<br>该组件是根据 imageUrl watch 的监听来初始化的<br>所以组件创建时如果设置了正确的 imageUrl 则不会初始化，导致图片不显示（因为 watch 中没有设置 immediate）</p><p>解决方案：<br>一开始先设置 imageUrl: null<br>然后再设置正确的 imageUrl<br>触发初始化流程</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图片 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🌎 问题 - IE游览器请求缓存问题</title>
+      <link href="/blog/posts/34121/"/>
+      <url>/blog/posts/34121/</url>
+      
+        <content type="html"><![CDATA[<p>IE游览器的缓存机制：<br>所有的 GET 请求都会被缓存（包括 ajax）<br>之后再次请求相同的 url 时<br>会使用缓存数据，若数据库中的数据有更新，则导致新数据无法获取</p><span id="more"></span><h2 id="缓存展示"><a href="#缓存展示" class="headerlink" title="缓存展示"></a>缓存展示</h2><div class="img-wrap"><div class="img-bg"><img class="img" src="./example.jpg" alt="image"/></div></div><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="给-GET-请求-URL-后面加个时间戳参数"><a href="#给-GET-请求-URL-后面加个时间戳参数" class="headerlink" title="给 GET 请求 URL 后面加个时间戳参数"></a>给 GET 请求 URL 后面加个时间戳参数</h3><pre><code class="text">http://www.xxx.com/api/getDatahttp://www.xxx.com/api/getData?at=1591237338151</code></pre><h3 id="GET-请求头中声明禁用缓存"><a href="#GET-请求头中声明禁用缓存" class="headerlink" title="GET 请求头中声明禁用缓存"></a>GET 请求头中声明禁用缓存</h3><blockquote><p>Cache-Control: no-cache<br>Pragma: no-cache</p></blockquote><pre><code class="javascript">// 例子使用了 axiosrequest.defaults.headers.get[ &#39;Cache-Control&#39; ] = &#39;no-cache&#39;request.defaults.headers.get[ &#39;Pragma&#39; ] = &#39;no-cache&#39;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 问题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IE </tag>
+            
+            <tag> 缓存 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-后台管理开发</title>
+      <link href="/blog/posts/48012/"/>
+      <url>/blog/posts/48012/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>后台管理通常推荐参考模板项目进行二次开发<br>省不少事</p></blockquote><h2 id="vue-element-admin"><a href="#vue-element-admin" class="headerlink" title="vue-element-admin"></a>vue-element-admin</h2><blockquote><p>github: <a href="https://github.com/PanJiaChen/vue-element-admin">https://github.com/PanJiaChen/vue-element-admin</a><br>非常强大，内置了不少后台常用组件，拿来即用。<br>有些臃肿…</p></blockquote><hr><h3 id="取消默认的-mock，使用反向代理"><a href="#取消默认的-mock，使用反向代理" class="headerlink" title="取消默认的 mock，使用反向代理"></a>取消默认的 mock，使用反向代理</h3><ul><li>在 vue.config.js devServer 中删除 before，加入 proxy 即可</li><li>注意 development 模式，默认请求会加上 /dev-api 前缀，在 .env.development 中设置</li></ul><img src="/blog/posts/48012/vue-element-admin-1.jpg" class=""><p>———— 手动间隙 ————</p><hr><h3 id="修改统一的接口请求设置"><a href="#修改统一的接口请求设置" class="headerlink" title="修改统一的接口请求设置"></a>修改统一的接口请求设置</h3><ul><li>默认有响应拦截，会判断若 res.data.code 只要不是 20000 就会报错，如下图</li><li>实际使用时，这里的逻辑肯定要改掉，可以删除拦截，或改成自己应用的状态码进行判断</li><li>下图的代码 /src/utils/request.js</li></ul><img src="/blog/posts/48012/vue-element-admin-2.jpg" class=""><p>———— 手动间隙 ————</p><hr><h3 id="登录逻辑"><a href="#登录逻辑" class="headerlink" title="登录逻辑"></a>登录逻辑</h3><p>修改 src/api/user.js 中的 login 方法的接口地址（这里接口必须返回用户身份标识 token）<br>修改 src/store/modules/user.js 中的 actions.login 函数（主要是统一 key 值，如下图）</p><img src="/blog/posts/48012/vue-element-admin-3.jpg" class=""><p>———— 手动间隙 ————</p><hr><h3 id="进页面时的登录状态验证"><a href="#进页面时的登录状态验证" class="headerlink" title="进页面时的登录状态验证"></a>进页面时的登录状态验证</h3><p>具体代码在 src/permission.js router.beforeEach 函数中（下图1）<br>简单来说就是判断是否有 token 来确认是否登录（token 在 store user 模块中）<br>若没登录，则判断当前页面是否要登录后才可访问（下图2，whiteList 中的路径不需要登录后访问）<br>若需要登录，则重定向到登录页面<br>若不需要，则继续正常访问</p><img src="/blog/posts/48012/vue-element-admin-4.jpg" class=""><p>———— 手动间隙 ————</p><img src="/blog/posts/48012/vue-element-admin-5.png" class=""><hr><h3 id="管理员身份权限管理"><a href="#管理员身份权限管理" class="headerlink" title="管理员身份权限管理"></a>管理员身份权限管理</h3><p>具体代码在 src/permission.js router.beforeEach 函数中<br>在页面切换的时候，若无管理员身份信息（store user/roles）<br>会重新通过接口获取（actions user.getInfo）<br>getInfo 应该返回一个权限数组<br>之后根据用户权限（roles）和预先定义的动态路由（/router/index.js 中的 asyncRoutes）<br>使用 router.addRoutes 动态注册路由<br>若项目中只有一种管理员身份，这里直接写死就好，不用走接口，如下图</p><img src="/blog/posts/48012/vue-element-admin-6.jpg" class=""><hr><h2 id="vue-admin-template"><a href="#vue-admin-template" class="headerlink" title="vue-admin-template"></a>vue-admin-template</h2><blockquote><p>github: <a href="https://github.com/PanJiaChen/vue-admin-template">https://github.com/PanJiaChen/vue-admin-template</a><br>vue-element-admin 的精简版本，没有内置常用组件。<br>使用方法也类似，去看上面文档吧</p></blockquote><blockquote><p>推荐使用这个精简版本，需要什么组件可以从 vue-element-admin 中扒</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> 后台管理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📥 学习 - 实现调用游览器下载功能</title>
+      <link href="/blog/posts/10396/"/>
+      <url>/blog/posts/10396/</url>
+      
+        <content type="html"><![CDATA[<p>通过网页，下载文件是很常见的需求，如果是图片，txt等，点击链接就会直接在游览器中打开文件 📁 ，<br>想实现点击后下载，需要后端的配合。</p><span id="more"></span><h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><blockquote><p>只要响应头 Content-Type 为 application/octet-stream 类型<br>并且响应文件流，游览器就会启用下载<br>对于前端来说，就是个下载地址，通过 get、post 请求即可。<br>下图为相关的响应头的说明</p></blockquote><div class="img-wrap"><div class="img-bg"><img class="img" src="1.jpg" alt="image"/></div></div><h2 id="前端同步下载方式"><a href="#前端同步下载方式" class="headerlink" title="前端同步下载方式"></a>前端同步下载方式</h2><ol><li>使用 window.open 跳转即可实现下载。</li><li>通过 iframe 标签跳转的方式在当前页面实现下载。</li></ol><pre><code class="javascript">window.open(&#39;//xmp.down.sandai.net/xmp/XMPSetup6.1.7.810xmpdl.exe&#39;, &#39;iframe-name&#39;)// 调用后，游览器即开始下载</code></pre><h2 id="前端异步下载方式"><a href="#前端异步下载方式" class="headerlink" title="前端异步下载方式"></a>前端异步下载方式</h2><blockquote><p>通过 Blob 可以实现将需要的任何资源通过异步请求获取，先存到内存中<br>再通过 a 标签 download 特性下载到硬盘（下载到硬盘后释放内存）<br>注意，只有小文件才能用这种方式，大文件不适合！<br>方法如下：（下面使用了 file-saver 库，并且推荐使用）</p></blockquote><pre><code class="javascript">// 基于 file-saver，解决兼容性问题import FileSaver from &#39;file-saver&#39;;import axios from &#39;axios&#39;axios  .get(&#39;//xxx/xxx/xxx&#39;, &#123;    responseType: &#39;blob&#39;    // =&gt; xhr.responseType = &#39;blob&#39;  &#125;)  .then((&#123; data: blob &#125;) =&gt; &#123;    FileSaver.saveAs(blob, &quot;hello world.txt&quot;);  &#125;)</code></pre><pre><code class="javascript">// 基于原生，可能有兼容问题（具体未测试）import axios from &#39;axios&#39;axios  .get(&#39;//xxx/xxx/xxx&#39;, &#123;    responseType: &#39;blob&#39;    // =&gt; xhr.responseType = &#39;blob&#39;  &#125;)  .then((&#123; data &#125;) =&gt; &#123;    // data 为 Blob 实例    const blob = data;        // 创建 a 标签（下载元素）    const downloadElement = document.createElement(&#39;a&#39;)        // 根据 blob 创建文件临时地址    const href = window.URL.createObjectURL(blob)        // 将 a 标签的 href 设置为临时文件路径    downloadElement.href = href        // 下载后文件名    downloadElement.download = &#39;1.mp4&#39;        // 页面追加 a 标签    document.body.appendChild(downloadElement)        // 手动触发点击事件，通过 download 特性下载文件    downloadElement.click()        // 删除 a 标签    document.body.removeChild(downloadElement)        // 释放内存    window.URL.revokeObjectURL(href)  &#125;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 下载 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-url 中 query 和 hash 的顺序（SPA）</title>
+      <link href="/blog/posts/31390/"/>
+      <url>/blog/posts/31390/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>观察下图 url 和控制台的输出</p></blockquote><h2 id="查询字符串在后"><a href="#查询字符串在后" class="headerlink" title="查询字符串在后"></a>查询字符串在后</h2><blockquote><p>若为 SPA 项目，qs 应该在 hash 之后<br>vue-router、react-router 都是按照这个顺序做的 api<br>但是 location.search 为空</p></blockquote><img src="/blog/posts/31390/1.png" class=""><p>————- 手动间隙 ————-</p><img src="/blog/posts/31390/2.png" class=""><p>————- 手动间隙 ————-</p><h2 id="查询字符串在前"><a href="#查询字符串在前" class="headerlink" title="查询字符串在前"></a>查询字符串在前</h2><blockquote><p>若为常规项目，则 qs 应该在 hash 之前<br>但是 vue-router 和 react-router 设计的 api 取不到值</p></blockquote><img src="/blog/posts/31390/3.png" class=""><p>————- 手动间隙 ————-</p><img src="/blog/posts/31390/4.png" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+            <tag> react </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📝 生活 - 人事档案</title>
+      <link href="/blog/posts/11313/"/>
+      <url>/blog/posts/11313/</url>
+      
+        <content type="html"><![CDATA[<p>🙂 档案， 一个从小就听大人们说是个非常重要的玩意。🙂</p><span id="more"></span><h2 id="啥是档案"><a href="#啥是档案" class="headerlink" title="啥是档案"></a>啥是档案</h2><p>简单来说就是一个小袋子，这个小袋子里有很多的纸，<br>从你上小学开始就开始记录东西，<br>记着你在哪上的学，获得过啥荣誉，有没有惹祸（记过）等信息。</p><h2 id="档案在哪"><a href="#档案在哪" class="headerlink" title="档案在哪"></a>档案在哪</h2><p>未参加工作前，所有人的档案都由学校统一保管走流程，不需要自己费心。</p><p>参加工作后，每个人的档案开始就各不相同了，<br>有的人去了国企，有的人当了老师，有的人做了公务员，有的人去了私营企业，<br>根据单位的类型不同，档案的存放位置和重要性也各不相同。</p><p>国企、老师、公务员等，这种职业对档案较看中，通常单位给员工保管着档案。<br>私营企业，没有档案保管的权利，并且对档案并不看中。</p><p>档案不能放在自己手中，当然也不是必须的，只是放在自己手中的话，<br>当你有 “经历” 需要记录的话，别人找不到你的档案，也就没法记录，<br>导致这段 “经历” 无法证明，导致后续一系列的麻烦事。</p><h2 id="档案的用途"><a href="#档案的用途" class="headerlink" title="档案的用途"></a>档案的用途</h2><blockquote><p>对于私营企业来说，档案没有任何用途，公司通常也不给员工保管档案。</p></blockquote><ol><li>国企、老师、公务员等职业，需要看档案中的 “工龄”，来评职称等操作。</li><li>所有人退休时，需要知道档案在哪里，要凭着档案办理退休（至少目前是这样）。</li></ol><h2 id="毕业后给的报到证"><a href="#毕业后给的报到证" class="headerlink" title="毕业后给的报到证"></a>毕业后给的报到证</h2><p>从学校毕业，参加工作，学习会发一张 “报到证”，<br>这玩意作用是在你第一份工作转正时，单位会需要这张 “报到证”，<br>把你的社会身份从 “学生” 变为 “职工/社会人员”，<br>并且会将你的档案从学校调出来，自行保管</p><emp>关于第一份转正的工作，会将档案从学校调出来，自行保管</emp><br/><emp>我其实不太确定，但是我的第一份工作是这样的</emp><br/><emp>私企通常不给保管档案，因为没什么用。</emp><br/><emp>所以如果私企不保管档案，档案会去往何处，暂时不知道。。</emp><br/><emp>还是说强制性的必须保管档案？</emp><br/><emp>也可能从学校调出来之后，转手就给个人了也有可能。</emp><h2 id="不同单位的档案管理方式"><a href="#不同单位的档案管理方式" class="headerlink" title="不同单位的档案管理方式"></a>不同单位的档案管理方式</h2><ul><li>国企：国企公司有权利自己保管员工档案（没去过国企暂时不知道是否一定会强制保管）</li><li>私企：没有权利保管员工档案，只能花钱通过第三方管理（可以理解为租了一个人力局的小柜子）</li></ul><p>注意：<br>私企现在很多都不会管理员工档案<br>会让你自己保管着档案，或者干脆不理睬档案的管理问题<br>五险一金都不基于档案，没有档案也可以交<br>很正常！<br>因为私企管理当前是需要去租 “小柜子的”，花钱的。<br>并且私企的员工档案没啥用处。</p><h2 id="我的档案管理流程"><a href="#我的档案管理流程" class="headerlink" title="我的档案管理流程"></a>我的档案管理流程</h2><blockquote><p>一直徘徊在私营企业</p></blockquote><ol><li>我在学校毕业，拿到了 “报到证”</li><li>我找到了心仪的私营公司，并在这个单位成功转正入职（第一次转正）</li><li>该单位问我要 “报到证”，将我的档案身份从 “学生” 转为了 “社会人员”，并给我保存了档案（我记得还在 “毕业生就业信息网” 网上填了些东西）</li><li>我在这个私营公司离职了，公司将我的个人档案袋子直接给了我</li><li>这时我属于失业人员，我拿着档案袋子到当地的 “人力资源市场” 办理了 “失业人员档案托管”（不花钱）</li><li>我入职了新公司（还是私营企业），我询问过新公司不保管员工档案，让我自己拿着就行了</li><li>档案就一直存在 “人力资源市场”，不会移出（我咨询过办理人员，很确定）</li><li>直到以后工作找到了 “保管档案的公司”，再由该公司从 “人力资源市场” 移出，转入公司档案管理流程（个人好像无法主动把档案提出来…不确定）</li><li>若以后的所有单位全都不管理档案，那么这个档案就会一直在 “人力资源市场”，需要时就去 “人力资源市场” 找（退休等场景，目前就知道退休会要档案作为材料，未发现其他场景）</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 人事档案 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🏢 职场 - 离职和入职</title>
+      <link href="/blog/posts/6011/"/>
+      <url>/blog/posts/6011/</url>
+      
+        <content type="html"><![CDATA[<p>😀 离职和入职前多看一眼吧，虽然可能都是大白话，但是都是必要的过程</p><span id="more"></span><h2 id="离职"><a href="#离职" class="headerlink" title="离职"></a>离职</h2><ol><li>提前打招呼，既然说了就一定不要多逗留，除非有特殊原因，能早离开就早离开</li><li>要一份离职证明，新单位一般都是需要的</li><li>搞明白离职当月的社保交还是不交，要是不交你的到手工资会比平常的多一些</li></ol><h2 id="入职"><a href="#入职" class="headerlink" title="入职"></a>入职</h2><ol><li>搞清楚公司是干什么的，是个什么方向</li><li>上班时间，休息时间，加班等时间相关的情况</li><li>了解在公司中你的工作需要涉及的区域，不要跨越，不要扔锅</li><li>几号发工资，压不压第一个月工资，什么形式发工资，发哪个银行，提前去办银行卡</li><li>试用期过后，若转正无人领路，主动问人事一嘴</li><li>实习期和试用期不是一个东西：</li></ol><ul><li>实习期：还没从学校毕业，参加工作，此时五险一金什么的都交不了，工资也低。</li><li>试用期：已经脱离了学生身份，参加工作，转正前的那段时间，通常 1 ~ 3 个月。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 单位 </tag>
+            
+            <tag> 离职和入职 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🌅 学习 - 获取Dom元素的相对位置</title>
+      <link href="/blog/posts/7541/"/>
+      <url>/blog/posts/7541/</url>
+      
+        <content type="html"><![CDATA[<p>有些特效的实现需要知道 DOM 元素相对于各个参照物的距离，<br>原生的 DOM 属性以及方法可以轻易的帮助获取到。</p><span id="more"></span><h2 id="获取元素相对于视口的距离"><a href="#获取元素相对于视口的距离" class="headerlink" title="获取元素相对于视口的距离"></a>获取元素相对于视口的距离</h2><blockquote><p>domEl.getBoundingClientRect</p></blockquote><h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><pre><code class="javascript">let react = domObj.getBoundingClientRect();// =&gt; &#123; top, right, bottom, left, width, height &#125;//  其中 width, height 属性有些兼容问题（IE 中没有这俩属性）</code></pre><h3 id="返回值解析"><a href="#返回值解析" class="headerlink" title="返回值解析"></a>返回值解析</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="getBoundingClientRect.jpg" alt="返回值解析"/></div><span class="image-caption">返回值解析</span></div><h2 id="获取元素的定位父元素以及距离"><a href="#获取元素的定位父元素以及距离" class="headerlink" title="获取元素的定位父元素以及距离"></a>获取元素的定位父元素以及距离</h2><blockquote><p>“定位父元素” 是距离自身最近的 position: relative || absolute || fixed 的父级元素<br>通过元素本身属性即可轻松获取</p></blockquote><h3 id="相关属性"><a href="#相关属性" class="headerlink" title="相关属性"></a>相关属性</h3><pre><code class="json">&#123;  &quot;offsetTop&quot;: 12,  &quot;offsetLeft&quot;: 480,  &quot;offsetParent&quot;: &quot;定位父元素的 dom&quot;&#125;</code></pre><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ol><li>元素自身有 fixed 定位，offsetParent 的结果为 null</li><li>元素自身无 fixed 定位，且父级元素都未经过定位，offsetParent 的结果为 body</li><li>body 元素的 parentNode 是 null</li></ol><h2 id="元素相对于页面最顶部的距离"><a href="#元素相对于页面最顶部的距离" class="headerlink" title="元素相对于页面最顶部的距离"></a>元素相对于页面最顶部的距离</h2><blockquote><p>无现成的属性和方法，可以通过计算而来。</p></blockquote><pre><code class="javascript">// 当前元素距离视口的距离 + 当前页面的滚动高度 = 元素距离页面最顶部的距离el.getBoundingClientRect().top + window.pageYOffset</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Dom </tag>
+            
+            <tag> 原生方法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🍬 酷库 - 走马灯效果</title>
+      <link href="/blog/posts/18426/"/>
+      <url>/blog/posts/18426/</url>
+      
+        <content type="html"><![CDATA[<p>🍭 常用于滚动公告等场景。</p><span id="more"></span><h2 id="原生"><a href="#原生" class="headerlink" title="原生"></a>原生</h2><blockquote><p>也许你可以先试试 marquee 标签<br>这个标签已经被 w3c 淘汰，各大浏览器对这个标签的支持非常好</p></blockquote><h2 id="marquee-js"><a href="#marquee-js" class="headerlink" title="marquee-js"></a>marquee-js</h2><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/liujian10/marquee-js"><img src="https://github-readme-stats.vercel.app/api/pin/?username=liujian10&repo=marquee-js&show_owner=true"/></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 走马灯 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>👷‍♂ 酷库 - 表单验证</title>
+      <link href="/blog/posts/43224/"/>
+      <url>/blog/posts/43224/</url>
+      
+        <content type="html"><![CDATA[<p>表单提交通常需要验证用户的输入是否合法，但是验证的时机、规则千变万化，<br>如何优雅的实现就成了一个难题。</p><span id="more"></span><h2 id="async-validator"><a href="#async-validator" class="headerlink" title="async-validator"></a>async-validator</h2><blockquote><p>原生，无依赖。<br>element-ui、iview，form 组件都基于这个库。<br>非常强大的验证库，看名字就知道支持异步，推荐使用。</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/yiminghe/async-validator"><img src="https://github-readme-stats.vercel.app/api/pin/?username=yiminghe&repo=async-validator&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><pre><code class="javascript">// 1. 定义字段规则，生成验证器let validator = new Schema(&#123;  name: [    &#123; type: &#39;string&#39;, required: true, message: &#39;姓名不能为空&#39;, whitespace: true &#125;,    &#123; min: 2, max: 4, message: &#39;姓名为 2 ~ 4 位&#39; &#125;,    &#123; message: &#39;自定义同步验证器函数错误信息&#39;, validate : function (rule, value) &#123; /* ... */ &#125; &#125;,    &#123; message: &#39;自定义异步验证器函数错误信息&#39;, asyncValidator: function (rule, value) &#123; /* ... */ &#125; &#125;,  ]&#125;)// 2. 传入需要验证的对象进行验证，回调风格validator.validate(&#123; name: &#39;jason&#39; &#125;, (errors, fields) =&gt; &#123;  // errors =&gt; 是个数组，记录着错误字段，以及消息  // fields =&gt; 是个对象，记录着错误字段，以及消息  // errors 和 fields 都代表有错误，看有那种数据结构处理更方便了&#125;);// 2. 传入需要验证的对象进行验证，promise 风格validator.validate(&#123; name: &#39;jason&#39; &#125;)  .then(() =&gt; &#123;&#125;)  .catch((&#123; errors, fields &#125;) =&gt; &#123;    // errors =&gt; 是个数组，记录着错误字段，以及消息    // fields =&gt; 是个对象，记录着错误字段，以及消息    // errors 和 fields 都代表有错误，看有那种数据结构处理更方便了  &#125;);</code></pre><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ol><li>whitespace 的作用是，是否将仅包含空格的字符串视为错误的。</li><li>一个字段可以包含多个验证（数组），这个好处是可以定义多个 message 来响应不同的错误。</li><li>不支持 script 方式引入使用。。</li></ol><h2 id="vee-validate（vue）"><a href="#vee-validate（vue）" class="headerlink" title="vee-validate（vue）"></a>vee-validate（vue）</h2><blockquote><p>理论上支持所有的 ui 库<br>支持异步验证（通过手动 setErrors 的方式）</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/logaretm/vee-validate"><img src="https://github-readme-stats.vercel.app/api/pin/?username=logaretm&repo=vee-validate&show_owner=true"/></a><h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote><p>待下次使用后记录。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 表单验证 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-mockjs</title>
+      <link href="/blog/posts/24342/"/>
+      <url>/blog/posts/24342/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>模拟数据应该是开发中必有的情况= =</p></blockquote><h2 id="mockjs"><a href="#mockjs" class="headerlink" title="mockjs"></a>mockjs</h2><blockquote><p>home：<a href="http://mockjs.com/">http://mockjs.com</a><br>github：<a href="https://github.com/nuysoft/Mock">https://github.com/nuysoft/Mock</a><br>npm：<a href="https://www.npmjs.com/package/mockjs">https://www.npmjs.com/package/mockjs</a><br>文档查阅：<a href="https://github.com/nuysoft/Mock/wiki">https://github.com/nuysoft/Mock/wiki</a></p></blockquote><blockquote><p>示例查阅：<a href="http://mockjs.com/examples.html">http://mockjs.com/examples.html</a></p></blockquote><h2 id="Random-单词记录"><a href="#Random-单词记录" class="headerlink" title="Random 单词记录"></a>Random 单词记录</h2><blockquote><p>记录着常用的单词<br>注：字符串类型通常分为英文和中文，中文是在英文的单词基础上前面加 ‘c’<br>ex: title, ctitle</p></blockquote><h3 id="标题（title，ctitle）"><a href="#标题（title，ctitle）" class="headerlink" title="标题（title，ctitle）"></a>标题（title，ctitle）</h3><pre><code class="javascript">// Random.title( min?, max? )Random.title()// =&gt; &quot;Ploinc Trus Ukvfcqv&quot;Random.title(3, 5)// =&gt; &quot;Fllryhnhn Uouqco Adhmx Jnux&quot;// Random.ctitle( min?, max? )Random.ctitle()// =&gt; &quot;期和效除亲专&quot;Random.ctitle(3, 5)// =&gt; &quot;北二亲&quot;</code></pre><h3 id="段落描述（paragraph，cparagraph，sentence-csentence）"><a href="#段落描述（paragraph，cparagraph，sentence-csentence）" class="headerlink" title="段落描述（paragraph，cparagraph，sentence, csentence）"></a>段落描述（paragraph，cparagraph，sentence, csentence）</h3><blockquote><p>min 和 max 代表的是几句话，而为字符串个数</p></blockquote><pre><code class="javascript">// Random.paragraph( min?, max? )// Random.sentence( min?, max? )Random.paragraph()Random.sentence()// =&gt; &quot;Uspwcg symp bbn dydjdkgmh odhxg ppfmw sxcqcc ixacnm ouubxyh ohdq hdnytokmq jpekjv sgfodecmp.&quot;// Random.cparagraph( min?, max? )// Random.csentence( min?, max? )Random.cparagraph()Random.csentence()// =&gt; &quot;算对但放经被将始参文工价适。等开飞之提正与九入养出交装达指。者住小机价更系头日体活七你马王报设。保车技置思走少必问样总主米时四选群土。&quot;</code></pre><h3 id="图片（image、dataImage）"><a href="#图片（image、dataImage）" class="headerlink" title="图片（image、dataImage）"></a>图片（image、dataImage）</h3><pre><code class="javascript">// Random.image( size, background, foreground, format, text )Random.image(&#39;200x100&#39;, &#39;#894FC4&#39;, &#39;#FFF&#39;, &#39;png&#39;, &#39;!&#39;)// =&gt; 返回一张真实的网络图片路径// Random.dataImage( size, text )Random.dataImage(&#39;200x100&#39;, &#39;Hello Mock.js!&#39;)// =&gt; base64 格式的图片</code></pre><h3 id="时间（date，time，datatime，now）"><a href="#时间（date，time，datatime，now）" class="headerlink" title="时间（date，time，datatime，now）"></a>时间（date，time，datatime，now）</h3><blockquote><p>format 传 T 则会转为毫秒值</p></blockquote><pre><code class="javascript">// Random.date( format? )Random.date()// =&gt; &quot;2008-09-07&quot;Random.date(&#39;yy-MM-dd&#39;)// =&gt; &quot;91-05-09&quot;// Random.time( format? )Random.time()// =&gt; &quot;09:38:34&quot;Random.time(&#39;HH:mm:ss&#39;)// =&gt; &quot;01:45:11&quot;// Random.datetime( format? )Random.datetime()// =&gt; &quot;1977-11-12 07:01:43&quot;Random.datetime(&#39;yyyy-MM-dd A HH:mm:ss&#39;)// =&gt; &quot;1999-08-30 PM 15:20:22&quot;// Random.now( unit?, format? )Random.now()// =&gt; &quot;2020-03-12 09:58:09&quot;Random.now(&#39;hour&#39;)// =&gt; &quot;2020-03-12 90:00:00&quot;Random.now(&#39;yyyy-MM-dd HH:mm:ss SS&#39;)// =&gt; &quot;2020-03-12 09:58:09 206&quot;</code></pre><h3 id="id标识（id）"><a href="#id标识（id）" class="headerlink" title="id标识（id）"></a>id标识（id）</h3><blockquote><p>不光有数字，可能会有 X 字符串</p></blockquote><pre><code class="javascript">Random.id()// =&gt; &quot;51000019730908273X&quot;</code></pre><h3 id="数字（integer，float）"><a href="#数字（integer，float）" class="headerlink" title="数字（integer，float）"></a>数字（integer，float）</h3><pre><code class="javascript">// Random.integer( min?, max? )Random.integer()// =&gt; -7897216954377768Random.integer(60, 100)// =&gt; 92// Random.float( min?, max?, dmin?, dmax? )Random.float()// =&gt; -996747130985524.9Random.float(60, 100, 3, 5)// =&gt; 87.3435</code></pre><h3 id="布尔（boolean）"><a href="#布尔（boolean）" class="headerlink" title="布尔（boolean）"></a>布尔（boolean）</h3><pre><code class="javascript">// Random.boolean( min?, max?, current? )Random.boolean()// =&gt; falseRandom.boolean(1, 9, true)// =&gt; false</code></pre><h3 id="人名（name，cname）"><a href="#人名（name，cname）" class="headerlink" title="人名（name，cname）"></a>人名（name，cname）</h3><pre><code class="javascript">// Random.name( middle? )Random.name()// =&gt; &quot;Matthew Jones&quot;Random.name(true)// =&gt; &quot;Ronald Sharon Martinez&quot;Random.cname()// =&gt; &quot;武超&quot;</code></pre><h3 id="地区（region，province，city，county）"><a href="#地区（region，province，city，county）" class="headerlink" title="地区（region，province，city，county）"></a>地区（region，province，city，county）</h3><pre><code class="javascript">Random.region()// =&gt; &quot;华中&quot;Random.province()// =&gt; &quot;吉林省&quot;Random.city()// =&gt; &quot;石家庄市&quot;Random.city(true)// =&gt; &quot;海南省 三亚市&quot;Random.county()// =&gt; &quot;西贡区&quot;Random.county(true)// =&gt; &quot;广东省 中山市 -&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mock 数据 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-涂鸦签名</title>
+      <link href="/blog/posts/51697/"/>
+      <url>/blog/posts/51697/</url>
+      
+        <content type="html"><![CDATA[<h2 id="drawingboard-js"><a href="#drawingboard-js" class="headerlink" title="drawingboard.js"></a>drawingboard.js</h2><blockquote><p>github 好几年没更新了，但是差不多能满足需要<br><a href="https://github.com/Leimi/drawingboard.js">https://github.com/Leimi/drawingboard.js</a><br><a href="https://www.npmjs.com/package/drawingboard.js">https://www.npmjs.com/package/drawingboard.js</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 涂鸦签名 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-react</title>
+      <link href="/blog/posts/58126/"/>
+      <url>/blog/posts/58126/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>vue 和 react 是目前前端主要使用的框架<br>在国内还是 vue 用的较多，api 记得也比较熟练<br>vue 和 react 的作用和 api 基本差不多…<br>经常容易记混<br>这里记录一下，方便日后提醒</p></blockquote><h2 id="优雅的-css-module"><a href="#优雅的-css-module" class="headerlink" title="优雅的 css module"></a>优雅的 css module</h2><blockquote><p>react 不像 vue 有 scoped<br>create-react-app 默认集成了 css-module<br>个人感觉也是比较好使的一种方式</p></blockquote><ol><li>命名需要已 .module 的方式结尾并在组件中引入 styles 对象</li></ol><img src="/blog/posts/58126/css-module-1.jpg" class=""><p>———————– 手动间隙 ———————–</p><ol start="2"><li>在 jsx 中定义 className</li></ol><img src="/blog/posts/58126/css-module-2.jpg" class=""><p>———————– 手动间隙 ———————–</p><ol start="3"><li>在 css 文件中定义样式，要覆盖其他组件的样式则用 :global</li></ol><img src="/blog/posts/58126/css-module-3.jpg" class=""><p>———————– 手动间隙 ———————–</p><ol start="4"><li>覆盖其他组件的样式生成后</li></ol><img src="/blog/posts/58126/css-module-4.jpg" class=""><p>———————– 手动间隙 ———————–</p><ol start="5"><li>后代选择器类名生成后</li></ol><img src="/blog/posts/58126/css-module-5.jpg" class=""><p>———————– 手动间隙 ———————–</p><ol start="6"><li>传入组件的 props 中涉及类名的，也需要使用 styles 对象的方式</li></ol><img src="/blog/posts/58126/css-module-6.jpg" class=""><p>———————– 手动间隙 ———————–</p><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>建议采用后代选择器的方式定义类名，而非短横线<br>jsx 中会方便很多（对象写法以及 ide 代码提示）</p><pre><code class="jsx">&lt;div className=&#123; styles.banner &#125;&gt;  &#123;/** 不方便 **/&#125;  &lt;div className=&#123; styles[&#39;banner-pic&#39;] &#125;&gt;&lt;/div&gt;    &#123;/** 方便 **/&#125;  &lt;div className=&#123; styles.pic &#125;&gt;&lt;/div&gt;&lt;/div&gt;</code></pre><p>———————– END ———————–</p><h2 id="事件传参以及-this-指向"><a href="#事件传参以及-this-指向" class="headerlink" title="事件传参以及 this 指向"></a>事件传参以及 this 指向</h2><ul><li>render 中写成函数封函数的方式，传递 event 对象和其他参数<img src="/blog/posts/58126/react%E4%BA%8B%E4%BB%B6%E4%BC%A0%E5%8F%82-1.jpg" class=""></li></ul><ul><li>如果事件处理函数中需要 this，需要写成下面这种形式，否则 this 指向错误（public class fields 语法）<img src="/blog/posts/58126/react%E4%BA%8B%E4%BB%B6%E4%BC%A0%E5%8F%82-2.jpg" class=""></li></ul><p>———————– END ———————–</p><h2 id="react-router-到底引入哪一个"><a href="#react-router-到底引入哪一个" class="headerlink" title="react-router 到底引入哪一个"></a>react-router 到底引入哪一个</h2><blockquote><p>只引入 react-router-dom 即可</p></blockquote><ul><li>react-router（实现路由的核心）</li><li>react-router-dom（在 react-router 的基础上多了一些组件）</li></ul><p>———————– END ———————–</p><h2 id="react-router-传参"><a href="#react-router-传参" class="headerlink" title="react-router 传参"></a>react-router 传参</h2><ul><li>显式 - path 传参<blockquote><p>用处：参数数量少的情况下<br>优点：刷新页面参数仍然存在，可清楚表达语义<br>缺点：path 参数位置固定，参数过多可能导致灵活问题</p></blockquote><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-1.jpg" class=""><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-2.jpg" class=""><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-3.jpg" class=""></li></ul><hr><ul><li>显式 - 查询字符串传参<blockquote><p>用处：参数数量多的情况下<br>优点：刷新页面参数仍然存在<br>缺点：不如 path 传参语义性强</p></blockquote><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-4.jpg" class=""><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-5.jpg" class=""><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-6.jpg" class=""></li></ul><hr><ul><li>隐式 - state 传参<blockquote><p>用处：参数保密 / 参数数量多的情况<br>优点：对象传参，写起来简单，保证参数安全性<br>缺点：页面刷新后参数失效</p></blockquote><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-7.jpg" class=""><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-8.jpg" class=""><img src="/blog/posts/58126/%E5%8D%95%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82-9.jpg" class=""></li></ul><p>———————– END ———————–</p><h2 id="react-router-js-跳转"><a href="#react-router-js-跳转" class="headerlink" title="react-router js 跳转"></a>react-router js 跳转</h2><h3 id="组件中"><a href="#组件中" class="headerlink" title="组件中"></a>组件中</h3><blockquote><p>在页面级组件上，默认已有 props.history<br>在非页面级组件中，使用 withRouter 封装后会给 props 设置 history 属性</p></blockquote><img src="/blog/posts/58126/js%E8%B7%B3%E8%BD%AC-1.jpg" class=""><img src="/blog/posts/58126/js%E8%B7%B3%E8%BD%AC-2.jpg" class=""><img src="/blog/posts/58126/js%E8%B7%B3%E8%BD%AC-3.jpg" class=""><p>———————– 手动间隔 ———————–</p><h3 id="非组件中"><a href="#非组件中" class="headerlink" title="非组件中"></a>非组件中</h3><blockquote><p>在其他 js 中，可以使用 history 库来实现<br>react-router 有依赖不用自己安装，直接引入即可</p></blockquote><img src="/blog/posts/58126/js%E8%B7%B3%E8%BD%AC-4.jpg" class=""><img src="/blog/posts/58126/js%E8%B7%B3%E8%BD%AC-5.jpg" class=""><p>———————– END ———————–</p><h2 id="react-router-路由嵌套"><a href="#react-router-路由嵌套" class="headerlink" title="react-router 路由嵌套"></a>react-router 路由嵌套</h2><ul><li>主路由<img src="/blog/posts/58126/%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1-1.jpg" class=""></li></ul><hr><ul><li>子路由<img src="/blog/posts/58126/%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1-2.jpg" class=""></li></ul><h2 id="react-redux-使用步骤"><a href="#react-redux-使用步骤" class="headerlink" title="react-redux 使用步骤"></a>react-redux 使用步骤</h2><blockquote><p>我个人不太喜欢在用常量表示 type<br>需要多一层定义引用…着实麻烦<br>个人喜欢通过 mapStateToProps 和 mapDispatchToProps 引入全部的 state 和 actions<br>这样的缺点是会混淆组件内部的状态和方法来源，但是可以通过加前缀的形式区分<br>比如: state: { storeValue }, actions: { setStoreValue }</p></blockquote><ol><li>引入<pre><code class="bash">npm i --save reduxnpm i --save react-redux</code></pre></li></ol><p>———————– 手动间隔 ———————–</p><ol start="2"><li>创建 /store/reducer.js 文件<br>```javascript<br>const defaultState = {<br>storeValue: null<br>}</li></ol><p>export default function (state = defaultState, action) {<br>  switch (action.type) {<br>    case ‘storeValue’: {<br>      return { …state, value: action.value }<br>    }<br>    default: {<br>      return state<br>    }<br>  }<br>}</p><pre><code>----------------------- 手动间隔 -----------------------3. 创建 /store/actions.js 文件```javascriptexport const setStoreValue = function (value) &#123;  return &#123;    type: &#39;storeValue&#39;,    value  &#125;&#125;</code></pre><p>———————– 手动间隔 ———————–</p><ol start="4"><li>创建 /store/index.js 文件<br>```jsx harmony<br>import { createStore } from ‘redux’<br>import reducer from ‘./reducer’<br>import * as actions from ‘./actions’</li></ol><p>let store = createStore(reducer)</p><p>/** 默认引用全部的 state 和 actions **/<br>let mapStateToProps = function (state) {<br>  return {<br>    …state<br>  }<br>}<br>let mapDispatchToProps = function (dispatch) {<br>  return actions<br>}</p><p>export default store</p><p>export {<br>  store,<br>  mapStateToProps,<br>  mapDispatchToProps<br>}</p><pre><code>----------------------- 手动间隔 -----------------------5. 将 Provider 包裹在 App 组件的外侧，同时传入 /store/index.js 暴露的 store 作为 prop```jsx harmonyimport React from &#39;react&#39;import ReactDOM from &#39;react-dom&#39;import &#123; Provider &#125; from &#39;react-redux&#39;import store from &#39;./store&#39;import App from &#39;./App&#39;ReactDOM.render(  &lt;Provider store=&#123; store &#125;&gt;    &lt;App/&gt;  &lt;/Provider&gt;,  document.getElementById(&#39;root&#39;))</code></pre><p>———————– 手动间隔 ———————–</p><ol start="6"><li>在组件中使用 connect 方法连接 redux（通过 props 的方式传入组件）<blockquote><p>this.props.storeValue<br>this.props.setStoreValue</p></blockquote>```jsx harmony<br>import { connect } from ‘react-redux’<br>import { mapStateToProps, mapDispatchToProps } from ‘../../store’</li></ol><p>function Page () {<br>  /** .. **/<br>}</p><p>export default connect(<br>  mapStateToProps,<br>  mapDispatchToProps<br>)(Page)</p><p>```</p><p>———————– END ———————–</p><h2 id="定义环境变量"><a href="#定义环境变量" class="headerlink" title="定义环境变量"></a>定义环境变量</h2><ul><li>创建环境变量文件</li></ul><img src="/blog/posts/58126/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-1.jpg" class=""><hr><ul><li>自定义的环境变量要以 “REACT_APP_” 作为开头<img src="/blog/posts/58126/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-2.jpg" class=""></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> react </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>⌚ 酷库 - 倒计时</title>
+      <link href="/blog/posts/57001/"/>
+      <url>/blog/posts/57001/</url>
+      
+        <content type="html"><![CDATA[<p>倒计时是经常碰到的需求，但是手动计算起来，麻烦的要死 😐，<br>这里记录找到的解决方案，供日后使用。</p><span id="more"></span><h2 id="countdown"><a href="#countdown" class="headerlink" title="countdown"></a>countdown</h2><blockquote><p>没有任何依赖的倒计时库。</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/mckamey/countdownjs"><img src="https://github-readme-stats.vercel.app/api/pin/?username=mckamey&repo=countdownjs&show_owner=true"/></a><h3 id="用法记录"><a href="#用法记录" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">import countdown from &#39;countdown&#39;/** 可已通过 clearInterval(timer) 取消倒计时 **/let timer = countdown(  // 结束时间  new Date().getTime() + 10000,    // 每一秒会触发的函数  // result 为倒计时数据  // 自定义显示逻辑  function(result) &#123;    console.log(result)  &#125;,    // 最大单位  // 比如说最大单位只想到 &quot;日&quot;  // 就删除 YEARS 和 MONTHS  // 下面的 &quot;|&quot; 是位运算符（作者底蕴好强大...）  countdown.YEARS | countdown.MONTHS | countdown.DAYS |  countdown.HOURS | countdown.MINUTES | countdown.SECONDS)</code></pre><h2 id="vue-countdown"><a href="#vue-countdown" class="headerlink" title="vue-countdown"></a>vue-countdown</h2><blockquote><p>vue 组件，可以通过 slot 自定义样式，很灵活。</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/fengyuanchen/vue-countdown"><img src="https://github-readme-stats.vercel.app/api/pin/?username=fengyuanchen&repo=vue-countdown&show_owner=true"/></a><h3 id="用法记录-1"><a href="#用法记录-1" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">import Vue from &#39;vue&#39;;import VueCountdown from &#39;@chenfengyuan/vue-countdown&#39;;Vue.component(VueCountdown.name, VueCountdown);</code></pre><pre><code class="html">&lt;vue-countdown :time=&quot;2 * 24 * 60 * 60 * 1000&quot; v-slot=&quot;&#123; days, hours, minutes, seconds &#125;&quot;&gt;  Time Remaining：&#123;&#123; days &#125;&#125; days, &#123;&#123; hours &#125;&#125; hours, &#123;&#123; minutes &#125;&#125; minutes, &#123;&#123; seconds &#125;&#125; seconds.&lt;/vue-countdown&gt;&lt;!-- &lt;span&gt;Time Remaining：1 days, 23 hours, 59 minutes, 59 seconds.&lt;/span&gt; --&gt;</code></pre><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol><li>progress 事件，最后一下不会触发<blockquote><p>10 秒倒计时，progress 触发了 9 次，0 秒时不会触发。</p></blockquote></li></ol><img src="/blog/posts/57001/pit-1.png" class=""><ol start="2"><li>切换网页后，progress 事件中的 totalMilliseconds 会失去精度</li></ol><img src="/blog/posts/57001/pit-2.png" class=""><h2 id="vue2-flip-countdown"><a href="#vue2-flip-countdown" class="headerlink" title="vue2-flip-countdown"></a>vue2-flip-countdown</h2><blockquote><p>效果很赞的翻页式的倒计时，vue 组件</p></blockquote><h3 id="github-2"><a href="#github-2" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/philipjkim/vue2-flip-countdown"><img src="https://github-readme-stats.vercel.app/api/pin/?username=philipjkim&repo=vue2-flip-countdown&show_owner=true"/></a><h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><img src="/blog/posts/57001/example.gif" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 倒计时 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>😄 电影 - 我想让大家都开心</title>
+      <link href="/blog/posts/61328/"/>
+      <url>/blog/posts/61328/</url>
+      
+        <content type="html"><![CDATA[<p>📢 来自爱情公寓5~</p><span id="more"></span><img src="/blog/posts/61328/1.jpg" class=""><img src="/blog/posts/61328/2.jpg" class=""><img src="/blog/posts/61328/3.jpg" class=""><img src="/blog/posts/61328/4.jpg" class=""><img src="/blog/posts/61328/5.jpg" class=""><img src="/blog/posts/61328/6.jpg" class=""><img src="/blog/posts/61328/7.jpg" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> 视频片段 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 电影 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>❌ 问题 - node-sass 安装失败</title>
+      <link href="/blog/posts/17805/"/>
+      <url>/blog/posts/17805/</url>
+      
+        <content type="html"><![CDATA[<p>node-sass 经常安装失败，搞的开发体验极差 😡😡😡</p><span id="more"></span><pre><code class="bash"># 若 npm 速度慢建议换源npm i -g nrmnrm use taobaonpm install -g node-gypnpm install --global --production windows-build-toolsnpm uninstall node-sassnpm i node-sass --sass_binary_site=https://npm.taobao.org/mirrors/node-sass/</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 问题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> npm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-移动端调试</title>
+      <link href="/blog/posts/25648/"/>
+      <url>/blog/posts/25648/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>开发中调试是必不可免的<br>pc端可以直接通过游览器 F12 控制台调试<br>移动端通常没有方便的调试手段<br>这里记录一个非常好用的调试库</p></blockquote><h2 id="eruda"><a href="#eruda" class="headerlink" title="eruda"></a>eruda</h2><blockquote><p>移动端调试工具（js库），比 vconsole 更好用<br><a href="https://eruda.liriliri.io/">https://eruda.liriliri.io/</a><br><a href="https://github.com/liriliri/eruda">https://github.com/liriliri/eruda</a><br><a href="https://www.npmjs.com/package/eruda">https://www.npmjs.com/package/eruda</a></p></blockquote><h2 id="eruda-webpack-plugin"><a href="#eruda-webpack-plugin" class="headerlink" title="eruda-webpack-plugin"></a>eruda-webpack-plugin</h2><blockquote><p>eruda webpack 插件（更建议使用这个方式，不影响业务代码）<br><a href="https://github.com/huruji/eruda-webpack-plugin">https://github.com/huruji/eruda-webpack-plugin</a><br><a href="https://www.npmjs.com/package/eruda-webpack-plugin">https://www.npmjs.com/package/eruda-webpack-plugin</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 调试技巧 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-手动赋值inputEl.value并触发事件</title>
+      <link href="/blog/posts/63099/"/>
+      <url>/blog/posts/63099/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>手动赋值 input.value 是项目中常见的场景<br>但是直接赋值的话不会触发 input 事件，导致现实场景中逻辑异常<br>需要手动触发事件</p></blockquote><pre><code class="javascript">let customEvent = document.createEvent(&#39;UIEvents&#39;)customEvent.initUIEvent(&#39;input&#39;, true, true, window, 1)inputEl.dispatchEvent(customEvent)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> input </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📍 酷库 - 坐标格式转换</title>
+      <link href="/blog/posts/35048/"/>
+      <url>/blog/posts/35048/</url>
+      
+        <content type="html"><![CDATA[<p>科普：经度纬度也是分各种各样的标准的，<br>不同的标准，相同的位置，精度维度的值是不一样的。😐</p><span id="more"></span><h2 id="coordtransform"><a href="#coordtransform" class="headerlink" title="coordtransform"></a>coordtransform</h2><blockquote><p>一个提供了百度坐标（BD09）、国测局坐标（火星坐标，GCJ02）、和WGS84坐标系之间的转换的库。</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/wandergis/coordtransform"><img src="https://github-readme-stats.vercel.app/api/pin/?username=wandergis&repo=coordtransform&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><blockquote><p>下次使用时记录</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 坐标转换 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🌌 酷库 - ajax</title>
+      <link href="/blog/posts/56079/"/>
+      <url>/blog/posts/56079/</url>
+      
+        <content type="html"><![CDATA[<p>选对 ajax 库，事半功倍~~~</p><span id="more"></span><h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><blockquote><p>Axios 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。<br>用它就对了</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/axios/axios"><img src="https://github-readme-stats.vercel.app/api/pin/?username=axios&repo=axios&show_owner=true"/></a><h3 id="中文文档"><a href="#中文文档" class="headerlink" title="中文文档"></a>中文文档</h3><div class="tag link"><a class="link-card" title="axios中文文档" href="https://www.kancloud.cn/yunye/axios/234845"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">axios中文文档</p><p class="url">https://www.kancloud.cn/yunye/axios/234845</p></div></a></div><h2 id="axios-retry（axios-重试方案）"><a href="#axios-retry（axios-重试方案）" class="headerlink" title="axios-retry（axios 重试方案）"></a>axios-retry（axios 重试方案）</h2><blockquote><p>axios 的请求超时或失败的重试解决方案<br>基于 axios，若 axios 发送的请求失败，可根据配置自动重试</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/softonic/axios-retry"><img src="https://github-readme-stats.vercel.app/api/pin/?username=softonic&repo=axios-retry&show_owner=true"/></a><h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><ul><li>可以全局设置，也可以在请求时单独设置</li><li>shouldResetTimeout 的作用为每次重试重置超时，建议开启，否则控制台会变成 “机关枪”</li><li>默认只有 “5xx错误” 和 “网络错误” 才会重发，可设置 retryCondition 自定义重发逻辑</li></ul><pre><code class="javascript">import axios from &#39;axios&#39;import axiosRetry from &#39;axios-retry&#39;/** 全局设置 **/axiosRetry(axios, &#123;  /** options **/&#125;)axios.get(&#39;/abc&#39;, &#123;  /** 单独设置 **/  &#39;axios-retry&#39;: &#123;    retries: 3  &#125;&#125;)</code></pre><h2 id="promise-poller（重试、轮询）"><a href="#promise-poller（重试、轮询）" class="headerlink" title="promise-poller（重试、轮询）"></a>promise-poller（重试、轮询）</h2><blockquote><p>基于 Promise 的重试方案<br>不限制于 ajax 请求，只要是异步方法都可以重试<br>可用于任何 http 库，十分优雅的即可实现</p></blockquote><h3 id="github-2"><a href="#github-2" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/joeattardi/promise-poller"><img src="https://github-readme-stats.vercel.app/api/pin/?username=joeattardi&repo=promise-poller&show_owner=true"/></a><h3 id="使用方法-1"><a href="#使用方法-1" class="headerlink" title="使用方法"></a>使用方法</h3><pre><code class="javascript">// return PromisepromisePoller(&#123;  /**   *  返回 Promise 的任务函数   *  若 reject   *  直到 resolve   **/  taskFn,    /** 重试请求间隔 **/  interval: 500,    /**   *  失败重试次数   *  这里设置为 Infinity 则可以实现无限重试   **/  retries: 10,    /** 每次请求的超时 **/  timeout: 1000,    /** 整个任务的超时 **/  masterTimeout: 5000&#125;);</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ajax </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>集合-strapi</title>
+      <link href="/blog/posts/31914/"/>
+      <url>/blog/posts/31914/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>strapi 是我一直关注的 node cms 框架，<br>我认为他将是未来迈向全栈之路的一个非常重要的 node 框架，<br>从 alpha 版本开始一直关注更新，<br>逐渐的推出了很多实用性很高，眼前一亮的特性、功能、插件，<br>并且官方在不断完善，社区也在逐渐推出实用插件。</p></blockquote><h2 id="资料-相关链接整理"><a href="#资料-相关链接整理" class="headerlink" title="资料 - 相关链接整理"></a>资料 - 相关链接整理</h2><blockquote><p>官网：<a href="https://strapi.io/">https://strapi.io/</a><br>github: <a href="https://github.com/strapi/strapi">https://github.com/strapi/strapi</a><br>功能路线图：<a href="https://portal.productboard.com/strapi">https://portal.productboard.com/strapi</a><br>插件库：<a href="https://strapi.io/marketplace">https://strapi.io/marketplace</a></p></blockquote><h2 id="心得-启用-–inspect-调试"><a href="#心得-启用-–inspect-调试" class="headerlink" title="心得 - 启用 –inspect 调试"></a>心得 - 启用 –inspect 调试</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol><li><p>根据官方文档，使用 js 的方式启动项目</p><blockquote><p><a href="https://strapi.io/documentation/developer-docs/latest/getting-started/deployment.html#application-configuration">https://strapi.io/documentation/developer-docs/latest/getting-started/deployment.html#application-configuration</a></p></blockquote><img src="/blog/posts/31914/js-start.png" class=""></li><li><p>安装 nodemon (npm i –save-dev nodemon)</p></li><li><p>在 package.json scripts 中创建 dev 命令 nodemon –inspect server.js</p></li><li><p>在 cmd 运行 npm run dev 即可</p></li><li><p>打开谷歌游览器 node devTools 查看</p></li></ol><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>使用上述方法，无法在管理界面添加字段，正确姿势是在 develop 命令下创建好后，转到 dev 命令调试</p><h2 id="心得-后台左边侧边栏模型名称翻译"><a href="#心得-后台左边侧边栏模型名称翻译" class="headerlink" title="心得 - 后台左边侧边栏模型名称翻译"></a>心得 - 后台左边侧边栏模型名称翻译</h2><blockquote><p>version: <a href="mailto:&#115;&#116;&#x72;&#x61;&#x70;&#x69;&#x40;&#51;&#x2e;&#x30;&#46;&#x30;&#45;&#x62;&#x65;&#x74;&#97;&#46;&#49;&#x38;">&#115;&#116;&#x72;&#x61;&#x70;&#x69;&#x40;&#51;&#x2e;&#x30;&#46;&#x30;&#45;&#x62;&#x65;&#x74;&#97;&#46;&#49;&#x38;</a></p></blockquote><blockquote><p>默认创建好模型后，名字是英文的，只有 Users(用户) 字段是中文<br>改变语言后，字段也不会发生变化，一直是英文<br>当前版本已经可以很方便的自定义 admin 管理界面了<br>只需要在项目目录下，新建 admin 目录，里面放入需要替换的文件<br>strapi 就会用你自定义的文件替换原有的文件进行打包管理界面</p></blockquote><img src="/blog/posts/31914/field-i18n-before.jpg" class=""><p>—– 手动间隙 —–</p><h3 id="翻译过程"><a href="#翻译过程" class="headerlink" title="翻译过程"></a>翻译过程</h3><ol><li>在项目根目录创建目录 admin/src/translations</li><li>将 strapi-admin/admin/src/translations 中的 en.json(必须有), zh-Hans.json(或其他语言) 复制过来</li><li>将字段显示的!!复数!!名字复制到 en.json 和 zh-Hans.json 中的 key，value 写需要翻译显示的名字</li><li>strapi develop –watch-admin(开发管理界面模式看下结果)</li><li>npm run build(翻译成功后，打包管理员界面)</li></ol><p>en.json</p><pre><code class="json">&#123;  &quot;Categories&quot;: &quot;Categories&quot;,  &quot;Restaurants&quot;: &quot;Restaurants&quot;&#125;</code></pre><p>zh-Hans.json</p><pre><code class="json">&#123;  &quot;Categories&quot;: &quot;餐厅分类&quot;,  &quot;Restaurants&quot;: &quot;餐厅&quot;&#125;</code></pre><img src="/blog/posts/31914/field-i18n-after.jpg" class=""><p>—– 手动间隙 —–</p><h3 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h3><blockquote><p>en.json 一定要复制并填值，因为 admin/components/LeftMenuLink/index.js 中<br>是根据 en.json 进行判断是否有无 key 值，若没有就不走国际化流程了</p></blockquote><pre><code class="jsx">// in node_modules/strapi-admin/admin/components/LeftMenuLink/index.js// Check if messageId exists in en locale to prevent warning messagesconst content = en[props.label] ? (  &lt;FormattedMessage    id=&#123;props.label&#125;    defaultMessage=&quot;&#123;label&#125;&quot;    values=&#123;&#123;      label: `$&#123;props.label&#125;`    &#125;&#125;    className=&quot;linkLabel&quot;  /&gt;) : (  &lt;span className=&quot;linkLabel&quot;&gt;&#123;props.label&#125;&lt;/span&gt;);</code></pre><h2 id="心得-后台左侧侧边栏中隐藏指定模型管理"><a href="#心得-后台左侧侧边栏中隐藏指定模型管理" class="headerlink" title="心得 - 后台左侧侧边栏中隐藏指定模型管理"></a>心得 - 后台左侧侧边栏中隐藏指定模型管理</h2><blockquote><p>version: 3.0.0-beta.18.7</p></blockquote><blockquote><p>！！！ 目前没有发现从模型配置中隐藏的方法 ！！！<br>负责可视化管理数据的插件是 strapi-plugin-content-manager 这个包<br>在其 services/ContentTypes.js 中重写 HIDDEN_CONTENT_TYPES 常量即可实现<br>步骤如下</p></blockquote><ul><li>首先你要有一个项目，并且有自定义的模型字段</li><li>在项目根目录 extensions 文件夹中创建 content-manager/services/ContentTypes.js 文件</li><li>复制 node_modules/strapi-plugin-content-manager/services/ContentTypes.js 中的代码</li><li>黏贴到 extensions/content-manager/services/ContentTypes.js 中</li><li>修改 ContentTypes.js 中的依赖包的路径，使其路径正确，下面有例子</li><li>找到 HIDDEN_CONTENT_TYPES 常量，新增需要隐藏的模型，下面有例子</li></ul><pre><code class="javascript">/** 修改依赖路径 **/const storeUtils = require(&#39;strapi-plugin-content-manager/services/utils/store&#39;)const &#123; pickSchemaFields &#125; = require(&#39;strapi-plugin-content-manager/services/utils/schema&#39;)</code></pre><pre><code class="javascript">/** 重写需要隐藏的模型 **/const HIDDEN_CONTENT_TYPES = [  /** 原有的 **/  &#39;strapi::admin&#39;,  &#39;plugins::upload.file&#39;,  &#39;plugins::users-permissions.permission&#39;,  &#39;plugins::users-permissions.role&#39;,    /** 以下是新增的 **/  &#39;plugins::config.config&#39;,  /** application 代表项目中创建的模型 **/  &#39;application::house.house&#39;]</code></pre><h2 id="心得-禁止在后台中修改删除模型字段"><a href="#心得-禁止在后台中修改删除模型字段" class="headerlink" title="心得 - 禁止在后台中修改删除模型字段"></a>心得 - 禁止在后台中修改删除模型字段</h2><blockquote><p>在模型配置中(xxx.settings.json)<br>给字段 configurable 属性设置为 false</p></blockquote><h2 id="心得-strapi-store（配置存储库）"><a href="#心得-strapi-store（配置存储库）" class="headerlink" title="心得 - strapi.store（配置存储库）"></a>心得 - strapi.store（配置存储库）</h2><blockquote><p>strapi 提供了这么一个 api 来存储配置信息（存到数据库里的 core_store 表中）<br>但是官方文档中没有任何描述<br>我通过查看了官方插件，学习到了这个 api 的使用方法<br>如下：</p></blockquote><pre><code class="javascript">module.exports = async () =&gt; &#123;  /**   *  存数据库的命名规则为   *  type_[name_]key   **/  const store = strapi.store(&#123;    /** 开发环境和线上环境可以分开不同的配置 **/    environment: &#39;&#39;,        /**     *  type 一定要填写     *  存数据库时会已 type 作为前缀     **/    type: &#39;plugin&#39;,        /**     *  name 不需要一定填写     *  存数据库时会把 name 作为第二前缀     **/    name: &#39;config&#39;  &#125;)    // 设置储存库中的字段  await store.set(&#123;    key: &#39;test&#39;,    value: [ 1, 2, 3, 4 ]  &#125;)    // 获取储存库中的字段  console.log(await store.get(&#123; key: &#39;test&#39; &#125;))  // =&gt; [ 1, 2, 3, 4 ]&#125;</code></pre><h2 id="酷库-富文本-html-编辑器"><a href="#酷库-富文本-html-编辑器" class="headerlink" title="酷库 - 富文本 html 编辑器"></a>酷库 - 富文本 html 编辑器</h2><blockquote><p><a href="https://github.com/Roslovets-Inc/strapi-plugin-ckeditor5">https://github.com/Roslovets-Inc/strapi-plugin-ckeditor5</a><br>替换原先的 markdown 编辑器为 html 编辑器</p></blockquote><h2 id="酷库-评论系统"><a href="#酷库-评论系统" class="headerlink" title="酷库 - 评论系统"></a>酷库 - 评论系统</h2><blockquote><p><a href="https://github.com/VirtusLab/strapi-plugin-comments">https://github.com/VirtusLab/strapi-plugin-comments</a><br>较为完善的评论系统</p></blockquote><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><blockquote><p>注意：<br>安装 1.0.0 版本，其他的 beta 版本的无法正常使用</p></blockquote><pre><code>npm i --save strapi-plugin-comments@1.0.0</code></pre><h3 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h3><blockquote><p>只列举理解起来较为困难的参数，其他的看文档吧</p></blockquote><pre><code>authorUser用户 id，这个值要在请求体里传递，目前无法从 header 中动态提取。threadOf通过这个参数实现评论回复，值为需要回复的评论 id，顶级为 null 即可。</code></pre><h3 id="美中不足"><a href="#美中不足" class="headerlink" title="美中不足"></a>美中不足</h3><ol><li>无法从 header jwt 中判断用户，只能通过传递 authorUser 参数确定用户。</li><li>用户点赞后，无法记录点赞的用户，并且无法取消点赞。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 集合 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> node </tag>
+            
+            <tag> react </tag>
+            
+            <tag> cms </tag>
+            
+            <tag> strapi </tag>
+            
+            <tag> 酷库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-echarts</title>
+      <link href="/blog/posts/2354/"/>
+      <url>/blog/posts/2354/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>echarts 是非常强大、知名的图表库<br><a href="https://www.echartsjs.com/zh/index.html">https://www.echartsjs.com/zh/index.html</a></p></blockquote><h2 id="官方文档阅读心得"><a href="#官方文档阅读心得" class="headerlink" title="官方文档阅读心得"></a>官方文档阅读心得</h2><blockquote><p>此库文档非常大…<br>一开始阅读总不知道从哪里下手<br>个人总结以下步骤</p></blockquote><ol><li>确定需求，从 <a href="https://www.echartsjs.com/examples/zh/index.html">官方例子</a> 中，找到类似的作为参考，或直接复制配置套用</li><li>首先确认 series 属性，确认图表类型</li><li>模拟数据，设置图表类型对应的 data 属性</li><li>增加辅助组件(toolbox、timeline、title 等)</li><li>设置细节样式</li><li>增加交互逻辑</li></ol><h2 id="map-系列"><a href="#map-系列" class="headerlink" title="map 系列"></a>map 系列</h2><h3 id="省份地图-label-自定义位置"><a href="#省份地图-label-自定义位置" class="headerlink" title="省份地图 label 自定义位置"></a>省份地图 label 自定义位置</h3><blockquote><p>问题描述：<br>经常有需求会要求在省份、城市中心显示 label<br>map 系列中 label 的属性 position 和 offset 经测试偏移无效<br>并且一个个 “看着大概偏移” 改麻烦的很..<br>开启 legend 组件，这俩属性才有效，暂不知道为啥<br>legend 组件会造成区域上有一个点，也不太好去除</p></blockquote><img src="/blog/posts/2354/map-label-center-use-label.jpg" class=""><blockquote><p>解决办法：<br>放弃使用默认 label，使用 markPoint 模拟 label<br>markPoint data 中项的属性 coord 可以自定义 mark 位置(百度坐标拾取器提取经纬度)<br>然后将图标隐藏（sysbom 空图片 或 大小设置为 1都行）</p></blockquote><img src="/blog/posts/2354/map-label-center-use-markPoint.jpg" class=""><h3 id="series-散点无效"><a href="#series-散点无效" class="headerlink" title="series 散点无效"></a>series 散点无效</h3><blockquote><p>必须指定 geo，否则无效<br>暂时不知道 geo 和 series 中 type = map 有什么区别…</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图表 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-移动端适配心得</title>
+      <link href="/blog/posts/35671/"/>
+      <url>/blog/posts/35671/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>本文主要讨论移动端开发的页面适配技巧</p></blockquote><h2 id="为何要适配？"><a href="#为何要适配？" class="headerlink" title="为何要适配？"></a>为何要适配？</h2><blockquote><p>各个手机的屏幕大小不同，若用 px 单位，则会在各个屏幕下显示相同尺寸<br>往往会偏大或偏小，效果差劲，原因是因为没有等比例缩放(没有用相对单位)<br>相对单位有 vw，em，rem，% 等<br>保证其在不同屏幕尺寸下，按照一定的尺寸标准，等比例缩放，实现自动适配</p></blockquote><h2 id="适配方法"><a href="#适配方法" class="headerlink" title="适配方法"></a>适配方法</h2><blockquote><p>原理都是根据屏幕实际宽度来计算</p></blockquote><ol><li><p>vw 适配方案</p><blockquote><p>★★★★★<br>由于 1vw = 屏幕总宽的百分之一，是最适合用来适配的单位<br>兼容性不如 rem 单位</p></blockquote></li><li><p>rem 适配方案</p><blockquote><p>★★★★<br>通过改变在 html 标签改变 font-size 属性，实现等比例缩放<br>兼容性很好，是比较老的技术</p></blockquote></li></ol><h2 id="开发体验"><a href="#开发体验" class="headerlink" title="开发体验"></a>开发体验</h2><blockquote><p>不论是 vw 还是 rem 自己算是很麻烦的… 0.2497rem … 2.645514vw …<br>最好的开发体验是设计图多少就在项目中写多少<br>然后通过预处理语言自动转化为 vw 或 rem 单位</p></blockquote><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><blockquote></blockquote><h3 id="vw"><a href="#vw" class="headerlink" title="vw"></a>vw</h3><blockquote><p>在项目中写设计图上的 px 单位<br>通过 postcss-px-to-viewport 预处理转为 vw单位<br>通过 viewport-units-buggyfill 在客户端照顾兼容性</p></blockquote><ul><li><p>预处理：postcss-px-to-viewport</p><blockquote><p><a href="https://github.com/evrone/postcss-px-to-viewport">https://github.com/evrone/postcss-px-to-viewport</a><br>postcss 的插件，只要写上参考设计图的宽度，自动将 px 单位转为 vw 单位</p></blockquote></li><li><p>客户端：viewport-units-buggyfill</p><blockquote><p><a href="https://github.com/rodneyrehm/viewport-units-buggyfill">https://github.com/rodneyrehm/viewport-units-buggyfill</a><br>这是个 vw 单位的 polyfill，建议配合 postcss-px-to-viewport 使用<br>作用是分析加载的 css 文件，然后将 vw 单位在转为 px，放到 head 中<br>建议非必要不要使用，…有时会出现写莫名其妙的 bug</p></blockquote></li></ul><h3 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h3><blockquote><p>在项目中写设计图上的 px 单位<br>通过 postcss-px2rem，预处理转为 rem 单位<br>通过 hotcss，在客户端改变 html font-size</p></blockquote><ul><li><p>预处理：postcss-px2rem</p><blockquote><p><a href="https://www.npmjs.com/package/postcss-px2rem">https://www.npmjs.com/package/postcss-px2rem</a><br>基于 postcss 的插件，设置好 1rem = ？px 后，自动转换 px 为 rem 单位</p></blockquote></li><li><p>客户端：hotcss</p><blockquote><p><a href="https://github.com/imochen/hotcss">https://github.com/imochen/hotcss</a><br>rem 解决方案，按照 640 设计图动态设置 html 的 font-size 属性<br>并通过设置 viewport scale，解决移动端 1px 难题<br>可以设置屏幕最大尺寸，友好的适配桌面端<br>建议配合 postcss-px2rem 使用</p></blockquote></li></ul><pre><code class="javascript">// hotcss 是已 640 设计图为标准的// 1rem = 40px - 在屏幕为 640// 1rem = 20px - 在屏幕为 320// 1rem = 40px - 在屏幕为 320，但是 viewport scale = 0.5 的情况下，相当于 640// 若设计图尺寸不是 640// 则需要自己换算// 算法为： innerWidth * 20 / 320// innerWidth 为屏幕实际尺寸// 例如：//   750 设计图//   算法为：750 / 2 * 20 / 320//   1rem = 46.875px  - 在屏幕为 750//   1rem = 23.4375px - 在屏幕为 375//   1rem = 46.875px  - 在屏幕为 375，但是 viewport scale = 0.5 的情况下，相当于 750</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 用户体验 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-swiper</title>
+      <link href="/blog/posts/3202/"/>
+      <url>/blog/posts/3202/</url>
+      
+        <content type="html"><![CDATA[<h2 id="swiper"><a href="#swiper" class="headerlink" title="swiper"></a>swiper</h2><blockquote><p><a href="https://github.com/nolimits4web/swiper">https://github.com/nolimits4web/swiper</a><br>非常知名的触摸滑动解决方案</p></blockquote><h2 id="this-emit-方法"><a href="#this-emit-方法" class="headerlink" title="this.emit 方法"></a>this.emit 方法</h2><blockquote><p>该函数用于主动触发 swiper 的事件，文档中找不到….<br>比如在 transitionStart 中写好了切换函数，但是在 初始化(init) 中也想调用一次<br>就可以在 init 中使用 this.emit(‘transitionStart’) 来调用执行</p></blockquote><h2 id="mousewheel-心得"><a href="#mousewheel-心得" class="headerlink" title="mousewheel 心得"></a>mousewheel 心得</h2><ul><li>建议开启 mousewheel.releaseOnEdges 否则鼠标滚轮无效</li><li>写项目时使用 <a href="mailto:&#115;&#119;&#x69;&#112;&#x65;&#114;&#64;&#53;&#46;&#50;&#46;&#49;">&#115;&#119;&#x69;&#112;&#x65;&#114;&#64;&#53;&#46;&#50;&#46;&#49;</a>，mousewheel 功能有些 bug，垂直滚动异常，降级即可解决</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 轮播功能 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>集合-小程序开发</title>
+      <link href="/blog/posts/23541/"/>
+      <url>/blog/posts/23541/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>记载着小程序的开发心得</p></blockquote><h2 id="框架的选择"><a href="#框架的选择" class="headerlink" title="框架的选择"></a>框架的选择</h2><blockquote><p>若原生撸请忽略，但并不推荐<br>原生的开发体验较为差劲，解决方案少<br>现在是 2020.1.3，个人推荐 uni-app 这个框架<br>真心强大！</p></blockquote><h3 id="uni-app"><a href="#uni-app" class="headerlink" title="uni-app"></a>uni-app</h3><blockquote><p><a href="https://github.com/dcloudio/uni-app">https://github.com/dcloudio/uni-app</a><br>非常推荐<br>体验：完全的 vue 开发体验，支持所有 vue 语法，支持跨端，社区完善，并拥有插件平台</p></blockquote><p>碰到的问题…</p><ol><li>使用 <a href="mailto:&#x6c;&#x6f;&#100;&#97;&#x73;&#x68;&#x40;&#x34;&#46;&#x31;&#55;&#46;&#49;&#x35;">&#x6c;&#x6f;&#100;&#97;&#x73;&#x68;&#x40;&#x34;&#46;&#x31;&#55;&#46;&#49;&#x35;</a>，dev 正常，pro 报错，降级到 <a href="mailto:&#108;&#x6f;&#x64;&#97;&#x73;&#104;&#64;&#52;&#46;&#x31;&#54;&#46;&#x30;">&#108;&#x6f;&#x64;&#97;&#x73;&#104;&#64;&#52;&#46;&#x31;&#54;&#46;&#x30;</a> 好了</li><li>prop 在 template 中传入时，要用驼峰命名，短横线命名会无效</li></ol><h3 id="wepy"><a href="#wepy" class="headerlink" title="wepy"></a>wepy</h3><blockquote><p><a href="https://github.com/Tencent/wepy">https://github.com/Tencent/wepy</a><br>不推荐<br>体验：类 vue 开发体验，但是区别还是比较大的，有学习成本<br>问题：使用过一段时间，问题比较多…，放弃使用的原因是 repeat 双层循环，内层循环读取不到数据，并且无解决办法</p></blockquote><h3 id="mpvue"><a href="#mpvue" class="headerlink" title="mpvue"></a>mpvue</h3><blockquote><p><a href="https://github.com/Meituan-Dianping/mpvue">https://github.com/Meituan-Dianping/mpvue</a><br>推荐<br>体验：不完全的 vue 开发体验，不支持 filter 等，其他基本相同，支持跨端<br>问题：据说停止维护了….</p></blockquote><hr><h2 id="UI-库的选择"><a href="#UI-库的选择" class="headerlink" title="UI 库的选择"></a>UI 库的选择</h2><blockquote><p>使用好的 UI 组件库，事半功倍</p></blockquote><h3 id="uView-UI"><a href="#uView-UI" class="headerlink" title="uView UI"></a>uView UI</h3><blockquote><p><a href="https://github.com/YanxinNet/uView">https://github.com/YanxinNet/uView</a><br>适配 uni-app 的跨端 UI 框架<br>很强大！</p></blockquote><h3 id="vant-webapp"><a href="#vant-webapp" class="headerlink" title="vant-webapp"></a>vant-webapp</h3><blockquote><p><a href="https://youzan.github.io/vant-weapp/#/intro">https://youzan.github.io/vant-weapp/#/intro</a><br>小程序原生组件库<br>应该是目前最出名的小程序 UI 库吧。。<br>注意：若项目使用的是 uni-app 并且需要跨端（h5）则不能使用</p></blockquote><h3 id="ThorUI"><a href="#ThorUI" class="headerlink" title="ThorUI"></a>ThorUI</h3><blockquote><p><a href="https://thorui.cn/doc/guide.html">https://thorui.cn/doc/guide.html</a><br>最近发现的一个强无敌的组件库<br>内置了很多 vant 没有的组件（图片裁剪，中文转拼音等）<br>有 uni-app 版本（开源、支持跨端）<br>原生小程序版本（不开源，需付费）<br>附带官方的一句话</p></blockquote><pre><code class="text">注：自1.4.2版本之后，ThorUI只对uni-app版本进行开源（后期开始区分会员和非会员版本）小程序原生版付费会员才可使用（￥30），1.4.2版本之前不受影响。如若需要，请联系QQ：3168647172。【目前价格只是对初期支持者优惠，下个版本统一会员价￥99~￥199】</code></pre><p>备注：目前感觉并不是非常健壮，若无跨端需求，还是用 vant-weapp 吧</p><h2 id="云函数"><a href="#云函数" class="headerlink" title="云函数"></a>云函数</h2><blockquote><p>这玩意是眼前一亮的东西<br>简单来说就是用 node 语言写接口文件<br>同步到云函数仓库中，他会自动安装依赖（node_modules）<br>不用管 node 环境 和 数据库等其他因素（内置）<br>只要根据规定的规则去写，就可以出来接口<br>在前端使用官方提供的方法即可调用</p></blockquote><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul><li>微信小程序的云函数和 uni-app 的云函数是两个不同的平台</li><li>微信小程序云函数一旦创建，无法修改名称，无法删除</li></ul><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul><li>微信的云函数拥有天然鉴权（access_token不用自己管理了），相对于自己的服务器会少写些逻辑代码</li></ul><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><ul><li>这玩意眼前一亮但是并不强大，肯定不如自己的服务器环境写逻辑接口，经过测试一些图片库（sharp等）不支持，会报错，接口返回 500</li></ul><h2 id="酷库-html-渲染方案"><a href="#酷库-html-渲染方案" class="headerlink" title="酷库 - html 渲染方案"></a>酷库 - html 渲染方案</h2><h3 id="原生-rich-text-组件"><a href="#原生-rich-text-组件" class="headerlink" title="原生 rich-text 组件"></a>原生 rich-text 组件</h3><blockquote><p>无法主动控制样式，只能想办法改变 html 字符串中的 style<br>非常不灵活</p></blockquote><h3 id="wxParse"><a href="#wxParse" class="headerlink" title="wxParse"></a>wxParse</h3><blockquote><p>github：<a href="https://github.com/icindy/wxParse">https://github.com/icindy/wxParse</a><br>基于原生小程序，若没有使用其他小程序框架就用它吧</p></blockquote><h3 id="gaoyia-parse"><a href="#gaoyia-parse" class="headerlink" title="gaoyia-parse"></a>gaoyia-parse</h3><blockquote><p>github：<a href="https://github.com/gaoyia/parse#readme">https://github.com/gaoyia/parse#readme</a><br>npm：<a href="https://www.npmjs.com/package/gaoyia-parse">https://www.npmjs.com/package/gaoyia-parse</a><br>若为 mpvue uni-app 就用这个</p></blockquote><h2 id="酷库-支持-cookie"><a href="#酷库-支持-cookie" class="headerlink" title="酷库 - 支持 cookie"></a>酷库 - 支持 cookie</h2><blockquote><p>小程序默认不支持 cookie 传输<br>解决方案：<a href="https://github.com/charleslo1/weapp-cookie">https://github.com/charleslo1/weapp-cookie</a><br>使用起来非常方便，只需要引入即可，对开发透明</p></blockquote><hr><h2 id="酷库-优雅的发送请求"><a href="#酷库-优雅的发送请求" class="headerlink" title="酷库 - 优雅的发送请求"></a>酷库 - 优雅的发送请求</h2><blockquote><p>wx-axios 用这个库，同时适配 browser、node.js、微信小程序<br>作者 fork 原本的 axios 实现<br>api 和 axios 完全一样<br>github：<a href="https://github.com/SoloJiang/axios">https://github.com/SoloJiang/axios</a><br>npm：<a href="https://www.npmjs.com/package/wx-axios">https://www.npmjs.com/package/wx-axios</a></p></blockquote><hr><h2 id="酷库-图片拼合，生成海报"><a href="#酷库-图片拼合，生成海报" class="headerlink" title="酷库 - 图片拼合，生成海报"></a>酷库 - 图片拼合，生成海报</h2><h3 id="mp-canvas-drawer"><a href="#mp-canvas-drawer" class="headerlink" title="mp_canvas_drawer"></a>mp_canvas_drawer</h3><blockquote><p><a href="https://github.com/kuckboy1994/mp_canvas_drawer">https://github.com/kuckboy1994/mp_canvas_drawer</a><br>仅支持微信小程序<br>图片高度可以随心所欲的限制<br>纯小程序，不跨端，尽量用这个</p></blockquote><p>坑：</p><ul><li>canvas 本身不会显示内容，需要用 images 标签来显示<blockquote><p>龙弟弟碰到的 bug..</p></blockquote></li></ul><h3 id="json2canvas"><a href="#json2canvas" class="headerlink" title="json2canvas"></a>json2canvas</h3><blockquote><p><a href="https://github.com/willnewii/json2canvas">https://github.com/willnewii/json2canvas</a><br>同时支持 h5 和 小程序</p></blockquote><p>坑：</p><ul><li><p>小程序端，图片高度无法限制，跟随着宽度等比例变化</p><blockquote><p>这是个大坑，插件本身无解决方案！</p></blockquote></li><li><p>uni-app 项目引入较为麻烦</p><blockquote><p>先下载官方例子构件 npm 生成 miniprogram_npm 目录<br>复制到 uni-app 项目的 wxcomponents 目录<br>在 page.json usingComponents 中注册 wxcomponents 目录的组件<br>之后像正常 vue 组件使用即可</p></blockquote></li><li><p>生成的 canvas 有灰色边框</p><blockquote><p>在全局样式中覆盖定义即可 border: none !important</p></blockquote></li><li><p>保存后的图片不全或者完全没内容</p><blockquote><p>这要怪 wx.canvasToTempFilePath 这个方法（bug）<br>在 miniprogram_npm/json2canvas/index.js 中搜索 this.saveImageToLocal()<br>外层包个延迟定时器就好了，如下</p></blockquote></li></ul><pre><code class="javascript">setTimeout(() =&gt; &#123;  this.saveImageToLocal();&#125;, 100)</code></pre><hr><h2 id="酷库-Promise-化小程序-api"><a href="#酷库-Promise-化小程序-api" class="headerlink" title="酷库 - Promise 化小程序 api"></a>酷库 - Promise 化小程序 api</h2><blockquote><p>来自官方的库<br><a href="https://developers.weixin.qq.com/miniprogram/dev/extended/utils/api-promise.html">https://developers.weixin.qq.com/miniprogram/dev/extended/utils/api-promise.html</a></p></blockquote><hr><h2 id="经验-getCurrentPages-使用注意"><a href="#经验-getCurrentPages-使用注意" class="headerlink" title="经验 - getCurrentPages 使用注意"></a>经验 - getCurrentPages 使用注意</h2><blockquote><p>getCurrentPages 方法返回的页面数组中 route 属性无查询字符串<br>查询字符串保存在 options 属性中(对象形式)，想要完整的需要自己拼接<br>建议使用 qs 库做拼接</p></blockquote><img src="/blog/posts/23541/getCurrentPages-route-options.jpg" class=""><hr><h2 id="经验-储存图片到本地"><a href="#经验-储存图片到本地" class="headerlink" title="经验 - 储存图片到本地"></a>经验 - 储存图片到本地</h2><blockquote><p>建议使用 saveImageToPhotosAlbum 这个方法<br>saveFile 保存后，路径很迷，并且无后缀，相册中也找不到<br>saveImageToPhotosAlbum 成功后，微信会自动弹出一个友好提示（水平居中垂直居下的 Toast 弹框）<br>下载图片时，别忘了在微信公众后台增加上 download domain 否则上线后，下载会报错</p></blockquote><hr><h2 id="经验-字体（iconfont）引入"><a href="#经验-字体（iconfont）引入" class="headerlink" title="经验 - 字体（iconfont）引入"></a>经验 - 字体（iconfont）引入</h2><blockquote><p>小程序不支持加载本地字体文件<br>支持加载网络字体 或把字体文件转为 base64</p></blockquote><img src="/blog/posts/23541/iconfont.jpg" class=""><hr><h2 id="经验-button-标签边框"><a href="#经验-button-标签边框" class="headerlink" title="经验 - button 标签边框"></a>经验 - button 标签边框</h2><blockquote><p>button 边框是用 :after 实现的<br>并不是 border 实现</p></blockquote><hr><h2 id="经验-分包"><a href="#经验-分包" class="headerlink" title="经验 - 分包"></a>经验 - 分包</h2><blockquote><p>小程序有代码体积限制（小于 2m）<br>若体积过大就只能用分包的形式<br>建议稍微大一丢丢的项目一开始就考虑分包</p></blockquote><blockquote><p>uni-app 可以强制开启代码压缩缓解在开发环境下体积过大，无法真机预览的问题</p></blockquote><pre><code class="javascript">// vue.config.js// uni-app 强制开启代码压缩module.exports = &#123;  configureWebpack (config) &#123;    // 防止在开发环境文件过大的情况    config.optimization.minimize = true  &#125;&#125;</code></pre><pre><code>// uni-app 的分包优化配置&quot;mp-weixin&quot;: &#123;  &quot;optimization&quot; : &#123;    &quot;subPackages&quot; : true  &#125;&#125;</code></pre><hr><h2 id="经验-map-组件"><a href="#经验-map-组件" class="headerlink" title="经验 - map 组件"></a>经验 - map 组件</h2><h3 id="marker-自定义文字的位置"><a href="#marker-自定义文字的位置" class="headerlink" title="marker 自定义文字的位置"></a>marker 自定义文字的位置</h3><blockquote><p>2020.1.2…<br>建议放弃使用下面的想法，还是改用一张图片实现<br>经过测试有些 bug 无法解决</p></blockquote><ol><li>位置太难对准</li><li>ios 设备上有 marker 和 label 的层叠性问题</li></ol><p>ios 效果如下</p><img src="/blog/posts/23541/map-label-center-2.jpg" class=""><blockquote><p><del>marker callout 只能显示在 marker 的上方，位置不能改变</del><br><del>marker label 可以改变相对于 marker 的位置(大约计算)</del><br><del>但是没有 left，center，right 这种属性</del><br><del>下面例子使用 label 实现文字垂直居中对其</del></p></blockquote><img src="/blog/posts/23541/map-label-center-1.jpg" class=""><pre><code class="javascript">let markerArr = [  &#123;    // ... marker options ...    label: &#123;      // ... label options ...      anchorX: (&#39;自定义文字&#39;.length * 4.7) * -1,      anchorY: -29    &#125;  &#125;,  // ... other marker]</code></pre><hr><h3 id="map-组件影响了页面滚动"><a href="#map-组件影响了页面滚动" class="headerlink" title="map 组件影响了页面滚动"></a>map 组件影响了页面滚动</h3><blockquote><p>设置了 enable-scroll=’false‘ 后安卓手机页面不能滑动</p></blockquote><p>解决办法是用一个 view 标签覆盖在 map 上面，即可解决</p><p>注意1：不要使用 cover-view 标签，这个和 map 一样不支持滑动<br>注意2：将 map 组件的点击事件放在 view 标签上<br>注意3：若想同时实现散点（marker）点击，暂无解决办法….</p><h2 id="经验-input-change-事件不触发"><a href="#经验-input-change-事件不触发" class="headerlink" title="经验 - input change 事件不触发"></a>经验 - input change 事件不触发</h2><blockquote><p>已知基础库 2.9.3 有这个 bug<br>若出现，降级或升级试试看</p></blockquote><hr><h2 id="经验-h5-helper（使用h5页面辅助完成小程序功能）"><a href="#经验-h5-helper（使用h5页面辅助完成小程序功能）" class="headerlink" title="经验 - h5-helper（使用h5页面辅助完成小程序功能）"></a>经验 - h5-helper（使用h5页面辅助完成小程序功能）</h2><blockquote><p>小程序的部分场景功能，可以使用 web-view 引入 h5 网页来实现<br>通过 bindmessage 来返回参数</p></blockquote><p>比如：</p><ol><li><p>海报生成（H5有现成的 html2canvas，可以轻松实现 dom - 图片的转换）</p><img src="/blog/posts/23541/%E6%B5%B7%E6%8A%A5%E7%94%9F%E6%88%90.jpg" class=""></li><li><p>电子签名（drawingboard.js 可轻松实现）</p><img src="/blog/posts/23541/%E7%94%B5%E5%AD%90%E7%AD%BE%E5%90%8D.jpg" class=""></li></ol><h2 id="经验-分享机制"><a href="#经验-分享机制" class="headerlink" title="经验 - 分享机制"></a>经验 - 分享机制</h2><blockquote><p>小程序可以设置分享，但是需要一个页面一个页面的设置<br>这也太麻烦了…..用下面的方法可以做到统一代码<br>PS: 下面使用了 uni-app 框架，若为原生小程序，也可以通过扩展运算符的形式加入到 Page options 中</p></blockquote><pre><code class="javascript">import _ from &#39;lodash&#39;import qs from &#39;qs&#39;import Vue from &#39;vue&#39;Vue.prototype.$uni = uni/** *  设置默认分享信息 **/Vue.mixin(&#123;  onShareAppMessage (&#123; from, target = &#123; dataset: &#123;&#125; &#125;, webViewUrl &#125;) &#123;    let pages = getCurrentPages()    let page = pages[ pages.length - 1 ]        return _.defaults(      // 按钮设置的分享消息，优先级最高      &#123;        title: target.dataset.shareTitle,        path: target.dataset.sharePath,        imageUrl: target.dataset.shareImageUrl      &#125;,      // 页面设置的分享消息，优先级中等      &#123;        title: this.shareTitle,        path: this.sharePath,        imageUrl: this.shareImageUrl      &#125;,      // 默认设置的分享消息，优先级最低      &#123;        title: &#39;xxxxx&#39;,        path: page ?          `$&#123; page.route &#125;?$&#123; qs.stringify(page.options || &#123;&#125;) &#125;` :          null,        imageUrl: &#39;xxxxxxxxxx&#39;      &#125;    )  &#125;&#125;)</code></pre><h2 id="填坑-map-markertap-不触发"><a href="#填坑-map-markertap-不触发" class="headerlink" title="填坑 - map markertap 不触发"></a>填坑 - map markertap 不触发</h2><blockquote><p>对应的 marker 数据需要设置 id<br>否则 markertap 不会触发（uni-app 项目测试）</p></blockquote><h2 id="填坑-uni-app-map-事件-markertap-回调参数各平台不一致"><a href="#填坑-uni-app-map-事件-markertap-回调参数各平台不一致" class="headerlink" title="填坑 - uni-app map 事件 markertap 回调参数各平台不一致"></a>填坑 - uni-app map 事件 markertap 回调参数各平台不一致</h2><blockquote><p>markerId 位置不一致</p></blockquote><pre><code class="javascript">// e.markerId 是小程序// e.detail.markerId 是h5let id = e.markerId || e.detail.markerId</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 集合 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 小程序 </tag>
+            
+            <tag> 小程序酷库 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>📷 酷库 - 图片查看器</title>
+      <link href="/blog/posts/5981/"/>
+      <url>/blog/posts/5981/</url>
+      
+        <content type="html"><![CDATA[<p>网页上为了放更多的内容、更快的展示，通常会已缩略图（小图）列表的形式<br>展示图片，点击后展示更清晰但是文件体积也更大的大图。</p><span id="more"></span><h2 id="fancybox"><a href="#fancybox" class="headerlink" title="fancybox"></a>fancybox</h2><blockquote><p>基于 jquery<br>相册游览，支持图片、视频<br>可自定义 html，总体来说比较灵活</p></blockquote><h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/fancyapps/fancybox"><img src="https://github-readme-stats.vercel.app/api/pin/?username=fancyapps&repo=fancybox&show_owner=true"/></a><h2 id="lightgallery-js"><a href="#lightgallery-js" class="headerlink" title="lightgallery.js"></a>lightgallery.js</h2><blockquote><p>无依赖，图片、视频相册游览。</p></blockquote><h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/sachinchoolur/lightgallery.js"><img src="https://github-readme-stats.vercel.app/api/pin/?username=sachinchoolur&repo=lightgallery.js&show_owner=true"/></a><h2 id="medium-zoom"><a href="#medium-zoom" class="headerlink" title="medium-zoom"></a>medium-zoom</h2><blockquote><p>点击看大图（非相册游览效果）</p></blockquote><h3 id="github-2"><a href="#github-2" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/francoischalifour/medium-zoom"><img src="https://github-readme-stats.vercel.app/api/pin/?username=francoischalifour&repo=medium-zoom&show_owner=true"/></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 图片 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🍛 学习 - 游览器 bfcache 机制</title>
+      <link href="/blog/posts/52812/"/>
+      <url>/blog/posts/52812/</url>
+      
+        <content type="html"><![CDATA[<p>游览器为了提高用户体验，提供了 bfcache 机制，但是有时会引起 bug，<br>这时我们可以手动的伪禁用 bfcache 机制。</p><span id="more"></span><h2 id="bfcache-是啥"><a href="#bfcache-是啥" class="headerlink" title="bfcache 是啥"></a>bfcache 是啥</h2><p>是一个游览器机制<br>比如说从 A 网页去 B 网页，然后再点击 B 网页的回退按钮回到 A 网页<br>页面不会刷新，而是使用缓存<br>用户之前输入的表单内容都会存在，并且滚动条的位置也存在。</p><p>例子如下：<br>在 A 网页向下滚动了，并且填入了表单内容后跳转 B 页面<br>从 B 页面通过返回按钮返回到了 A 页面<br>结果滚动位置以及表单内容都存在</p><div class="img-wrap"><div class="img-bg"><img class="img" src="example.gif" alt="例子"/></div><span class="image-caption">例子</span></div><h2 id="伪禁用"><a href="#伪禁用" class="headerlink" title="伪禁用"></a>伪禁用</h2><blockquote><p>可以判断当前页面是否有 bfcache 缓存<br>若有，则刷新当前页面，即可实现伪禁用</p></blockquote><pre><code class="javascript">// 将此代码放到 head 标签靠上的位置// 否则会加载额外的资源// 此代码相当于使用 bfcache 机制的回调// 使用 location.reload 重置页面window.addEventListener(&#39;pageshow&#39;, function (e) &#123;  if (    e.persisted ||     (window.performance &amp;&amp; window.performance.navigation.type == 2)  ) &#123;    location.reload();  &#125;&#125;, false);</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 游览器机制 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🤔 学习 - 傻傻分不清的 DOM 尺寸</title>
+      <link href="/blog/posts/43539/"/>
+      <url>/blog/posts/43539/</url>
+      
+        <content type="html"><![CDATA[<p>做效果有时需要知道 DOM 元素的尺寸，尺寸并不是简单的宽度和高度，<br>算不算 padding、border，😵 需不需要考虑内容的真实高度（用于内容滚动的情况），<br>都需要不同的计算，🧐 这里记录/学习原生属性和方法来获取各种尺寸。</p><span id="more"></span><h2 id="包罗万象"><a href="#包罗万象" class="headerlink" title="包罗万象"></a>包罗万象</h2><blockquote><p>console.dir(document.body)</p></blockquote><div class="img-wrap"><div class="img-bg"><img class="img" src="all.jpg" alt="DOM 元素属性解析"/></div><span class="image-caption">DOM 元素属性解析</span></div><h2 id="clientHeight-clientWidth"><a href="#clientHeight-clientWidth" class="headerlink" title="clientHeight / clientWidth"></a>clientHeight / clientWidth</h2><blockquote><p>包含 padding，不包含 border、margin、滚动条尺寸</p></blockquote><div class="img-wrap"><div class="img-bg"><img class="img" src="clientHeight-clientWidth.png" alt="clientHeight / clientWidth"/></div><span class="image-caption">clientHeight / clientWidth</span></div><h2 id="offsetHeight-offsetWidth"><a href="#offsetHeight-offsetWidth" class="headerlink" title="offsetHeight / offsetWidth"></a>offsetHeight / offsetWidth</h2><blockquote><p>包含 padding、border、滚动条尺寸，不包含 margin</p></blockquote><div class="img-wrap"><div class="img-bg"><img class="img" src="offsetHeight-offsetWidth.png" alt="offsetHeight / offsetWidth"/></div><span class="image-caption">offsetHeight / offsetWidth</span></div><h2 id="scrollHeight-scrollWidth"><a href="#scrollHeight-scrollWidth" class="headerlink" title="scrollHeight / scrollWidth"></a>scrollHeight / scrollWidth</h2><blockquote><p>此属性一般用于有滚动条的元素<br>返回滚动内容的总尺寸</p></blockquote><div class="img-wrap"><div class="img-bg"><img class="img" src="scrollHeight-scrollWidth.jpg" alt="scrollHeight / scrollWidth"/></div><span class="image-caption">scrollHeight / scrollWidth</span></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Dom </tag>
+            
+            <tag> 原生属性 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-vh单位的可信度</title>
+      <link href="/blog/posts/25092/"/>
+      <url>/blog/posts/25092/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>vw, vh 都是自适应页面的利器<br>vw 表现良好，vh 在 pc 端网页表现良好，但是在手机下 不！可！信！</p></blockquote><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><blockquote><p>手机游览器的 100vh 总会高出一截<br>经过查阅，好像是算上了地址栏的高度，并且不准备修复，被认为是正常的。</p></blockquote><h3 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h3><pre><code class="html">&lt;div id=&quot;test&quot; style=&quot;height: 100vh&quot;&gt;&lt;div&gt;</code></pre><pre><code class="javascript">alert(&#39;innerHeight: &#39; + innerHeight + &#39;\n&#39; + &#39;test元素高度: &#39; + $(&#39;#test&#39;).css(&#39;height&#39;));</code></pre><h3 id="PC端测试"><a href="#PC端测试" class="headerlink" title="PC端测试"></a>PC端测试</h3><img src="/blog/posts/25092/pc.jpg" class=""><hr><h3 id="移动端测试"><a href="#移动端测试" class="headerlink" title="移动端测试"></a>移动端测试</h3><img src="/blog/posts/25092/phone.jpg" class=""><hr><h2 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h2><blockquote><p>使用 js 赋值 innerHeight</p></blockquote><pre><code class="js">$(&#39;.height-full&#39;).css(&#39;height&#39;, window.innerHeight);</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 游览器差异 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-低版本IE辅助库</title>
+      <link href="/blog/posts/26243/"/>
+      <url>/blog/posts/26243/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>万恶的 IE…..</p></blockquote><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><p>css 圆角 和 阴影（PIE - 实现圆角和阴影）</p></li><li><p>css background-size（background-size-htc - 实现背景大小设置，可惜只兼容到 IE8）</p></li><li><p>css border-spacing IE 6 7 不支持（给 td 设置高度模拟）</p></li><li><p>css border-box （box-sizing-polyfill）</p></li><li><p>表单元素的 placeholder（jquery.placeholder - 简单粗暴）</p></li><li><p>IE9+ 使用 ES6 新语法。</p></li></ul><pre><code class="javascript">  &lt;!-- 要放在其他 JS 之前，作用是可以使用 ES6 的语法，let、const、箭头函数等 --&gt;  &lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/babel-core/5.8.24/browser-polyfill.min.js&quot;&gt;&lt;/script&gt;  &lt;!-- 用 ES6 语法写的 JS 文件（由于异步加载，会延迟执行）--&gt;  &lt;script type=&quot;text/babel&quot; src=&quot;./es6.js&quot;&gt;&lt;/script&gt;  &lt;!-- 用 ES5 语法写的 JS 文件（会在 es6.js 之前执行） --&gt;  &lt;script src=&quot;./normal.js&quot;&gt;&lt;/script&gt;  &lt;!-- 要放在最后，用于执行 JS，同时可以使用 Promise，async，await 等新语法 --&gt;  &lt;script src=&quot;https://cdn.bootcdn.net/ajax/libs/babel-core/5.8.24/browser.min.js&quot;&gt;&lt;/script&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IE </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-window.opener</title>
+      <link href="/blog/posts/22884/"/>
+      <url>/blog/posts/22884/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>项目中经常存在着需要跳转网页然后再跳转回来的需求<br>比如说 oauth 登陆，微信支付宝等第三方登陆等<br>若采用通常的链接跳转，会失去当前页面的所有逻辑<br>回调跳转回来时页面也会重新加载<br>用户体验极差，代码逻辑也失去了连贯性</p></blockquote><blockquote><p>终于有一天。。我发现了 window.opener…..</p></blockquote><h2 id="window-open"><a href="#window-open" class="headerlink" title="window.open"></a>window.open</h2><blockquote><p>该方法将打开一个新的网页标签<br>注意：若用户未交互，游览器会阻止该方法的执行（游览器会认为不是用户的操作，认为是广告等）<br>解决：在用户交互事件中调用 window.open（click 等事件）</p></blockquote><pre><code class="javascript">document.getElementById(&#39;btn&#39;).addEventListener(function (e) &#123;  window.open(&#39;https://www.baidu.com&#39;);&#125;)</code></pre><h2 id="window-opener"><a href="#window-opener" class="headerlink" title="window.opener"></a>window.opener</h2><blockquote><p>当前网页必须由 window.open 打开时才有<br>window.opener 指向 window.open 时的父 window 对象</p></blockquote><pre><code class="javascript">window.opener.alert(&#39;提示&#39;)</code></pre><h2 id="实现（跳转网页回调）"><a href="#实现（跳转网页回调）" class="headerlink" title="实现（跳转网页回调）"></a>实现（跳转网页回调）</h2><h3 id="父窗口"><a href="#父窗口" class="headerlink" title="父窗口"></a>父窗口</h3><pre><code class="javascript">// 定义回调 cb 事件window.callback = function (params) &#123;  console.log(params);&#125;;// 点击按钮触发网页跳转，打开一个新页面document.getElementById(&#39;btn&#39;).addEventListener(function (e) &#123;  window.open(&#39;https://www.baidu.com&#39;);&#125;)</code></pre><h3 id="子窗口"><a href="#子窗口" class="headerlink" title="子窗口"></a>子窗口</h3><pre><code class="javascript">// 触发父窗口回调方法，并传入参数window.opener.callback(/* any */);// 关闭当前子窗口window.close();</code></pre><p>这样保证了页面的执行顺序，也保证了用户体验。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 用户体验 </tag>
+            
+            <tag> 优化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>酷库-滚动监听</title>
+      <link href="/blog/posts/57202/"/>
+      <url>/blog/posts/57202/</url>
+      
+        <content type="html"><![CDATA[<h2 id="gumshoe"><a href="#gumshoe" class="headerlink" title="gumshoe"></a>gumshoe</h2><blockquote><p><a href="https://github.com/cferdinandi/gumshoe">https://github.com/cferdinandi/gumshoe</a><br>项目中经常有需求的锚点滚动监听需求<br>我之前尝试过用 ScrollReveal 实现，但是逻辑不太一样</p></blockquote><img src="/blog/posts/57202/example.gif" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 滚动监听 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>职场-工资算法</title>
+      <link href="/blog/posts/61371/"/>
+      <url>/blog/posts/61371/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>目前是 2019.10.03，本文记载着我对工资算法公式的理解<br>五险一金税款等具体比例可能会隔几年一调整，想要精确百度下即可</p></blockquote><h2 id="工资算法"><a href="#工资算法" class="headerlink" title="工资算法"></a>工资算法</h2><blockquote><p>以下算法为双休制，一个月上班天数为 21.75 天（百度搜索的的国家规定）<br>提成、奖金、饭补、交通费等属于额外来源，不参与计算</p></blockquote><h3 id="每日工资算法"><a href="#每日工资算法" class="headerlink" title="每日工资算法"></a>每日工资算法</h3><blockquote><p>这里记录的是每日理论工资，包含着五险一金税款<br>每日到手工资不太好计算，因为还减去到五险一金税款<br>每日工资公式通常用于缺勤的时候扣工资时使用</p></blockquote><pre><code class="text">每日理论工资 = 基础工资 / 21.75</code></pre><h3 id="到手工资算法"><a href="#到手工资算法" class="headerlink" title="到手工资算法"></a>到手工资算法</h3><pre><code class="text">每月到手工资 = 基础工资 - 五险一金 - 税款 - 缺勤请假部分（每日理论工资 * 缺勤天数）</code></pre><h2 id="五险一金和税款个人承担比例"><a href="#五险一金和税款个人承担比例" class="headerlink" title="五险一金和税款个人承担比例"></a>五险一金和税款个人承担比例</h2><ul><li>养老 = 8%</li><li>医疗 = 2%</li><li>失业 = 0.3%</li><li>一金 = 12%（该值非规定）</li><li>税款 = 0.03%（工资越高税率越高，具体百度吧）</li></ul><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><blockquote><p>应发工资 10000</p></blockquote><h3 id="五险"><a href="#五险" class="headerlink" title="五险"></a>五险</h3><ul><li>养老 10000 * 0.08 = 800</li><li>失业 10000 * 0.003 = 30</li><li>医疗 10000 * 0.02 = 200</li><li>生育和工伤不需要个人承担</li><li>总共 800 + 30 + 200 = 1030</li></ul><h3 id="公积金"><a href="#公积金" class="headerlink" title="公积金"></a>公积金</h3><blockquote><p>一金较为特殊，需要看公司定的缴纳基数（可能会按照比应发工资低的基数缴纳）</p></blockquote><ul><li>一金理想情况       10000 * 0.12</li><li>一金非理想情况   2600 * 0.12（2600是胡乱写的，具体要公司定）</li><li>总共（理想） 10000 * 0.12 = 1200</li></ul><h3 id="税款"><a href="#税款" class="headerlink" title="税款"></a>税款</h3><blockquote><p>这个较为复杂，目前应发工资超过 5000 才交税，税率为 3%<br>工资到达某档位后，税率也会加，10000 是 3%，具体百度吧<br>但是 3% 并不指的是应发工资（10000）的 3%，而是 应发工资 - 底数 - 五险一金扣款后 的剩余部分<br>看公式吧</p></blockquote><ul><li>(10000 - 5000 - 五险一金个人承担部分) * 0.03 = 所需要交纳的税款</li><li>(10000 - 5000 - 1030 - 1200) * 0.03 = 83.1</li></ul><h3 id="实发工资"><a href="#实发工资" class="headerlink" title="实发工资"></a>实发工资</h3><ul><li>应发工资 - 五险 - 公积金 - 税 = 实发工资</li><li>10000 - 1030 - 1200 - 83.1 = 7686.9</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 职场 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 工资算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🤺 问题 - 伪类选择器 hover 移动端的表现</title>
+      <link href="/blog/posts/20528/"/>
+      <url>/blog/posts/20528/</url>
+      
+        <content type="html"><![CDATA[<p>用 hover 实现模拟 select，移入显示 option，移出隐藏 option，<br>在做移动端适配时，在 safari 游览器中发现了 bug，<br>做这种效果移动端还是尽量用 JS 绑定 class 的方式实现吧。🙃</p><span id="more"></span><div class="img-wrap"><div class="img-bg"><img class="img" src="example.gif" alt="效果图"/></div><span class="image-caption">效果图</span></div><h2 id="移动端-safari-的奇怪表现"><a href="#移动端-safari-的奇怪表现" class="headerlink" title="移动端 safari 的奇怪表现"></a>移动端 safari 的奇怪表现</h2><ul><li>必须是 a 元素才能触发 :hover。</li><li>将元素修改成了 a 之后，点击页面其他处无法失去 :hover 焦点，除非点击其他 按钮 或 input。</li></ul><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul><li>使用 js 事件加 class 的方式实现</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 问题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 游览器差异 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🤔 问题 - 到底是谁的滚动条</title>
+      <link href="/blog/posts/7263/"/>
+      <url>/blog/posts/7263/</url>
+      
+        <content type="html"><![CDATA[<p>网页中默认的滚动条到底是哪个元素的？ body？html？😵</p><span id="more"></span><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote><p>打印输出各大游览器 body 和 html 标签的 scrollTop 属性</p></blockquote><h3 id="chrome"><a href="#chrome" class="headerlink" title="chrome"></a>chrome</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="chrome.jpg" alt="chrome"/></div><span class="image-caption">chrome</span></div><h3 id="firefox"><a href="#firefox" class="headerlink" title="firefox"></a>firefox</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="firefox.jpg" alt="firefox"/></div><span class="image-caption">firefox</span></div><h3 id="ie11"><a href="#ie11" class="headerlink" title="ie11"></a>ie11</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="ie11.jpg" alt="ie11"/></div><span class="image-caption">ie11</span></div><h3 id="safari"><a href="#safari" class="headerlink" title="safari"></a>safari</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="safari.jpg" alt="safari"/></div><span class="image-caption">safari</span></div><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>除去 safari 默认滚动条都是 html 元素的<br>只有 safari 这个奇葩滚动条是使用 body 元素的<br>为啥 safari 这个奇葩总会有各种有问题……</p><h2 id="优雅的获取页面滚动位置"><a href="#优雅的获取页面滚动位置" class="headerlink" title="优雅的获取页面滚动位置"></a>优雅的获取页面滚动位置</h2><pre><code class="javascript">// IE9+window.pageYOffset;// 非 IEwindow.scrollY;// IE8以及以下document.documentElement.scrollTop;// 兼容性最好的写法window.pageYOffset || document.documentElement.scrollTop;</code></pre><h2 id="优雅的滚动页面"><a href="#优雅的滚动页面" class="headerlink" title="优雅的滚动页面"></a>优雅的滚动页面</h2><h3 id="原生方法（推荐）"><a href="#原生方法（推荐）" class="headerlink" title="原生方法（推荐）"></a>原生方法（推荐）</h3><pre><code class="javascript">// 这俩货是一样的....window.scrollTo(x, y);// 相对滚动window.scrollBy(offsetX, offsetY)</code></pre><h3 id="直接赋值（不推荐）"><a href="#直接赋值（不推荐）" class="headerlink" title="直接赋值（不推荐）"></a>直接赋值（不推荐）</h3><pre><code class="javascript">// chrome, ie, 火狐 ...document.documentElement.scrollTop = 100// 奇葩 safaridocument.body.scrollTop = 500</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 问题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 游览器差异 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-移动端理想的用户体验</title>
+      <link href="/blog/posts/64309/"/>
+      <url>/blog/posts/64309/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>目前前端的跨端技术层出不穷，开发快，对用户透明。<br>对前端开发者来说掌握的东西要更多了~</p></blockquote><blockquote><p>本文谈论一些原生移动 app 用户体验</p></blockquote><h2 id="体验分析"><a href="#体验分析" class="headerlink" title="体验分析"></a>体验分析</h2><blockquote><p>每天都会用各种 app，各种操作熟记于心<br>总结出以下网页不容易实现的需求</p></blockquote><ol><li>类似网页的历史记录，前进刷新网页，后退时使用历史缓存</li><li>前进或者后退（物理返回键）会有不同的切换效果（滑动切换）</li><li>点击物理返回键时若正处于 “模态对话框(dialog, alert)等”，不会返回页面，会先将对话框关闭</li></ol><h2 id="实现难点分析以及解决方案"><a href="#实现难点分析以及解决方案" class="headerlink" title="实现难点分析以及解决方案"></a>实现难点分析以及解决方案</h2><ol><li>vue keep-alive 无法实现前进刷新，后退使用缓存的 app 缓存逻辑<blockquote><p>这里可以使用 vue-navigation 实现</p></blockquote></li><li>前进和后退实现不同的切换效果<blockquote><p>vue transition 标签配合 vue-navigation 实现</p></blockquote></li><li>模态框逻辑，如何判断当前正在弹框，如何优雅的阻止切换切换并关闭模态框<blockquote><p>推荐 vue-create-api 这个库，本文例子中使用了 element-ui 中的 MessageBox 实现</p></blockquote></li></ol><h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><blockquote><p><a href="https://github.com/q-jason/code/tree/master/good-vue-app">github</a></p></blockquote><iframe src="https://codesandbox.io/embed/github/q-jason/code/tree/master/good-vue-app?fontsize=14" width="100%" height="800" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 用户体验 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>经验-移动端文字垂直居中的影响因素</title>
+      <link href="/blog/posts/63236/"/>
+      <url>/blog/posts/63236/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>移动端开发时经常会碰到文字居上的问题<br>经过测试发现，主要是使用了独特的 font-family 引起的</p></blockquote><h2 id="移动端最佳-font-family-设置"><a href="#移动端最佳-font-family-设置" class="headerlink" title="移动端最佳 font-family 设置"></a>移动端最佳 font-family 设置</h2><pre><code class="css">body &#123;  font-family:     -apple-system, BlinkMacSystemFont,    &quot;PingFang SC&quot;, &quot;Helvetica Neue&quot;,    STHeiti, &quot;Microsoft Yahei&quot;,    Tahoma,Simsun,sans-serif;&#125;</code></pre><h2 id="移动端-input-placeholder-居上"><a href="#移动端-input-placeholder-居上" class="headerlink" title="移动端 input placeholder 居上"></a>移动端 input placeholder 居上</h2><blockquote><p>经过测试是由于 placeholder 默认的 line-height 导致的</p></blockquote><pre><code class="css">/* safari placeholder 偏上的问题 */input::-webkit-input-placeholder &#123;  line-height: normal;&#125;</code></pre><h2 id="问题重现"><a href="#问题重现" class="headerlink" title="问题重现"></a>问题重现</h2><h3 id="android-未设置特殊字体"><a href="#android-未设置特殊字体" class="headerlink" title="android 未设置特殊字体"></a>android 未设置特殊字体</h3><img src="/blog/posts/63236/android-good.jpg" class=""><hr><h3 id="android-设置了特殊字体"><a href="#android-设置了特殊字体" class="headerlink" title="android 设置了特殊字体"></a>android 设置了特殊字体</h3><img src="/blog/posts/63236/android-bad.jpg" class=""><hr><h3 id="ios-未设置特殊字体"><a href="#ios-未设置特殊字体" class="headerlink" title="ios 未设置特殊字体"></a>ios 未设置特殊字体</h3><img src="/blog/posts/63236/ios-good.jpg" class=""><hr><h3 id="ios-设置了特殊字体"><a href="#ios-设置了特殊字体" class="headerlink" title="ios 设置了特殊字体"></a>ios 设置了特殊字体</h3><img src="/blog/posts/63236/ios-bad.jpg" class="">]]></content>
+      
+      
+      <categories>
+          
+          <category> 经验 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 游览器差异 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
