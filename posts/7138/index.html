@@ -2950,13 +2950,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：2.3k 字</p>
+      <p>字数：2.6k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：9 分钟</p>
+      <p>时长：11 分钟</p>
     </a>
   </div>
 
@@ -2974,7 +2974,12 @@ article > p {
   <p>以后肯定会慢慢的都变为 Vue3，但是现在还是老老实实的用 Vue2吧…<br>社区比 Vue3 完善的多，但是也不能落下 Vue3 的学习，毕竟学完可以更好的比对 Vue2 优缺点，<br>自我提升。</p>
 <span id="more"></span>
 
-<h2 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h2><p>Vue3 相比于 Vue2 新增了 setup 方法，将 data、computed、methods、watch、生命周期函数<br>全都整合到这一个方法中定义， 但这不是必须的，继续使用 Vue2 的定义方式也是可以的。</p>
+<h2 id="Vue3-基础用法"><a href="#Vue3-基础用法" class="headerlink" title="Vue3 基础用法"></a>Vue3 基础用法</h2><h3 id="setup-方法"><a href="#setup-方法" class="headerlink" title="setup 方法"></a>setup 方法</h3><blockquote>
+<p>触发时机位于 beforeCreated 和 created 之间<br>无法获取 this，也没有必要获取 this</p>
+</blockquote>
+<p>Vue3 相比于 Vue2 新增了 setup 方法，作为初始化方法<br>将 data、computed、methods、watch、生命周期函数全都整合到这一个方法中定义<br>但这不是必须的，继续使用 Vue2 的定义方式也是可以的。</p>
+<psw>个人更喜欢 setup 的方式定义，代码都放在一起，关联性强，可以快速阅读书写，更方便一些 😛</psw>
+
 <pre><code class="javascript">import &#123; ref, toRefs &#125; from &#39;vue&#39;;
 
 export default &#123;
@@ -2996,14 +3001,14 @@ export default &#123;
     /**
      *  只有通过 return 暴露出去的属性和方法才可以在 template 中使用
      *  所以 Vue3 开发时感觉最常见的错误应该就是 &quot;忘记写 return 了&quot;
-     *  不过应该可以通过统一定义到一个对象中，然后在 return 中解构的方式，一劳永逸
+     *  不过应该可以通过统一定义到一个对象中，然后在 return 中已解构的方式，一劳永逸
      *  待测试开发友好度~~
      **/
     return &#123; num &#125;
   &#125;
 &#125;
 </code></pre>
-<h2 id="响应式数据定义（Vue2-的-data）"><a href="#响应式数据定义（Vue2-的-data）" class="headerlink" title="响应式数据定义（Vue2 的 data）"></a>响应式数据定义（Vue2 的 data）</h2><p>通过 ref 方法或 reactive 方法定义 “响应式数据”</p>
+<h3 id="响应式数据定义"><a href="#响应式数据定义" class="headerlink" title="响应式数据定义"></a>响应式数据定义</h3><p>通过 ref 方法或 reactive 方法定义 “响应式数据”</p>
 <div class="tabs" id="响应式数据定义"><ul class="nav-tabs"><li class="tab active"><a class="#响应式数据定义-1">Vue3</a></li><li class="tab"><a class="#响应式数据定义-2">Vue3 说明</a></li><li class="tab"><a class="#响应式数据定义-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="响应式数据定义-1"><pre><code class="javascript">import { ref, reactive } from &#39;vue&#39;;
 
 export default {
@@ -3067,7 +3072,7 @@ const state = reactive({ num: 0 })
 }
 </code></pre></div></div></div>
 
-<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>概念上没啥大变化。</p>
+<h3 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h3><p>概念上没啥大变化。</p>
 <div class="tabs" id="计算属性"><ul class="nav-tabs"><li class="tab active"><a class="#计算属性-1">Vue3</a></li><li class="tab"><a class="#计算属性-2">Vue3 说明</a></li><li class="tab"><a class="#计算属性-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="计算属性-1"><pre><code class="javascript">import { computed } from &#39;vue&#39;;
 
 export default {
@@ -3115,7 +3120,7 @@ export default {
 }
 </code></pre></div></div></div>
 
-<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><p>没啥大变化</p>
+<h3 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h3><p>没啥大变化</p>
 <div class="tabs" id="方法定义"><ul class="nav-tabs"><li class="tab active"><a class="#方法定义-1">Vue3</a></li><li class="tab"><a class="#方法定义-2">Vue3 说明</a></li><li class="tab"><a class="#方法定义-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="方法定义-1"><pre><code class="javascript">import { computed } from &#39;vue&#39;;
 
 export default {
@@ -3141,7 +3146,7 @@ export default {
 }
 </code></pre></div></div></div>
 
-<h2 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h2><ol>
+<h3 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h3><ol>
 <li>可以监听到数组直接赋值子项的情况了（vue2 中 this.arr[0] = 10 将不会触发 watch）</li>
 <li>可以同时监听多个 “响应式数据” 了。</li>
 <li>新增了 onInvalidate 方法，用来在函数即将重新执行时、侦听器被停止时清除异步代码带来的影响。</li>
@@ -3234,8 +3239,12 @@ export default {
 }
 </code></pre></div></div></div>
 
-<h2 id="template-ref"><a href="#template-ref" class="headerlink" title="template ref"></a>template ref</h2><div class="tabs" id="templateref"><ul class="nav-tabs"><li class="tab active"><a class="#templateref-1">Vue3</a></li><li class="tab"><a class="#templateref-2">Vue3 说明</a></li><li class="tab"><a class="#templateref-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="templateref-1"><pre><code class="html">&lt;template&gt;
-  &lt;!-- 注意：ref 不需要动态绑定的写法 --&gt;
+<h3 id="template-ref"><a href="#template-ref" class="headerlink" title="template ref"></a>template ref</h3><div class="tabs" id="templateref"><ul class="nav-tabs"><li class="tab active"><a class="#templateref-1">Vue3</a></li><li class="tab"><a class="#templateref-2">Vue3 说明</a></li><li class="tab"><a class="#templateref-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="templateref-1"><pre><code class="html">&lt;template&gt;
+  &lt;!--
+    注意：
+      - ref 不需要动态绑定的写法
+      - 若元素/组件未渲染，btn = null
+  --&gt;
   &lt;comp-button ref=&quot;btn&quot;/&gt;
 &lt;/template&gt;
 </code></pre>
@@ -3257,7 +3266,9 @@ export default {
 }
 </code></pre></div></div></div>
 
-<h2 id="emits"><a href="#emits" class="headerlink" title="emits"></a>emits</h2><p>这是 Vue3 新增的 “声明属性”，<br>类似于 props， 在子组件中提前声明内部向父组件发出的事件列表，<br>并且还可以校验 emit 时参数是否正确，若不正确 Vue 将发出警告，<br>不一定非要定义，向 Vue2 一样，不定义，也可以 emit。</p>
+<h3 id="emits"><a href="#emits" class="headerlink" title="emits"></a>emits</h3><p>这是 Vue3 新增的 “声明属性”，<br>类似于 props， 在子组件中提前声明内部向父组件发出的事件列表，<br>并且还可以校验 emit 时参数是否正确，若不正确 Vue 将发出警告，<br>不一定非要定义，向 Vue2 一样，不定义，也可以 emit。</p>
+<emp>学习到了，Vue2 虽然没有这个特性，但是也可以仿照着定义在 emits 上，预览组件内部可以发出的事件。</emp>
+
 <pre><code class="javascript">export default &#123;
   emits: &#123;
     // emit(&#39;submit&#39;, &#123; name: &#39;jason&#39; &#125;)
@@ -3270,7 +3281,54 @@ export default {
   &#125;
 &#125;
 </code></pre>
-
+<h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>可以定义多个 v-model 了，弃用了 sync 修饰符语法糖</p>
+<div class="tabs" id="v-model"><ul class="nav-tabs"><li class="tab active"><a class="#v-model-1">Vue3</a></li><li class="tab"><a class="#v-model-2">Vue3 说明</a></li><li class="tab"><a class="#v-model-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v-model-1"><pre><code class="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;!--
+      在 comp-dialog 组件内部
+      使用 emit(&#39;update:title&#39;, newValue) 的方式传递事件
+      其中，默认的 v-model prop 名字为 value
+    --&gt;
+    &lt;comp-dialog
+      v-model=&quot;show&quot;
+      v-model:title=&quot;text&quot;
+      v-model:content=&quot;content&quot;/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="javascript">export default {
+  setup (props, { attrs, slots, emit }) {
+    const show = ref(false)
+    const text = ref(&#39;我是标题&#39;)
+    const content = ref(&#39;我是内容&#39;)
+    
+    return { show, text, content }
+  }
+}
+</code></pre></div><div class="tab-pane" id="v-model-2"><p>太简单了，就是 sync 修饰符换成了统一的 v-model 指令写法，<br>并且好像之前的 sync 串用不了向 trim 这种修饰符，而 v-model 可以，<br>算是增强功能了。</p></div><div class="tab-pane" id="v-model-3"><pre><code class="html">&lt;template&gt;
+  &lt;div&gt;
+    &lt;!--
+      在 comp-dialog 组件内部
+      使用 this.$emit(&#39;update:title&#39;, newValue) 的方式传递事件
+      其中，默认的 v-model prop 名字为 value
+    --&gt;
+    &lt;comp-dialog
+      v-model=&quot;show&quot;
+      :title.sync=&quot;text&quot;
+      :content.sync=&quot;content&quot;/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="javascript">export default {
+  data () {
+    return {
+      show: false,
+      text: &#39;我是标题&#39;,
+      content: &#39;我是内容&#39;
+    }
+  }
+}
+</code></pre></div></div></div>
   
   
     
@@ -3309,10 +3367,10 @@ export default {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-02T10:05:31+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-05T02:01:38+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月2日</p>
+    <p>更新于：2021年7月5日</p>
   </a>
 </div>
 
@@ -3411,7 +3469,7 @@ module.exports = &#123;
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#setup"><span class="toc-text">setup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%EF%BC%88Vue2-%E7%9A%84-data%EF%BC%89"><span class="toc-text">响应式数据定义（Vue2 的 data）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">计算属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89"><span class="toc-text">方法定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">监听器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#template-ref"><span class="toc-text">template ref</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#emits"><span class="toc-text">emits</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue3-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">Vue3 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-%E6%96%B9%E6%B3%95"><span class="toc-text">setup 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89"><span class="toc-text">响应式数据定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89"><span class="toc-text">方法定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">监听器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#template-ref"><span class="toc-text">template ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#emits"><span class="toc-text">emits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-model"><span class="toc-text">v-model</span></a></li></ol></li></ol>
     </div>
   </section>
 
