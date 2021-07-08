@@ -2950,13 +2950,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：2.6k 字</p>
+      <p>字数：2.9k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：11 分钟</p>
+      <p>时长：12 分钟</p>
     </a>
   </div>
 
@@ -2974,7 +2974,7 @@ article > p {
   <p>以后肯定会慢慢的都变为 Vue3，但是现在还是老老实实的用 Vue2吧…<br>社区比 Vue3 完善的多，但是也不能落下 Vue3 的学习，毕竟学完可以更好的比对 Vue2 优缺点，<br>自我提升。</p>
 <span id="more"></span>
 
-<h2 id="Vue3-基础用法"><a href="#Vue3-基础用法" class="headerlink" title="Vue3 基础用法"></a>Vue3 基础用法</h2><h3 id="setup-方法"><a href="#setup-方法" class="headerlink" title="setup 方法"></a>setup 方法</h3><blockquote>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="setup-方法"><a href="#setup-方法" class="headerlink" title="setup 方法"></a>setup 方法</h3><blockquote>
 <p>触发时机位于 beforeCreated 和 created 之间<br>无法获取 this，也没有必要获取 this</p>
 </blockquote>
 <p>Vue3 相比于 Vue2 新增了 setup 方法，作为初始化方法<br>将 data、computed、methods、watch、生命周期函数全都整合到这一个方法中定义<br>但这不是必须的，继续使用 Vue2 的定义方式也是可以的。</p>
@@ -3329,6 +3329,49 @@ export default {
   }
 }
 </code></pre></div></div></div>
+
+<h3 id="v-slot"><a href="#v-slot" class="headerlink" title="v-slot"></a>v-slot</h3><p>统一使用 v-slot 指令来定义插槽，统一了 slot 和 slot-scope<br>同时提供了 v-slot 的简写形式（使用了 # 符），就像 v-bind 和 v-on</p>
+<div class="tabs" id="v-slot"><ul class="nav-tabs"><li class="tab active"><a class="#v-slot-1">Vue3</a></li><li class="tab"><a class="#v-slot-2">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v-slot-1"><pre><code class="html">&lt;!-- comp-dialog --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;slot name=&quot;header&quot; text=&quot;header&quot;/&gt;
+    &lt;slot name=&quot;default&quot; text=&quot;default&quot;/&gt;
+    &lt;slot name=&quot;footer&quot; text=&quot;footer&quot;/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="html">&lt;template&gt;
+  &lt;!-- 简写 v-slot --&gt;
+  &lt;comp-dialog&gt;
+    &lt;template #header=&quot;{ text }&quot;&gt;&lt;/template&gt;
+    &lt;template #default=&quot;scope&quot;&gt;&lt;/template&gt;
+    &lt;template #footer=&quot;{ text }&quot;&gt;&lt;/template&gt;
+  &lt;/comp-dialog&gt;
+  
+  &lt;!-- 正常写 v-slot --&gt;
+  &lt;comp-dialog&gt;
+    &lt;template v-slot:header=&quot;{ text }&quot;&gt;&lt;/template&gt;
+    &lt;template v-slot:default=&quot;scope&quot;&gt;&lt;/template&gt;
+    &lt;template v-slot:footer=&quot;{ text }&quot;&gt;&lt;/template&gt;
+  &lt;/comp-dialog&gt;
+&lt;/template&gt;  
+</code></pre></div><div class="tab-pane" id="v-slot-2"><pre><code class="html">&lt;!-- comp-dialog --&gt;
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;slot name=&quot;header&quot; text=&quot;header&quot;/&gt;
+    &lt;slot name=&quot;default&quot; text=&quot;default&quot;/&gt;
+    &lt;slot name=&quot;footer&quot; text=&quot;footer&quot;/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<pre><code class="html">&lt;template&gt;
+  &lt;comp-dialog&gt;
+    &lt;template slot=&quot;header&quot; slot-scope=&quot;{ name }&quot;&gt;&lt;/template&gt;
+    &lt;template slot=&quot;default&quot; slot-scope=&quot;scope&quot;&gt;&lt;/template&gt;
+    &lt;template slot=&quot;footer&quot; slot-scope=&quot;{ name }&quot;&gt;&lt;/template&gt;
+  &lt;/comp-dialog&gt;
+&lt;/template&gt;  
+</code></pre></div></div></div>
   
   
     
@@ -3367,10 +3410,10 @@ export default {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-05T02:01:38+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-08T03:42:08+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月5日</p>
+    <p>更新于：2021年7月8日</p>
   </a>
 </div>
 
@@ -3398,13 +3441,13 @@ export default {
       
       
         <a class='next' href='/blog/posts/64015/'>
-          <p class='title'>📗 学习 - Vue<i class="fad fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='title'>📗 学习 - Vue2<i class="fad fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>😃 记录着使用 Vue 开发时的各种心得、配置，以及坑。
 
 
-解决跨域问题，设置反向代理// vue.config.js
+配置解决跨域问题，设置反向代理// vue.config.js
 module.exports = &#123;
-  devServer...</p>
+  devServ...</p>
         </a>
       
     </div>
@@ -3469,7 +3512,7 @@ module.exports = &#123;
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue3-%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">Vue3 基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-%E6%96%B9%E6%B3%95"><span class="toc-text">setup 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89"><span class="toc-text">响应式数据定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89"><span class="toc-text">方法定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">监听器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#template-ref"><span class="toc-text">template ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#emits"><span class="toc-text">emits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-model"><span class="toc-text">v-model</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%94%A8%E6%B3%95"><span class="toc-text">基础用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-%E6%96%B9%E6%B3%95"><span class="toc-text">setup 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89"><span class="toc-text">响应式数据定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89"><span class="toc-text">方法定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E5%90%AC%E5%99%A8"><span class="toc-text">监听器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#template-ref"><span class="toc-text">template ref</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#emits"><span class="toc-text">emits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-model"><span class="toc-text">v-model</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-slot"><span class="toc-text">v-slot</span></a></li></ol></li></ol>
     </div>
   </section>
 
