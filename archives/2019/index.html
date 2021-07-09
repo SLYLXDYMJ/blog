@@ -3440,8 +3440,8 @@ https://github.com/dcloudio/uni-app非常推荐体验：完全的 vue 开发体�
   
     
     <h2 class="article-title" >
-      <a href="/blog/posts/25092/">
-        经验-vh单位的可信度
+      <a href="/blog/posts/26243/">
+        酷库-低版本IE辅助库
       </a>
     </h2>
   
@@ -3449,14 +3449,18 @@ https://github.com/dcloudio/uni-app非常推荐体验：完全的 vue 开发体�
     
       
         
-vw, vh 都是自适应页面的利器vw 表现良好，vh 在 pc 端网页表现良好，但是在手机下 不！可！信！
+万恶的 IE…..
 
-问题
-手机游览器的 100vh 总会高出一截经过查阅，好像是算上了地址栏的高度，并且不准备修复，被认为是正常的。
+参考
+css 圆角 和 阴影（PIE - 实现圆角和阴影）
 
-测试代码&lt;div id=&quot;test&quot; style=&quot;height: 100vh&quot;&gt;&lt;div&gt;
+css background-size（background-size-htc - 实现背景大小设置，可惜只兼容到 IE8）
 
-al...
+css border-spacing IE 6 7 不支持（给 td 设置高度模拟）
+
+css border-box （box-sizing-polyfill）
+
+表单元素的 pl...
       
     
   </div>
@@ -3467,15 +3471,15 @@ al...
         <time>2019-11-08</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E7%BB%8F%E9%AA%8C/">经验</a>
+          <a class="category-link" href="/blog/categories/%E9%85%B7%E5%BA%93/">酷库</a>
         
       </div>
       
         <div>
-          <!-- <a class='readmore' href='/blog/posts/25092/'>
+          <!-- <a class='readmore' href='/blog/posts/26243/'>
             <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
           </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/25092/">
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/26243/">
             <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
             <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
           </a>
@@ -3692,7 +3696,7 @@ al...
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>54 篇</div>
+          <div>55 篇</div>
         </div>
       
 
@@ -3714,7 +3718,7 @@ al...
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>26k </div>
+          <div>26.5k </div>
         </div>
       
 
@@ -3726,8 +3730,8 @@ al...
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Thu Jul 08 2021 05:35:53 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-07-08 日</div>
+            <div id="last-update" style="display: none;">Fri Jul 09 2021 03:01:42 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2021-07-09 日</div>
           
         </div>
         
@@ -3777,7 +3781,7 @@ al...
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-07-08 日';
+            document.getElementById('last-update-show').innerHTML = '2021-07-09 日';
           }
         </script>
         
