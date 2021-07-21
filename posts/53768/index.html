@@ -2951,13 +2951,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：3.1k 字</p>
+      <p>字数：3.3k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：14 分钟</p>
+      <p>时长：15 分钟</p>
     </a>
   </div>
 
@@ -3055,6 +3055,14 @@ class User implements PersonBase &#123;
   [dataA]=&quot;dataA&quot;
   [(dataB)]=&quot;dataB&quot;
   (dataAChange)=&quot;this.dataA = $event&quot;&gt;&lt;/app-list&gt;
+
+&lt;!-- ngModel 解析： --&gt;
+&lt;!-- [ngModel]：组件 =&gt; input --&gt;
+&lt;!-- (ngModel)：input =&gt; 组件 --&gt;
+&lt;!-- ([ngModel])： 为双向绑定 --&gt;
+&lt;input type=&#39;text&#39; [ngModel]=&#39;username&#39; /&gt;
+&lt;input type=&#39;text&#39; (ngModel)=&#39;username&#39; /&gt;
+&lt;input type=&#39;text&#39; ([ngModel])=&#39;username&#39; /&gt;
 
 &lt;!-- 通过 [hidden] 来确定组件是否显示 --&gt;
 &lt;p [hidden]=&quot;isShow&quot;&gt;&lt;/p&gt;
@@ -3452,11 +3460,42 @@ export class DetailComponent implements OnInit &#123;
 &#125;
 </code></pre>
 <hr>
-<h3 id="http"><a href="#http" class="headerlink" title="http"></a>http</h3><p>this.http.get 不会返回 promise 需要使用 toPromise 方法 “转一下”</p>
-<pre><code class="typescript">await this.q2aService
-  .editComment(this.questionId, this.commentId, this.content)
-  .toPromise()
+<h3 id="Http-请求"><a href="#Http-请求" class="headerlink" title="Http 请求"></a>Http 请求</h3><blockquote>
+<p>angular 内置了 http 服务，注入即可在组件中使用。</p>
+</blockquote>
+<pre><code class="typescript">import &#123; HttpClientModule &#125; from &#39;@angular/common/http&#39;;
+
+// 被弃用的
+// import &#123; HttpModule &#125; from &#39;@angular/http&#39;;
+
+@NgModule(&#123;
+  // ...
+  imports: [
+    HttpClientModule
+    // HttpModule
+  ]
+  // ...
+&#125;)
 </code></pre>
+<pre><code class="typescript">import &#123; HttpClient &#125; from &#39;@angular/common/http&#39;
+
+export class MyComp &#123;
+  constructor (private http: HttpClient) &#123;
+    this.http.get()
+    this.http.post()
+    this.http.put()
+    this.http.delete()
+    
+    // 默认用 &quot;订阅(subscribe)&quot; 的方式处理异步(真心用不惯...)
+    // 可以使用 toPromise 方法转为 Promise 方式处理
+    this.http.get().toPromise()
+      .then()
+      .catch()
+  &#125;
+&#125;
+</code></pre>
+<psw>也可以设置拦截器，这里暂不做深究了。</psw>
+
 <h2 id="ionic3"><a href="#ionic3" class="headerlink" title="ionic3"></a>ionic3</h2><blockquote>
 <p>ionic3 和 ionic4+ 提供的方法跨度比较大。<br>基本需要重新学习，至少路由部分是这样的。</p>
 </blockquote>
@@ -3465,6 +3504,9 @@ export class DetailComponent implements OnInit &#123;
 <h3 id="命令行工具"><a href="#命令行工具" class="headerlink" title="命令行工具"></a>命令行工具</h3><pre><code class="bash"># 生成页面，pipe，服务等
 # 建议使用该命令生成所需要的部分
 ionic generate
+
+# 生成页面可以指定路径
+ionic generate page [name] --pagesDir [path]
 </code></pre>
 <h3 id="页面生命周期"><a href="#页面生命周期" class="headerlink" title="页面生命周期"></a>页面生命周期</h3><p><img src="ionic3-lifecycle.webp" alt="ionic3-lifecycle.webp"></p>
 <h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><blockquote>
@@ -3475,8 +3517,17 @@ ionic generate
 tabsHideOnSubPages: false
 </code></pre>
 <h3 id="路由定义"><a href="#路由定义" class="headerlink" title="路由定义"></a>路由定义</h3><blockquote>
-<p>是通过 @IonicPage 修饰符来定义页面<br><a target="_blank" rel="noopener" href="https://ionicframework.com/docs/v3/api/navigation/IonicPage/">https://ionicframework.com/docs/v3/api/navigation/IonicPage/</a></p>
+<p>是通过 @IonicPage 修饰符来定义页面，非常简单<br>如果用 ionic generate page 生成页面组件，则完全不用自己操心。</p>
 </blockquote>
+<h4 id="文档-1"><a href="#文档-1" class="headerlink" title="文档"></a>文档</h4><div class="tag link"><a class="link-card" title="相关文档" target="_blank" rel="noopener" href="https://ionicframework.com/docs/v3/api/navigation/IonicPage/"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">相关文档</p><p class="url">https://ionicframework.com/docs/v3/api/navigation/IonicPage/</p></div></a></div>
+
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><pre><code class="typescript">@IonicPage(&#123;
+  // name 默认为组件的类名，常用于 this.navCtrl.push 时跳转。
+  name: &#39;my-page&#39;,
+  // segment 默认为组件的标签名，用于 url。
+  segment: &#39;some-path&#39;
+&#125;)
+</code></pre>
 <h3 id="渲染路由（ion-nav-组件）"><a href="#渲染路由（ion-nav-组件）" class="headerlink" title="渲染路由（ion-nav 组件）"></a>渲染路由（ion-nav 组件）</h3><blockquote>
 <p><a target="_blank" rel="noopener" href="https://ionicframework.com/docs/v3/api/components/nav/Nav/">https://ionicframework.com/docs/v3/api/components/nav/Nav/</a></p>
 </blockquote>
@@ -3537,10 +3588,10 @@ export class MyClass&#123;
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-20T09:18:04+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-21T09:17:36+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月20日</p>
+    <p>更新于：2021年7月21日</p>
   </a>
 </div>
 
@@ -3639,7 +3690,7 @@ export class MyClass&#123;
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E6%8A%80%E6%9C%AF%E6%A0%88%E4%BB%A5%E5%8F%8A%E9%A1%BA%E5%BA%8F%EF%BC%9A"><span class="toc-text">完整技术栈以及顺序：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#typescript"><span class="toc-text">typescript</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#angular"><span class="toc-text">angular</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95"><span class="toc-text">基本的模板语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6"><span class="toc-text">生成一个组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E9%80%9A%E8%AE%AF"><span class="toc-text">组件的通讯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">组件的计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%9A%84%E7%9B%91%E5%90%AC"><span class="toc-text">组件属性的监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E6%8F%92%E6%A7%BD%E7%94%A8%E6%B3%95"><span class="toc-text">组件的插槽用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%EF%BC%88vue-%E4%B8%AD%E7%9A%84%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%89"><span class="toc-text">管道（vue 中的过滤器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95%EF%BC%88%E6%9A%82%E6%97%B6%E6%94%BE%E4%B8%80%E6%94%BE%EF%BC%8C%E7%94%A8%E6%B3%95%E4%B8%8D%E7%A1%AE%E5%AE%9A%EF%BC%89"><span class="toc-text">表单（暂时放一放，用法不确定）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80"><span class="toc-text">服务基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E4%BB%A5%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">服务的实例以及作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPA-%E8%B7%AF%E7%94%B1-%E5%9F%BA%E7%A1%80"><span class="toc-text">SPA 路由 - 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPA-%E8%B7%AF%E7%94%B1-%E8%B7%B3%E8%BD%AC%E5%92%8C%E4%BC%A0%E5%8F%82"><span class="toc-text">SPA 路由 - 跳转和传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPA-%E8%B7%AF%E7%94%B1-%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0"><span class="toc-text">SPA 路由 - 接收参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#http"><span class="toc-text">http</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ionic3"><span class="toc-text">ionic3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3"><span class="toc-text">文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">命令行工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">页面生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-text">全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%AE%9A%E4%B9%89"><span class="toc-text">路由定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E8%B7%AF%E7%94%B1%EF%BC%88ion-nav-%E7%BB%84%E4%BB%B6%EF%BC%89"><span class="toc-text">渲染路由（ion-nav 组件）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%BD%AC%E9%A1%B5%E9%9D%A2%E3%80%81%E4%BC%A0%E5%8F%82"><span class="toc-text">跳转页面、传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E9%A1%B5%E9%9D%A2%E5%8F%82%E6%95%B0"><span class="toc-text">接收页面参数</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E6%8A%80%E6%9C%AF%E6%A0%88%E4%BB%A5%E5%8F%8A%E9%A1%BA%E5%BA%8F%EF%BC%9A"><span class="toc-text">完整技术栈以及顺序：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#typescript"><span class="toc-text">typescript</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#angular"><span class="toc-text">angular</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%A8%A1%E6%9D%BF%E8%AF%AD%E6%B3%95"><span class="toc-text">基本的模板语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6"><span class="toc-text">生成一个组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E9%80%9A%E8%AE%AF"><span class="toc-text">组件的通讯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7"><span class="toc-text">组件的计算属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%B1%9E%E6%80%A7%E7%9A%84%E7%9B%91%E5%90%AC"><span class="toc-text">组件属性的监听</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E6%8F%92%E6%A7%BD%E7%94%A8%E6%B3%95"><span class="toc-text">组件的插槽用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E9%81%93%EF%BC%88vue-%E4%B8%AD%E7%9A%84%E8%BF%87%E6%BB%A4%E5%99%A8%EF%BC%89"><span class="toc-text">管道（vue 中的过滤器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95%EF%BC%88%E6%9A%82%E6%97%B6%E6%94%BE%E4%B8%80%E6%94%BE%EF%BC%8C%E7%94%A8%E6%B3%95%E4%B8%8D%E7%A1%AE%E5%AE%9A%EF%BC%89"><span class="toc-text">表单（暂时放一放，用法不确定）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80"><span class="toc-text">服务基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E4%BB%A5%E5%8F%8A%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">服务的实例以及作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPA-%E8%B7%AF%E7%94%B1-%E5%9F%BA%E7%A1%80"><span class="toc-text">SPA 路由 - 基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPA-%E8%B7%AF%E7%94%B1-%E8%B7%B3%E8%BD%AC%E5%92%8C%E4%BC%A0%E5%8F%82"><span class="toc-text">SPA 路由 - 跳转和传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SPA-%E8%B7%AF%E7%94%B1-%E6%8E%A5%E6%94%B6%E5%8F%82%E6%95%B0"><span class="toc-text">SPA 路由 - 接收参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Http-%E8%AF%B7%E6%B1%82"><span class="toc-text">Http 请求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ionic3"><span class="toc-text">ionic3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%A1%A3"><span class="toc-text">文档</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">命令行工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-text">页面生命周期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE"><span class="toc-text">全局配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E5%AE%9A%E4%B9%89"><span class="toc-text">路由定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E6%A1%A3-1"><span class="toc-text">文档</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E8%B7%AF%E7%94%B1%EF%BC%88ion-nav-%E7%BB%84%E4%BB%B6%EF%BC%89"><span class="toc-text">渲染路由（ion-nav 组件）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E8%BD%AC%E9%A1%B5%E9%9D%A2%E3%80%81%E4%BC%A0%E5%8F%82"><span class="toc-text">跳转页面、传参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E6%94%B6%E9%A1%B5%E9%9D%A2%E5%8F%82%E6%95%B0"><span class="toc-text">接收页面参数</span></a></li></ol></li></ol>
     </div>
   </section>
 
