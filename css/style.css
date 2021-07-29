@@ -20,15 +20,15 @@
   box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
 }
 @font-face {
-  font-family: 'fwzc';
-  src: url("https://cdn.jsdelivr.net/gh/inkss/common@master/hexo/fonts/foundertype/fwzcN.OTF");
+  font-family: 'FZFWZhuZiAYuan';
+  src: url("/blog/assets/fonts/FZFWZhuZiAYuanJD.OTF");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'sxls';
-  src: url("https://cdn.jsdelivr.net/gh/inkss/common@master/hexo/fonts/foundertype/sxls.OTF");
+  src: url("/blog/assets/fonts/sxls.OTF");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -1511,7 +1511,7 @@ p.p.logo {
 }
 span.p.code,
 p.p.code {
-  font-family: SFMono-Regular, Consolas, fwzc, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
+  font-family: SFMono-Regular, Consolas, FZFWZhuZiAYuan, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
 }
 span.p.left,
 p.p.left {
@@ -1944,7 +1944,7 @@ pre {
   display: block;
   background: var(--color-block);
   font-size: 1rem;
-  font-family: SFMono-Regular, Consolas, fwzc, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
+  font-family: SFMono-Regular, Consolas, FZFWZhuZiAYuan, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
   border-radius: 4px;
   line-height: 1.5;
   -webkit-font-smoothing: auto;
@@ -2298,7 +2298,7 @@ pre {
   color: #e24f5a;
 }
 .article mjx-container {
-  font-family: SFMono-Regular, Consolas, fwzc, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
+  font-family: SFMono-Regular, Consolas, FZFWZhuZiAYuan, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
   padding: 16px 8px;
   border-radius: 4px;
   min-width: 0 !important;
@@ -2470,7 +2470,7 @@ div.fancybox .image-caption:empty {
   max-width: 500px;
   border-radius: 4px;
   color: var(--color-text);
-  font-family: fwzc, -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, Menlo, Monaco, monospace, sans-serif;
+  font-family: FZFWZhuZiAYuan, -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, Menlo, Monaco, monospace, sans-serif;
 }
 .aplayer .aplayer-list {
   text-align: left;
@@ -2496,7 +2496,7 @@ div.fancybox .image-caption:empty {
   -webkit-user-select: none;
   user-select: none;
   -webkit-appearance: none;
-  font-family: Menlo, SFMono-Regular, Consolas, fwzc, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
+  font-family: Menlo, SFMono-Regular, Consolas, FZFWZhuZiAYuan, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
   font-size: 11px;
   font-weight: bold;
   padding: 4px 8px;
@@ -3207,7 +3207,7 @@ article#tag .all-tags ul li span:before {
   overflow: auto;
   background: var(--color-codeblock);
   font-size: 1rem;
-  font-family: SFMono-Regular, Consolas, fwzc, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
+  font-family: SFMono-Regular, Consolas, FZFWZhuZiAYuan, "Liberation Mono", Menlo, Courier, monospace, courier, sans-serif;
   border: 1px solid #ffebcb;
   padding: 16px;
   border-radius: 4px;
@@ -3225,7 +3225,7 @@ article#tag .all-tags ul li span:before {
   color: rgba(68,68,68,0.9);
 }
 .article code {
-  font-family: fwzc, -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, Menlo, Monaco, monospace, sans-serif;
+  font-family: FZFWZhuZiAYuan, -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, Menlo, Monaco, monospace, sans-serif;
 }
 .article code:not([class]) {
   word-break: break-all;
