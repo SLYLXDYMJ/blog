@@ -1849,7 +1849,7 @@ pre {
   border-radius: 2px;
 }
 .hljs::-webkit-scrollbar-thumb:hover {
-  background: #ff5722;
+  background: #23a386;
 }
 .hljs:before {
   position: absolute;
@@ -2881,6 +2881,171 @@ a.result.search-result-fix,
 .c-message--close a,
 .c-message a {
   cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN1wAADdcBQiibeAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAPRSURBVFiF7ZZNa11VFIafd59z7kebD/NVQhtIKS21VYsS6MiUSNsEaxWLpIIgCIL+CcF26k9woELRlGQgtNbixAYshmKDipIOTEOpVWraJDdfvefee85eDm4iTUggN00m0jXaB9Y++9nv2vvdS2bG43Ee3I8XyJdTIiAefo+SwcqkLQw9DvDKMGHuPh0Vx4vO0+6N22HK7w1ZJgf7SbcDIFzx9YDWBN7H87rBDjmmUsdXc/AlML0dAG55IKHA0wC8LNgjmJHRKegupTRIaFsBAAKPA/KIeS9+MFgwT0M2WKXUFsZaPzaMRFAAUgnnK9uze1ilwH8AYOZITcig3kfs7b5A+9khMmJrYVYoUAYCMFXJUjNC4JDznMsEXJ81rvQOMHksZfbRIR6OdpE86RVdr7beUooSD03kzNjjxDvecxKxkAkYyY7z9fFxpvuMYnaOqcsfUNwMjMD03CBR8wKNUR0vOM8nZuQwPgJ2S2RNSMabwG4gh0gxJkyYPOMOLjaGjAz2U6xZgVe/JRPP8azL0aeUYwYdgnGJexXjejbAW0hoFW74hL04Dss4A+yTkSL2eyNcrHBb4q5ZbSqEySwtzngXOI0QnjHgknLcHT7DlFXPhPqHKNw1fqsL+FnGnFKcF7EZHzrHkWJKa/8g96A2xwxDka/AQSAj4/NEXKWOO21FZpZramD0U5aodN3kj10TfEYMPk+HE2+Z0eg8OyZmcDUDeIdIiICiAn7JlLj13WkW10pekrdCFw8kdPwiTeYpS6CQYF9T7VfUlUpgwiO8h3I53fgOXIrJVfMFwcL9TQC4CJOqUvvKmsa0/uQIwy8Bi6BYvxmAtGq9CJzIzLduHCIp4kzVfBM+P1+7DzgiEqs+tc5Ee31CZiMTe64RuAwNTjRjJImnUJyuvWdwLiYW3JHhcLyULdH5xjfs0Pm1lRDo1FWy7h86DboxGhF/ZQMKw+dqBwinmlh4ZpFRjD4ZJ1Jw5UWunDzA2IkB5tI8pfqQMn9DspOwN6DRO/YLXsPoNRGb+L6UUKjVhADC0VHiU4e5WU4YQLwN9HjjKAG3MCaimD+LYpI6UhwtEke856igRVDwxpU04VJblplaF4elnvDsEMFsTEsS8rwTvQbdQKOseqolbNkRDQLgEXDDhVy2hF8r7Uxe6yHZNABUa9vzBdkoR7M3Ok0cdNApo8NEmwlzxqx57uD4yVUYm89xf6Sf+EmeZK1uywXq+pRw107yqSdHRNZ7IgAiEhcTz+eYHxmjZB/jN7vwugBrJi01pJs5ZFsCsJ1Rk/U+BXgK8L8E+BehbK1QiZJKywAAAABJRU5ErkJggg=="), pointer !important;
+}
+div#rightmenu-wrapper {
+  display: none;
+  position: fixed;
+  z-index: 9000;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+ul.list-v.rightmenu {
+  display: block;
+  max-width: 240px;
+  overflow: hidden;
+}
+ul.list-v.rightmenu.left {
+  right: 0;
+}
+ul.list-v.rightmenu.top {
+  bottom: 0;
+}
+ul.list-v.rightmenu a {
+  cursor: default;
+}
+ul.list-v.rightmenu a.vlts-menu {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 32px;
+}
+ul.list-v.rightmenu >li>span {
+  transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v.rightmenu >li>span {
+    line-height: 40px;
+  }
+}
+ul.list-v.rightmenu >li>span >i {
+  margin-right: 8px;
+}
+ul.list-v.rightmenu >li>span:active,
+ul.list-v.rightmenu >li>span.active {
+  color: var(--color-list-hl);
+}
+ul.list-v.rightmenu >li>span:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+ul.list-v.rightmenu li.navigation,
+ul.list-v.rightmenu li.music {
+  display: flex;
+  justify-content: space-between;
+}
+ul.list-v.rightmenu li.navigation a.icon-only,
+ul.list-v.rightmenu li.music a.icon-only {
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+  border-radius: 32px;
+  overflow: hidden;
+  width: 32px;
+  height: 32px;
+}
+ul.list-v.rightmenu li.navigation a.nav i,
+ul.list-v.rightmenu li.music a.nav i {
+  margin: 0;
+  width: 32px;
+  line-height: 32px;
+}
+ul.list-v.rightmenu li.navigation a.nav:first-child,
+ul.list-v.rightmenu li.music a.nav:first-child {
+  margin-left: 10px;
+}
+ul.list-v.rightmenu li.navigation a.nav:last-child,
+ul.list-v.rightmenu li.music a.nav:last-child {
+  margin-right: 10px;
+}
+ul.list-v.rightmenu li.music.name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+ul.list-v.rightmenu li.music.name p.nav.music-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  max-width: 128px;
+  margin: 0 20px;
+  overflow: hidden;
+  font-family: 'sxls';
+}
+ul.list-v.rightmenu li.music.name p.nav.music-title:hover {
+  background: none;
+}
+ul.list-v.rightmenu li.music a.nav.volume {
+  width: 100%;
+  padding: 0 8px;
+}
+ul.list-v.rightmenu li.music a.nav.volume:hover {
+  background: transparent;
+}
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar {
+  margin: 4px 0 8px;
+  position: relative;
+  height: 8px;
+  width: 100%;
+  background: #ededed;
+  border-radius: 32px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+}
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar i.left,
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar i.right {
+  color: #696969;
+  position: absolute;
+  top: 0;
+  width: 28px;
+  line-height: 28px;
+  transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  opacity: 0;
+  transform: scale(0.5) translateY(-18px);
+}
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar i.left {
+  left: 0;
+}
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar i.right {
+  right: 0;
+}
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar:hover {
+  height: 28px;
+}
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar:hover i {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+ul.list-v.rightmenu li.music a.nav.volume .aplayer-volume-bar .aplayer-volume {
+  background: #44d7b6;
+  height: 100%;
+  width: 100%;
 }
 article#arc,
 article#cat,
@@ -4578,7 +4743,7 @@ img.lazyload:not(.placeholder).loaded {
   border-radius: 2px;
 }
 #l_side .widget >.content::-webkit-scrollbar-thumb:hover {
-  background: #ff5722;
+  background: #23a386;
 }
 .widget {
   z-index: 0;

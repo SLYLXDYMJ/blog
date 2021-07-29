@@ -120,7 +120,7 @@ html >::-webkit-scrollbar-thumb {
   border-radius: 2px;
 }
 html >::-webkit-scrollbar-thumb:hover {
-  background: #ff5722;
+  background: #23a386;
 }
 body {
   background-color: var(--color-site-body);
@@ -861,7 +861,7 @@ th {
     border-radius: 0;
   }
   .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb:hover {
-    background: #ff5722;
+    background: #23a386;
   }
 }
 @supports (backdrop-filter: blur(20px)) {
@@ -1829,7 +1829,7 @@ ul.list-v >li>a:hover {
   border-radius: 2px;
 }
 #u-search .modal-body::-webkit-scrollbar-thumb:hover {
-  background: #ff5722;
+  background: #23a386;
 }
 #u-search .modal-body .modal-results {
   list-style: none;
