@@ -2951,13 +2951,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：3.3k 字</p>
+      <p>字数：3.4k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：15 分钟</p>
+      <p>时长：16 分钟</p>
     </a>
   </div>
 
@@ -3489,7 +3489,12 @@ export class MyComp &#123;
     // 默认用 &quot;订阅(subscribe)&quot; 的方式处理异步(真心用不惯...)
     // 可以使用 toPromise 方法转为 Promise 方式处理
     this.http.get().toPromise()
-      .then()
+      .then(res =&gt; &#123;
+        // 想要获得真正的 json 数据对象，需要使用 json 方法，将数据 &quot;转一下&quot;
+        // PS: res 中 _body 是请求响应的字符串，使用 JSON.parse 也可以正常获取。
+        console.log(res.json())
+        console.log(JSON.parse(res._body))
+      &#125;)
       .catch()
   &#125;
 &#125;
@@ -3588,7 +3593,7 @@ export class MyClass&#123;
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-29T03:41:06+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-29T06:08:06+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年7月29日</p>
