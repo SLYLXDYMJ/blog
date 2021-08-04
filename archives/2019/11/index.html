@@ -2974,26 +2974,13 @@ article > p {
     
     <h2 class="article-title" >
       <a href="/blog/posts/23541/">
-        集合-小程序开发
+        🧑🏻‍ 学习 - 小程序开发
       </a>
     </h2>
   
   <div class='md'>
     
-      
-        
-记载着小程序的开发心得
-
-框架的选择
-若原生撸请忽略，但并不推荐原生的开发体验较为差劲，解决方案少现在是 2020.1.3，个人推荐 uni-app 这个框架真心强大！
-
-uni-app
-https://github.com/dcloudio/uni-app非常推荐体验：完全的 vue 开发体验，支持所有 vue 语法，支持跨端，社区完善，并拥有插件平台
-
-碰到的问题…
-
-使用 &#108...
-      
+      <p>记载着小程序的开发心得</p>
     
   </div>
   
@@ -3003,7 +2990,7 @@ https://github.com/dcloudio/uni-app非常推荐体验：完全的 vue 开发体�
         <time>2019-11-12</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E9%9B%86%E5%90%88/">集合</a>
+          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
         
       </div>
       
@@ -3254,178 +3241,6 @@ Github
   
     
     <h2 class="article-title" >
-      <a href="/blog/posts/63236/">
-        经验-移动端文字垂直居中的影响因素
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-移动端开发时经常会碰到文字居上的问题经过测试发现，主要是使用了独特的 font-family 引起的
-
-移动端最佳 font-family 设置body &#123;
-  font-family: 
-    -apple-system, BlinkMacSystemFont,
-    &quot;PingFang SC&quot;, &quot;Helvetica Neue&quot;,
-...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2019-11-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E7%BB%8F%E9%AA%8C/">经验</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/63236/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/63236/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/22884/">
-        经验-window.opener
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-项目中经常存在着需要跳转网页然后再跳转回来的需求比如说 oauth 登陆，微信支付宝等第三方登陆等若采用通常的链接跳转，会失去当前页面的所有逻辑回调跳转回来时页面也会重新加载用户体验极差，代码逻辑也失去了连贯性
-
-
-终于有一天。。我发现了 window.opener…..
-
-window.open
-该方法将打开一个新的网页标签注意：若用户未交互，游览器会阻止该方法的执行（游览器会认为不是用...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2019-11-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E7%BB%8F%E9%AA%8C/">经验</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/22884/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/22884/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/25092/">
-        经验-vh单位的可信度
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-vw, vh 都是自适应页面的利器vw 表现良好，vh 在 pc 端网页表现良好，但是在手机下 不！可！信！
-
-问题
-手机游览器的 100vh 总会高出一截经过查阅，好像是算上了地址栏的高度，并且不准备修复，被认为是正常的。
-
-测试代码&lt;div id=&quot;test&quot; style=&quot;height: 100vh&quot;&gt;&lt;div&gt;
-
-al...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2019-11-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E7%BB%8F%E9%AA%8C/">经验</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/25092/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/25092/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
       <a href="/blog/posts/26243/">
         🦵 酷库 - 低版本IE辅助库
       </a>
@@ -3452,6 +3267,150 @@ al...
             <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
           </a> -->
           <a class="link-fx-1 color-contrast-higher" href="/blog/posts/26243/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/61371/">
+        💵 生活 - 工资算法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>前是 2019.10.03，本文记载着我对工资算法公式的理解，五险一金税款等具体比例可能会隔几年一调整，想要精确百度下即可</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2019-11-08</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E7%94%9F%E6%B4%BB/">生活</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/61371/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/61371/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/20528/">
+        🤺 问题 - 伪类选择器 hover 移动端的表现
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>用 hover 实现模拟 select，移入显示 option，移出隐藏 option，<br>在做移动端适配时，在 safari 游览器中发现了 bug，<br>做这种效果移动端还是尽量用 JS 绑定 class 的方式实现吧。🙃</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2019-11-08</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E9%97%AE%E9%A2%98/">问题</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/20528/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/20528/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/7263/">
+        🤔 问题 - 到底是谁的滚动条
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>网页中默认的滚动条到底是哪个元素的？ body？html？😵</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2019-11-08</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E9%97%AE%E9%A2%98/">问题</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/7263/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/7263/">
             <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
             <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
           </a>
@@ -3531,7 +3490,7 @@ al...
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>55 篇</div>
+          <div>52 篇</div>
         </div>
       
 
@@ -3553,7 +3512,7 @@ al...
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>26.5k </div>
+          <div>25.8k </div>
         </div>
       
 
@@ -3565,7 +3524,7 @@ al...
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Wed Aug 04 2021 07:24:59 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update" style="display: none;">Wed Aug 04 2021 09:25:27 GMT+0000 (Coordinated Universal Time)</div>
             <div id="last-update-show">2021-08-04 日</div>
           
         </div>
@@ -3652,7 +3611,7 @@ al...
           <li><a class="flat-box"
             title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
             id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(12)</div></a></li>
+            ><div class='name'>学习</div><div class='badge'>(16)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E5%B7%A5%E5%85%B7/" href="/blog/categories/%E5%B7%A5%E5%85%B7/"
@@ -3670,11 +3629,6 @@ al...
             ><div class='name'>破解</div><div class='badge'>(1)</div></a></li>
         
           <li><a class="flat-box"
-            title="/blog/categories/%E7%BB%8F%E9%AA%8C/" href="/blog/categories/%E7%BB%8F%E9%AA%8C/"
-            id="blogcategoriesE7BB8FE9AA8C"
-            ><div class='name'>经验</div><div class='badge'>(6)</div></a></li>
-        
-          <li><a class="flat-box"
             title="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/" href="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/"
             id="blogcategoriesE8A786E9A291E78987E6AEB5"
             ><div class='name'>视频片段</div><div class='badge'>(1)</div></a></li>
@@ -3688,11 +3642,6 @@ al...
             title="/blog/categories/%E9%97%AE%E9%A2%98/" href="/blog/categories/%E9%97%AE%E9%A2%98/"
             id="blogcategoriesE997AEE9A298"
             ><div class='name'>问题</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E9%9B%86%E5%90%88/" href="/blog/categories/%E9%9B%86%E5%90%88/"
-            id="blogcategoriesE99B86E59088"
-            ><div class='name'>集合</div><div class='badge'>(1)</div></a></li>
         
       </ul>
     </div>

@@ -26,11 +26,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>经验-移动端适配心得 - JASON BLOG</title>
+  <title>📱 学习 - 移动端适配心得 - JASON BLOG</title>
   
-    <meta name="keywords" content="用户体验">
+    <meta name="keywords" content="用户体验,移动端适配">
   
 
+  
+    <meta name="description" content="本文主要讨论移动端开发的页面适配技巧">
   
 
   <!-- feed -->
@@ -2896,7 +2898,7 @@ article > p {
     
     
       <h1 class="title">
-        经验-移动端适配心得
+        📱 学习 - 移动端适配心得
       </h1>
       <div class='new-meta-box'>
         
@@ -2937,9 +2939,9 @@ article > p {
   
   
   
-  <blockquote>
-<p>本文主要讨论移动端开发的页面适配技巧</p>
-</blockquote>
+  <p>本文主要讨论移动端开发的页面适配技巧</p>
+<span id="more"></span>
+
 <h2 id="为何要适配？"><a href="#为何要适配？" class="headerlink" title="为何要适配？"></a>为何要适配？</h2><blockquote>
 <p>各个手机的屏幕大小不同，若用 px 单位，则会在各个屏幕下显示相同尺寸<br>往往会偏大或偏小，效果差劲，原因是因为没有等比例缩放(没有用相对单位)<br>相对单位有 vw，em，rem，% 等<br>保证其在不同屏幕尺寸下，按照一定的尺寸标准，等比例缩放，实现自动适配</p>
 </blockquote>
@@ -2961,9 +2963,7 @@ article > p {
 <h2 id="开发体验"><a href="#开发体验" class="headerlink" title="开发体验"></a>开发体验</h2><blockquote>
 <p>不论是 vw 还是 rem 自己算是很麻烦的… 0.2497rem … 2.645514vw …<br>最好的开发体验是设计图多少就在项目中写多少<br>然后通过预处理语言自动转化为 vw 或 rem 单位</p>
 </blockquote>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><blockquote>
-</blockquote>
-<h3 id="vw"><a href="#vw" class="headerlink" title="vw"></a>vw</h3><blockquote>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="vw"><a href="#vw" class="headerlink" title="vw"></a>vw</h3><blockquote>
 <p>在项目中写设计图上的 px 单位<br>通过 postcss-px-to-viewport 预处理转为 vw单位<br>通过 viewport-units-buggyfill 在客户端照顾兼容性</p>
 </blockquote>
 <ul>
@@ -3033,7 +3033,7 @@ article > p {
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fad fa-folder-open EMERALD fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/blog/categories/%E7%BB%8F%E9%AA%8C/">经验</a>
+      <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
     </a>
   </div>
 
@@ -3043,13 +3043,13 @@ article > p {
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>用户体验</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>用户体验</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>移动端适配</p></a></div>
 
 
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-04T07:24:41+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-04T09:25:09+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年8月4日</p>
@@ -3079,12 +3079,14 @@ article > p {
     <div class="prev-next">
       
         <a class='prev' href='/blog/posts/2354/'>
-          <p class='title'><i class="fad fa-chevron-left" aria-hidden="true"></i>酷库-echarts</p>
-          <p class='content'>
-echarts 是非常强大、知名的图表库https://www.echartsjs.com/zh/index.html
+          <p class='title'><i class="fad fa-chevron-left" aria-hidden="true"></i>📊 酷库 - echarts</p>
+          <p class='content'>有图表相关的需求，就用 echarts 吧。
+
+
+官网https://www.echartsjs.com/zh/index.html
 
 官方文档阅读心得
-此库文档非常大…一开始阅读总不知道从哪里下手个人总结...</p>
+此库文档非常大…一开始阅读总不知道从哪里...</p>
         </a>
       
       
@@ -3180,7 +3182,7 @@ this.emit 方法
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="经验-移动端适配心得";
+  pdata.postTitle="📱 学习 - 移动端适配心得";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
