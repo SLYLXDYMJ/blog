@@ -26,11 +26,11 @@
 
   <!-- 页面元数据 -->
   
-  <title>经验-手动赋值inputEl.value并触发事件 - JASON BLOG</title>
-  
-    <meta name="keywords" content="input">
+  <title>📢 学习 - 手动赋值表单控件并触发原生事件 - JASON BLOG</title>
   
 
+  
+    <meta name="description" content="直接通过 JS 修改 input 等原生 HTML 标签的值，是不会触发原生事件的，需要再使用 JS 发出事件通知。">
   
 
   <!-- feed -->
@@ -2896,7 +2896,7 @@ article > p {
     
     
       <h1 class="title">
-        经验-手动赋值inputEl.value并触发事件
+        📢 学习 - 手动赋值表单控件并触发原生事件
       </h1>
       <div class='new-meta-box'>
         
@@ -2916,7 +2916,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：68 字</p>
+      <p>字数：79 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2937,10 +2937,16 @@ article > p {
   
   
   
-  <blockquote>
-<p>手动赋值 input.value 是项目中常见的场景<br>但是直接赋值的话不会触发 input 事件，导致现实场景中逻辑异常<br>需要手动触发事件</p>
-</blockquote>
-<pre><code class="javascript">let customEvent = document.createEvent(&#39;UIEvents&#39;)
+  <p>直接通过 JS 修改 input 等原生 HTML 标签的值，是不会触发原生事件的，<br>需要再使用 JS 发出事件通知。</p>
+<span id="more"></span>
+
+<pre><code class="javascript">let inputEl = document.getElementById(&#39;input&#39;)
+let customEvent = document.createEvent(&#39;UIEvents&#39;)
+
+// 修改值
+inputEl.value = &#39;new value&#39;
+
+// 发出事件通知
 customEvent.initUIEvent(&#39;input&#39;, true, true, window, 1)
 inputEl.dispatchEvent(customEvent)
 </code></pre>
@@ -2967,7 +2973,7 @@ inputEl.dispatchEvent(customEvent)
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fad fa-folder-open EMERALD fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/blog/categories/%E7%BB%8F%E9%AA%8C/">经验</a>
+      <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
     </a>
   </div>
 
@@ -2976,17 +2982,14 @@ inputEl.dispatchEvent(customEvent)
       
         
           
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/input/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>input</p></a></div>
-
 
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-07-30T09:45:52+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-04T03:22:10+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年7月30日</p>
+    <p>更新于：2021年8月4日</p>
   </a>
 </div>
 
@@ -3012,13 +3015,16 @@ inputEl.dispatchEvent(customEvent)
   
     <div class="prev-next">
       
-        <a class='prev' href='/blog/posts/25648/'>
-          <p class='title'><i class="fad fa-chevron-left" aria-hidden="true"></i>酷库-移动端调试</p>
-          <p class='content'>
-开发中调试是必不可免的pc端可以直接通过游览器 F12 控制台调试移动端通常没有方便的调试手段这里记录一个非常好用的调试库
+        <a class='prev' href='/blog/posts/17805/'>
+          <p class='title'><i class="fad fa-chevron-left" aria-hidden="true"></i>❌ 问题 - node-sass 安装失败</p>
+          <p class='content'>node-sass 经常安装失败，搞的开发体验极差 😡😡😡
 
-eruda
-移动端调试工具（js库），比 vconsole 更好用...</p>
+
+# 若 npm 速度慢建议换源
+npm i -g nrm
+nrm use taobao
+
+npm install -g no...</p>
         </a>
       
       
@@ -3097,7 +3103,7 @@ coordtransform
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="经验-手动赋值inputEl.value并触发事件";
+  pdata.postTitle="📢 学习 - 手动赋值表单控件并触发原生事件";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs

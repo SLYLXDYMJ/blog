@@ -2901,77 +2901,14 @@ article > p {
   
     
     <h2 class="article-title" >
-      <a href="/blog/posts/25648/">
-        酷库-移动端调试
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        
-开发中调试是必不可免的pc端可以直接通过游览器 F12 控制台调试移动端通常没有方便的调试手段这里记录一个非常好用的调试库
-
-eruda
-移动端调试工具（js库），比 vconsole 更好用https://eruda.liriliri.io/https://github.com/liriliri/erudahttps://www.npmjs.com/package/eruda
-
-erud...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2020-01-30</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E9%85%B7%E5%BA%93/">酷库</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/25648/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/25648/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
       <a href="/blog/posts/63099/">
-        经验-手动赋值inputEl.value并触发事件
+        📢 学习 - 手动赋值表单控件并触发原生事件
       </a>
     </h2>
   
   <div class='md'>
     
-      
-        
-手动赋值 input.value 是项目中常见的场景但是直接赋值的话不会触发 input 事件，导致现实场景中逻辑异常需要手动触发事件
-
-let customEvent = document.createEvent(&#39;UIEvents&#39;)
-customEvent.initUIEvent(&#39;input&#39;, true, true, window, 1)
-inpu...
-      
+      <p>直接通过 JS 修改 input 等原生 HTML 标签的值，是不会触发原生事件的，<br>需要再使用 JS 发出事件通知。</p>
     
   </div>
   
@@ -2981,7 +2918,7 @@ inpu...
         <time>2020-01-17</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E7%BB%8F%E9%AA%8C/">经验</a>
+          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
         
       </div>
       
@@ -3117,7 +3054,7 @@ inpu...
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>55 篇</div>
+          <div>54 篇</div>
         </div>
       
 
@@ -3139,7 +3076,7 @@ inpu...
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>26.5k </div>
+          <div>26.4k </div>
         </div>
       
 
@@ -3151,8 +3088,8 @@ inpu...
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Fri Jul 30 2021 09:46:10 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-07-30 日</div>
+            <div id="last-update" style="display: none;">Wed Aug 04 2021 03:22:28 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2021-08-04 日</div>
           
         </div>
         
@@ -3202,7 +3139,7 @@ inpu...
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-07-30 日';
+            document.getElementById('last-update-show').innerHTML = '2021-08-04 日';
           }
         </script>
         
@@ -3238,7 +3175,7 @@ inpu...
           <li><a class="flat-box"
             title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
             id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(10)</div></a></li>
+            ><div class='name'>学习</div><div class='badge'>(12)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E5%B7%A5%E5%85%B7/" href="/blog/categories/%E5%B7%A5%E5%85%B7/"
@@ -3248,7 +3185,7 @@ inpu...
           <li><a class="flat-box"
             title="/blog/categories/%E7%94%9F%E6%B4%BB/" href="/blog/categories/%E7%94%9F%E6%B4%BB/"
             id="blogcategoriesE7949FE6B4BB"
-            ><div class='name'>生活</div><div class='badge'>(3)</div></a></li>
+            ><div class='name'>生活</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E7%A0%B4%E8%A7%A3/" href="/blog/categories/%E7%A0%B4%E8%A7%A3/"
@@ -3258,12 +3195,7 @@ inpu...
           <li><a class="flat-box"
             title="/blog/categories/%E7%BB%8F%E9%AA%8C/" href="/blog/categories/%E7%BB%8F%E9%AA%8C/"
             id="blogcategoriesE7BB8FE9AA8C"
-            ><div class='name'>经验</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E8%81%8C%E5%9C%BA/" href="/blog/categories/%E8%81%8C%E5%9C%BA/"
-            id="blogcategoriesE8818CE59CBA"
-            ><div class='name'>职场</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>经验</div><div class='badge'>(6)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/" href="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/"
@@ -3273,7 +3205,7 @@ inpu...
           <li><a class="flat-box"
             title="/blog/categories/%E9%85%B7%E5%BA%93/" href="/blog/categories/%E9%85%B7%E5%BA%93/"
             id="blogcategoriesE985B7E5BA93"
-            ><div class='name'>酷库</div><div class='badge'>(23)</div></a></li>
+            ><div class='name'>酷库</div><div class='badge'>(22)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E9%97%AE%E9%A2%98/" href="/blog/categories/%E9%97%AE%E9%A2%98/"
