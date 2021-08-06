@@ -31,14 +31,14 @@ $(function () {
   
   // 监听输入，作为日记首页的入口
   let record = ''
-  document.addEventListener('keydown', function (e) {
-    record += e.key
+  $(document).on('keydown input', Debounce(function (e) {
+    record += e.key || e.target.value
     
     if (record.indexOf('woyaokanriji') !== -1) {
       window.alert('口令正确，跳转到日记入口')
       window.location.href = window.location.origin + '/blog/diaries'
     }
-  })
+  }))
 })
 
 /*锚点定位*/
