@@ -39,7 +39,10 @@ $(function () {
     
     // console.log(record)
     
-    if (record.indexOf('woyaokanriji') !== -1) {
+    if (
+      record.indexOf('woyaokanriji') !== -1 ||
+      record.indexOf('我要看日记') !== -1
+    ) {
       window.alert('口令正确，跳转到日记入口')
       window.location.href = window.location.origin + '/blog/diaries'
     }
