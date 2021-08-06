@@ -31,14 +31,19 @@ $(function () {
   
   // 监听输入，作为日记首页的入口
   let record = ''
-  $(document).on('keydown input', Debounce(function (e) {
+  let isPhone = (navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))
+  let isPc = !isPhone
+  
+  $(document).on(isPhone ? 'input' : 'keydown', function (e) {
     record += e.key || e.target.value
     
-    if (record.indexOf('woyaokanriji') !== -1) {
+    // console.log(record)
+    
+    if (record.indexOf('baochilianghaoxintai') !== -1) {
       window.alert('口令正确，跳转到日记入口')
       window.location.href = window.location.origin + '/blog/diaries'
     }
-  }))
+  })
 })
 
 /*锚点定位*/
