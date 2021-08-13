@@ -26,12 +26,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>moment - 时长 - JASON BLOG</title>
+  <title>🧐 逻辑 - 递归函数 - JASON BLOG</title>
+  
+    <meta name="keywords" content="递归">
   
 
   
-    <meta name="description" content="用来表示一段时间，而不是具体的日期时间点，时长没有定义的开始和结束日期。 它们是无上下文的。
-通常用来实现计时功能（正计时、倒计时）">
+    <meta name="description" content="工作用用到了递归函数，写起来感觉奇奇怪怪的，这里总结一下逻辑。">
   
 
   <!-- feed -->
@@ -2898,7 +2899,7 @@ article > p {
     
     
       <h1 class="title">
-        moment - 时长
+        🧐 逻辑 - 递归函数
       </h1>
       <div class='new-meta-box'>
         
@@ -2918,13 +2919,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：658 字</p>
+      <p>字数：277 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：3 分钟</p>
+      <p>时长：1 分钟</p>
     </a>
   </div>
 
@@ -2939,197 +2940,35 @@ article > p {
   
   
   
-  <p>用来表示一段时间，而不是具体的日期时间点，时长没有定义的开始和结束日期。 它们是无上下文的。</p>
-<p>通常用来实现计时功能（正计时、倒计时）</p>
+  <p>工作用用到了递归函数，写起来感觉奇奇怪怪的，这里总结一下逻辑。</p>
 <span id="more"></span>
 
-<h2 id="英文字典"><a href="#英文字典" class="headerlink" title="英文字典"></a>英文字典</h2><table>
-<thead>
-<tr>
-<th>键</th>
-<th>别名键</th>
-<th>简写键</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>year</td>
-<td>years</td>
-<td>y</td>
-</tr>
-<tr>
-<td>quarter</td>
-<td>quarters</td>
-<td>Q</td>
-</tr>
-<tr>
-<td>month</td>
-<td>months</td>
-<td>M</td>
-</tr>
-<tr>
-<td>week</td>
-<td>weeks</td>
-<td>w</td>
-</tr>
-<tr>
-<td>day</td>
-<td>days</td>
-<td>d</td>
-</tr>
-<tr>
-<td>hour</td>
-<td>hours</td>
-<td>h</td>
-</tr>
-<tr>
-<td>minute</td>
-<td>minutes</td>
-<td>m</td>
-</tr>
-<tr>
-<td>second</td>
-<td>seconds</td>
-<td>s</td>
-</tr>
-<tr>
-<td>millisecond</td>
-<td>milliseconds</td>
-<td>ms</td>
-</tr>
-</tbody></table>
-<h2 id="定义一个时长"><a href="#定义一个时长" class="headerlink" title="定义一个时长"></a>定义一个时长</h2><pre><code class="javascript">moment.duration(Number, String);
-moment.duration(Number);
-moment.duration(Object);
-moment.duration(String);
+<pre><code class="javascript">/**
+ *  递归函数：
+ *    1. 递归函数中需要有 &quot;跳出判断&quot;，当判断成立后，不会继续递归下去。
+ *    2. 若 &quot;跳出判断&quot; 不成立，则会继续递归。
+ *    3. 递归函数的参数，需要在递归函数中计算获取后传入。
+ *
+ *  PS：
+ *  不要老想着递归的深度运行结构，多用语言暗示自己，只编写第一层逻辑代码，逻辑会清晰的多。
+ *  就像下面代码，用语言说就是：
+ *    如果参数为 1，则返回 1 即可（跳出递归）
+ *    若参数不是 1，则返回参数本身加上 &quot;参数之前所有数值的总和&quot;
+ *    而 &quot;参数之前所有数值的总和&quot; 通过 sum 函数获取，参数为当前参数 - 1 获得而来。
+ **/
 
-moment.duration(100); // 100 毫秒
-
-moment.duration(&#39;23:59:59&#39;);
-moment.duration(&#39;23:59:59.999&#39;);
-
-moment.duration(2, &#39;seconds&#39;);
-moment.duration(2, &#39;minutes&#39;);
-moment.duration(2, &#39;hours&#39;);
-moment.duration(2, &#39;days&#39;);
-moment.duration(2, &#39;weeks&#39;);
-moment.duration(2, &#39;months&#39;);
-moment.duration(2, &#39;years&#39;);
-</code></pre>
-<h2 id="克隆时长"><a href="#克隆时长" class="headerlink" title="克隆时长"></a>克隆时长</h2><pre><code class="javascript">moment.duration().clone();
-</code></pre>
-<h2 id="增加时长"><a href="#增加时长" class="headerlink" title="增加时长"></a>增加时长</h2><pre><code class="javascript">moment.duration().add(Number, String);
-moment.duration().add(Number);
-moment.duration().add(Duration);
-moment.duration().add(Object);
-
-var a = moment.duration(1, &#39;d&#39;);
-var b = moment.duration(2, &#39;d&#39;);
-a.add(b).days(); // 3
-</code></pre>
-<h2 id="减少时长"><a href="#减少时长" class="headerlink" title="减少时长"></a>减少时长</h2><pre><code class="javascript">moment.duration().subtract(Number, String);
-moment.duration().subtract(Number);
-moment.duration().subtract(Duration);
-moment.duration().subtract(Object);
-
-var a = moment.duration(3, &#39;d&#39;);
-var b = moment.duration(2, &#39;d&#39;);
-a.subtract(b).days(); // 1
-</code></pre>
-<h2 id="获取总时长（as-方法）"><a href="#获取总时长（as-方法）" class="headerlink" title="获取总时长（as 方法）"></a>获取总时长（as 方法）</h2><pre><code class="javascript">moment.duration().as(String);
-moment.duration().as(String);
-
-moment.duration(1, &#39;hours&#39;).as(&#39;hours&#39;); // 1
-moment.duration(2, &#39;minutes&#39;).as(&#39;minutes&#39;); // 2
-moment.duration(3, &#39;seconds&#39;).as(&#39;seconds&#39;); // 3
-moment.duration(4, &#39;milliseconds&#39;).as(&#39;milliseconds&#39;); // 4
-</code></pre>
-<h2 id="获取总时长（毫秒）"><a href="#获取总时长（毫秒）" class="headerlink" title="获取总时长（毫秒）"></a>获取总时长（毫秒）</h2><pre><code class="javascript">moment.duration().asMilliseconds();
-
-moment.duration(500).asMilliseconds(); // 500
-moment.duration(1500).asMilliseconds(); // 1500
-moment.duration(15000).asMilliseconds(); // 15000
-</code></pre>
-<h2 id="获取总时长（秒）"><a href="#获取总时长（秒）" class="headerlink" title="获取总时长（秒）"></a>获取总时长（秒）</h2><pre><code class="javascript">moment.duration().asSeconds();
-
-moment.duration(500).asSeconds(); // 0.5
-moment.duration(1500).asSeconds(); // 1.5
-moment.duration(15000).asSeconds(); // 15
-</code></pre>
-<h2 id="获取总时长（分）"><a href="#获取总时长（分）" class="headerlink" title="获取总时长（分）"></a>获取总时长（分）</h2><pre><code class="javascript">moment.duration().asMinutes();
-</code></pre>
-<h2 id="获取总时长（小时）"><a href="#获取总时长（小时）" class="headerlink" title="获取总时长（小时）"></a>获取总时长（小时）</h2><pre><code class="javascript">moment.duration().asHours();
-</code></pre>
-<h2 id="获取总时长（天数）"><a href="#获取总时长（天数）" class="headerlink" title="获取总时长（天数）"></a>获取总时长（天数）</h2><pre><code class="javascript">moment.duration().asDays();
-</code></pre>
-<h2 id="获取总时长（第几个周）"><a href="#获取总时长（第几个周）" class="headerlink" title="获取总时长（第几个周）"></a>获取总时长（第几个周）</h2><pre><code class="javascript">moment.duration().asWeeks();
-</code></pre>
-<h2 id="获取总时长（月）"><a href="#获取总时长（月）" class="headerlink" title="获取总时长（月）"></a>获取总时长（月）</h2><pre><code class="javascript">moment.duration().asMonths();
-</code></pre>
-<h2 id="获取总时长（年）"><a href="#获取总时长（年）" class="headerlink" title="获取总时长（年）"></a>获取总时长（年）</h2><pre><code class="javascript">moment.duration().asYears();
-</code></pre>
-<h2 id="获取时长的某一单位（get-方法）"><a href="#获取时长的某一单位（get-方法）" class="headerlink" title="获取时长的某一单位（get 方法）"></a>获取时长的某一单位（get 方法）</h2><pre><code class="javascript">moment.duration().get(String);
-moment.duration().get(String);
-
-moment.duration(25, &#39;hours&#39;).get(&#39;hours&#39;); // 1
-moment.duration(62, &#39;minutes&#39;).get(&#39;minutes&#39;); // 2
-moment.duration(63, &#39;seconds&#39;).get(&#39;seconds&#39;); // 3
-moment.duration(1004, &#39;milliseconds&#39;).get(&#39;milliseconds&#39;); // 4
-</code></pre>
-<h2 id="获取时长的某一单位（毫秒）"><a href="#获取时长的某一单位（毫秒）" class="headerlink" title="获取时长的某一单位（毫秒）"></a>获取时长的某一单位（毫秒）</h2><blockquote>
-<p>0 ~ 999</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().milliseconds();
-
-moment.duration(500).milliseconds(); // 500
-moment.duration(1500).milliseconds(); // 500
-moment.duration(15000).milliseconds(); // 0
-</code></pre>
-<h2 id="获取时长的某一单位（秒）"><a href="#获取时长的某一单位（秒）" class="headerlink" title="获取时长的某一单位（秒）"></a>获取时长的某一单位（秒）</h2><blockquote>
-<p>0 ~ 59</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().seconds();
-
-moment.duration(500).seconds(); // 0
-moment.duration(1500).seconds(); // 1
-moment.duration(15000).seconds(); // 15
-</code></pre>
-<h2 id="获取时长的某一单位（分）"><a href="#获取时长的某一单位（分）" class="headerlink" title="获取时长的某一单位（分）"></a>获取时长的某一单位（分）</h2><blockquote>
-<p>0 ~ 59</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().minutes();
-</code></pre>
-<h2 id="获取时长的某一单位（小时）"><a href="#获取时长的某一单位（小时）" class="headerlink" title="获取时长的某一单位（小时）"></a>获取时长的某一单位（小时）</h2><blockquote>
-<p>0 ~ 23</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().hours();
-</code></pre>
-<h2 id="获取时长的某一单位（天数）"><a href="#获取时长的某一单位（天数）" class="headerlink" title="获取时长的某一单位（天数）"></a>获取时长的某一单位（天数）</h2><blockquote>
-<p>0 ~ 30</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().days();
-</code></pre>
-<h2 id="获取时长的某一单位（第几个周）"><a href="#获取时长的某一单位（第几个周）" class="headerlink" title="获取时长的某一单位（第几个周）"></a>获取时长的某一单位（第几个周）</h2><blockquote>
-<p>0 ~ 4</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().weeks();
-</code></pre>
-<h2 id="获取时长的某一单位（月）"><a href="#获取时长的某一单位（月）" class="headerlink" title="获取时长的某一单位（月）"></a>获取时长的某一单位（月）</h2><blockquote>
-<p>0 ~ 4</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().months();
-</code></pre>
-<h2 id="获取时长的某一单位（年）"><a href="#获取时长的某一单位（年）" class="headerlink" title="获取时长的某一单位（年）"></a>获取时长的某一单位（年）</h2><blockquote>
-<p>0 ~ 4</p>
-</blockquote>
-<pre><code class="javascript">moment.duration().years();
+// 这是一个只能传入 &gt;= 0 的函数
+// 将会返回 1 + 2 + 3 + 4 + ... + 参数 的总和
+function sum (num) &#123;
+  if (num === 1) &#123;
+    return 1
+  &#125;
+  else &#123;
+    return arguments.callee(num - 1) + num
+  &#125;
+&#125;
 </code></pre>
 
-  
-    <div class='div-ori-link'>
-      <a class='ori-link' target="_blank" rel="noopener" href='http://momentjs.cn/docs/#/durations/'>
-        去源站阅读
-      </a>
-    </div>
   
   
     
@@ -3154,6 +2993,9 @@ moment.duration(15000).seconds(); // 15
       
         
           
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E9%80%92%E5%BD%92/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>递归</p></a></div>
+
 
         
       
@@ -3171,7 +3013,7 @@ moment.duration(15000).seconds(); // 15
           <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fad fa-calendar-alt TURQUOISE fa-fw" aria-hidden="true"></i>
-    <p>发布于：2021年5月28日</p>
+    <p>发布于：2021年8月12日</p>
   </a>
 </div>
 
@@ -3184,6 +3026,23 @@ moment.duration(15000).seconds(); // 15
   
   
 
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/blog/posts/7847/'>
+          <p class='title'>🌎 游戏 - 边缘世界<i class="fad fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>一个需要学习的游戏…
+
+
+出生点以及家位置的选择
+靠近公路并且靠近中立派系，方便贸易交易。
+矿石最好只有 “花岗岩（最硬）” 和 “大理石（好看）”。
+别靠近水，地图上有水会影响布局。
+地热最好...</p>
+        </a>
+      
+    </div>
   
 </article>
 
@@ -3233,127 +3092,7 @@ moment.duration(15000).seconds(); // 15
     
     
 
-<section class="widget list shadow desktop mobile">
-  
-  <header>
-    
-      <i class="fad fa-list ASBESTOS fa-fw fa-fw" aria-hidden="true"></i><span class='name'>更好的 lodash 文档</span>
-    
-  </header>
 
-
-  <div class='content'>
-    <ul class="list entry navigation">
-      
-        <li><a class="flat-box" title="/blog/docs/moment/parsing" href="/blog/docs/moment/parsing"
-          
-          
-          id="blogdocsmomentparsing"
-          >
-          <div class='name'>
-            
-            包装
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/get-set" href="/blog/docs/moment/get-set"
-          
-          
-          id="blogdocsmomentget-set"
-          >
-          <div class='name'>
-            
-            获取和设置
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/manipulate" href="/blog/docs/moment/manipulate"
-          
-          
-          id="blogdocsmomentmanipulate"
-          >
-          <div class='name'>
-            
-            操作
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/contrast" href="/blog/docs/moment/contrast"
-          
-          
-          id="blogdocsmomentcontrast"
-          >
-          <div class='name'>
-            
-            对比
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/display" href="/blog/docs/moment/display"
-          
-          
-          id="blogdocsmomentdisplay"
-          >
-          <div class='name'>
-            
-            显示
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/transform" href="/blog/docs/moment/transform"
-          
-          
-          id="blogdocsmomenttransform"
-          >
-          <div class='name'>
-            
-            转换
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/duration" href="/blog/docs/moment/duration"
-          
-          
-          id="blogdocsmomentduration"
-          >
-          <div class='name'>
-            
-            时长（时长的所有文档都在这里）
-          </div>
-          
-        </a></li>
-      
-    </ul>
-  </div>
-</section>
-
-  
-
-  
-    
-    
-
-
-
-  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
-    
-  <header>
-    
-      <i class="fad fa-list ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
-    
-  </header>
-
-
-    <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8B%B1%E6%96%87%E5%AD%97%E5%85%B8"><span class="toc-text">英文字典</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E6%97%B6%E9%95%BF"><span class="toc-text">定义一个时长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%8B%E9%9A%86%E6%97%B6%E9%95%BF"><span class="toc-text">克隆时长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E6%97%B6%E9%95%BF"><span class="toc-text">增加时长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%8F%E5%B0%91%E6%97%B6%E9%95%BF"><span class="toc-text">减少时长</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88as-%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-text">获取总时长（as 方法）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E6%AF%AB%E7%A7%92%EF%BC%89"><span class="toc-text">获取总时长（毫秒）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E7%A7%92%EF%BC%89"><span class="toc-text">获取总时长（秒）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E5%88%86%EF%BC%89"><span class="toc-text">获取总时长（分）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E5%B0%8F%E6%97%B6%EF%BC%89"><span class="toc-text">获取总时长（小时）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E5%A4%A9%E6%95%B0%EF%BC%89"><span class="toc-text">获取总时长（天数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E7%AC%AC%E5%87%A0%E4%B8%AA%E5%91%A8%EF%BC%89"><span class="toc-text">获取总时长（第几个周）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E6%9C%88%EF%BC%89"><span class="toc-text">获取总时长（月）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%80%BB%E6%97%B6%E9%95%BF%EF%BC%88%E5%B9%B4%EF%BC%89"><span class="toc-text">获取总时长（年）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88get-%E6%96%B9%E6%B3%95%EF%BC%89"><span class="toc-text">获取时长的某一单位（get 方法）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E6%AF%AB%E7%A7%92%EF%BC%89"><span class="toc-text">获取时长的某一单位（毫秒）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E7%A7%92%EF%BC%89"><span class="toc-text">获取时长的某一单位（秒）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E5%88%86%EF%BC%89"><span class="toc-text">获取时长的某一单位（分）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E5%B0%8F%E6%97%B6%EF%BC%89"><span class="toc-text">获取时长的某一单位（小时）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E5%A4%A9%E6%95%B0%EF%BC%89"><span class="toc-text">获取时长的某一单位（天数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E7%AC%AC%E5%87%A0%E4%B8%AA%E5%91%A8%EF%BC%89"><span class="toc-text">获取时长的某一单位（第几个周）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E6%9C%88%EF%BC%89"><span class="toc-text">获取时长的某一单位（月）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E6%97%B6%E9%95%BF%E7%9A%84%E6%9F%90%E4%B8%80%E5%8D%95%E4%BD%8D%EF%BC%88%E5%B9%B4%EF%BC%89"><span class="toc-text">获取时长的某一单位（年）</span></a></li></ol>
-    </div>
-  </section>
 
 
   
@@ -3369,7 +3108,7 @@ moment.duration(15000).seconds(); // 15
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="moment - 时长";
+  pdata.postTitle="🧐 逻辑 - 递归函数";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
