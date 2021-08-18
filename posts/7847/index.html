@@ -2919,13 +2919,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：2.5k 字</p>
+      <p>字数：2.9k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：8 分钟</p>
+      <p>时长：9 分钟</p>
     </a>
   </div>
 
@@ -3250,10 +3250,23 @@ article > p {
 <li>大象</li>
 <li>羊驼</li>
 </ul>
-<h2 id="敌人进攻逻辑"><a href="#敌人进攻逻辑" class="headerlink" title="敌人进攻逻辑"></a>敌人进攻逻辑</h2><blockquote>
-<p>游戏中除了工兵和侵袭事件</p>
+<h2 id="进攻路径"><a href="#进攻路径" class="headerlink" title="进攻路径"></a>进攻路径</h2><blockquote>
+<p>不同的事件有不同的进攻路径。</p>
 </blockquote>
-<div class="img-wrap"><div class="img-bg"><img class="img" src="attacking-logic.png" alt="机枪围城"/></div><span class="image-caption">机枪围城</span></div>
+<h3 id="动物发狂路径"><a href="#动物发狂路径" class="headerlink" title="动物发狂路径"></a>动物发狂路径</h3><p>动物发狂后，只会攻击自身附近的人，否则就会闲逛。</p>
+<h3 id="普通敌人路径"><a href="#普通敌人路径" class="headerlink" title="普通敌人路径"></a>普通敌人路径</h3><p>敌人进入到地图后，会选择一个目标并靠近攻击，<br>顺序为：</p>
+<ol>
+<li>交火的人和防御塔</li>
+<li>没交火的人</li>
+<li>野外农田（放火）、野外建筑物（发电机等）</li>
+<li>开始砸墙砸门（貌似没规律）</li>
+</ol>
+<h3 id="工兵路径"><a href="#工兵路径" class="headerlink" title="工兵路径"></a>工兵路径</h3><p>敌人进入到地图后，会随机选择一个非防御塔非门非墙的建筑物（动物睡眠点也算），<br>然后计算最短的 “路径数量” 一路拆墙过去，反复循环，<br>值得注意的是墙后的机枪会增加 “路径数量”，并且多个机枪可以叠加，<br>导致工兵会走其他路径，”机枪围城” 可以引导工兵走上指定的路径从而保护墙体。</p>
+<h3 id="破墙路径"><a href="#破墙路径" class="headerlink" title="破墙路径"></a>破墙路径</h3><blockquote>
+<p>1.3 增加了 “破墙战略”，防止滥用 “打鸡阵”。</p>
+</blockquote>
+<p>敌人进入到地图后，会随机选择一个 “床”（百度查的），<br>然后计算最短的 “路径数量” 一路拆墙过去，反复循环，<br>普通的破墙袭击无视机枪所增加的 “路径数量”，会根据初始路径，一路拆过去。<br>聪明的破墙袭击还是会计算 “路径数量”，会像工兵一样绕开有机枪的墙。<br>破墙袭击破坏墙壁和门时，会破坏到 “至少有两个进入的格子” 时才会停止破坏，继续深入。<br>由于其特殊性，所有的阵地战应该都无法应对…只能野战。</p>
+
   
   
     
@@ -3292,7 +3305,7 @@ article > p {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-18T03:33:12+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-08-18T07:51:03+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年8月18日</p>
@@ -3399,7 +3412,7 @@ article > p {
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E7%94%9F%E7%82%B9%E4%BB%A5%E5%8F%8A%E5%AE%B6%E4%BD%8D%E7%BD%AE%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">出生点以及家位置的选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E4%BA%BA%E7%89%A9%E9%80%89%E6%8B%A9"><span class="toc-text">初始人物选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%83%BD%E5%9B%BE%E9%89%B4"><span class="toc-text">技能图鉴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E9%87%8D%E8%A6%81%E7%9A%84%E5%B0%8F%E4%BA%BA%E6%8A%80%E8%83%BD"><span class="toc-text">初始重要的小人技能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E6%AC%A1%E8%A6%81%E7%9A%84%E5%B0%8F%E4%BA%BA%E6%8A%80%E8%83%BD"><span class="toc-text">初始次要的小人技能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E4%B8%8D%E5%A4%AA%E9%87%8D%E8%A6%81%E7%9A%84%E5%B0%8F%E4%BA%BA%E6%8A%80%E8%83%BD"><span class="toc-text">初始不太重要的小人技能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%B0%8F%E4%BA%BA%E5%90%88%E7%90%86%E7%9A%84%E6%8A%80%E8%83%BD%E6%90%AD%E9%85%8D"><span class="toc-text">初始小人合理的技能搭配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%90%83%E9%A5%AD%E9%97%AE%E9%A2%98"><span class="toc-text">解决吃饭问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%90%A5%E5%85%BB%E5%80%BC"><span class="toc-text">营养值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%8D%E6%A4%8D%EF%BC%88%E7%B4%A0%E9%A3%9F%E6%9D%90%EF%BC%89"><span class="toc-text">种植（素食材）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%82%89%EF%BC%88%E8%82%89%E9%A3%9F%E6%9D%90%EF%BC%89"><span class="toc-text">肉（肉食材）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A0%E9%A3%9F%E7%89%A9%E3%80%81%E8%82%89%E9%A3%9F%E7%89%A9%E3%80%81%E7%B4%A0%E8%82%89%E6%B7%B7%E5%90%88%E9%A3%9F%E7%89%A9"><span class="toc-text">素食物、肉食物、素肉混合食物</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%BF%E5%B1%8B%E5%A4%A7%E5%85%A8%EF%BC%88%E5%BE%85%E7%A1%AE%E5%AE%9A%EF%BC%89"><span class="toc-text">房屋大全（待确定）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%BF%E5%B1%8B%E5%B8%83%E5%B1%80"><span class="toc-text">房屋布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%B0%8F%E5%B1%8B"><span class="toc-text">前期小屋</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%93%E5%BA%93"><span class="toc-text">仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%A7%E5%AE%A4"><span class="toc-text">卧室</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B7%E5%BA%93"><span class="toc-text">冷库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%A8%E6%88%BF"><span class="toc-text">厨房</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A4%90%E5%8E%85"><span class="toc-text">餐厅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B6%E9%80%A0%E9%97%B4"><span class="toc-text">制造间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BB%E9%99%A2"><span class="toc-text">医院</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E7%8B%B1"><span class="toc-text">监狱</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%89%A9"><span class="toc-text">动物</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%8C%E4%BA%BA%E8%BF%9B%E6%94%BB%E9%80%BB%E8%BE%91"><span class="toc-text">敌人进攻逻辑</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E7%94%9F%E7%82%B9%E4%BB%A5%E5%8F%8A%E5%AE%B6%E4%BD%8D%E7%BD%AE%E7%9A%84%E9%80%89%E6%8B%A9"><span class="toc-text">出生点以及家位置的选择</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E4%BA%BA%E7%89%A9%E9%80%89%E6%8B%A9"><span class="toc-text">初始人物选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%80%E8%83%BD%E5%9B%BE%E9%89%B4"><span class="toc-text">技能图鉴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E9%87%8D%E8%A6%81%E7%9A%84%E5%B0%8F%E4%BA%BA%E6%8A%80%E8%83%BD"><span class="toc-text">初始重要的小人技能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E6%AC%A1%E8%A6%81%E7%9A%84%E5%B0%8F%E4%BA%BA%E6%8A%80%E8%83%BD"><span class="toc-text">初始次要的小人技能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E4%B8%8D%E5%A4%AA%E9%87%8D%E8%A6%81%E7%9A%84%E5%B0%8F%E4%BA%BA%E6%8A%80%E8%83%BD"><span class="toc-text">初始不太重要的小人技能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%B0%8F%E4%BA%BA%E5%90%88%E7%90%86%E7%9A%84%E6%8A%80%E8%83%BD%E6%90%AD%E9%85%8D"><span class="toc-text">初始小人合理的技能搭配</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%90%83%E9%A5%AD%E9%97%AE%E9%A2%98"><span class="toc-text">解决吃饭问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%90%A5%E5%85%BB%E5%80%BC"><span class="toc-text">营养值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%8D%E6%A4%8D%EF%BC%88%E7%B4%A0%E9%A3%9F%E6%9D%90%EF%BC%89"><span class="toc-text">种植（素食材）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%82%89%EF%BC%88%E8%82%89%E9%A3%9F%E6%9D%90%EF%BC%89"><span class="toc-text">肉（肉食材）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B4%A0%E9%A3%9F%E7%89%A9%E3%80%81%E8%82%89%E9%A3%9F%E7%89%A9%E3%80%81%E7%B4%A0%E8%82%89%E6%B7%B7%E5%90%88%E9%A3%9F%E7%89%A9"><span class="toc-text">素食物、肉食物、素肉混合食物</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%BF%E5%B1%8B%E5%A4%A7%E5%85%A8%EF%BC%88%E5%BE%85%E7%A1%AE%E5%AE%9A%EF%BC%89"><span class="toc-text">房屋大全（待确定）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%BF%E5%B1%8B%E5%B8%83%E5%B1%80"><span class="toc-text">房屋布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%B0%8F%E5%B1%8B"><span class="toc-text">前期小屋</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%93%E5%BA%93"><span class="toc-text">仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%A7%E5%AE%A4"><span class="toc-text">卧室</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%B7%E5%BA%93"><span class="toc-text">冷库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%A8%E6%88%BF"><span class="toc-text">厨房</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A4%90%E5%8E%85"><span class="toc-text">餐厅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B6%E9%80%A0%E9%97%B4"><span class="toc-text">制造间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BB%E9%99%A2"><span class="toc-text">医院</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%91%E7%8B%B1"><span class="toc-text">监狱</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E7%89%A9"><span class="toc-text">动物</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E6%94%BB%E8%B7%AF%E5%BE%84"><span class="toc-text">进攻路径</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E7%89%A9%E5%8F%91%E7%8B%82%E8%B7%AF%E5%BE%84"><span class="toc-text">动物发狂路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E6%95%8C%E4%BA%BA%E8%B7%AF%E5%BE%84"><span class="toc-text">普通敌人路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E5%85%B5%E8%B7%AF%E5%BE%84"><span class="toc-text">工兵路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A0%B4%E5%A2%99%E8%B7%AF%E5%BE%84"><span class="toc-text">破墙路径</span></a></li></ol></li></ol>
     </div>
   </section>
 
