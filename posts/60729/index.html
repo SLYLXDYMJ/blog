@@ -10,8 +10,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -28,9 +26,12 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：typescript - JASON BLOG</title>
+  <title>🏚 日记 - 公租房 - JASON BLOG</title>
   
 
+  
+    <meta name="description" content="是一个有点头疼的事，2022 年安置房交房后，按照正常情况下，公租房应该就直接通知我们退房了，当然也没经历过，也不知道是不是交房后才能领钥匙，还是说交房后，继续住着，等着审核查到了，再通知，情况多变。
+租房对于我家来说，是一个非常麻烦的事情，爷爷行动也不方便，并且家人在伊春路也住惯了，！！！最好还是想办法继续住着...">
   
 
   <!-- feed -->
@@ -2809,7 +2810,7 @@ article > p {
   
     
       <!-- see: /layout/_partial/scripts/coverCtrl.ejs -->
-        <div id="none" class='cover-wrapper  search' style="display: none;">
+        <div id="none" class='cover-wrapper diary search' style="display: none;">
           
             <div class='cover-bg' style='background-image:url()'></div>
           
@@ -2887,80 +2888,9 @@ article > p {
 
 
 
-<div id="l_main" class=''>
-  
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/53768/">
-        👽 学习 - Ionic
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>吐槽：<br>谁没事用 angular 啊！各个版本跨度大，上网找文档都费劲 😡，<br>可是没办法，工作中需要，向生活低头 😔</p>
-<p>不过 ionic 这个框架还是不错的，现在可以用 vue 和 react 进行开发，组件样式也很好看，<br>但是不支持打包国内的小程序，跨端不如用 uni-app，更适合国人一些 😇</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2021-05-14</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/53768/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/53768/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
-
-
-    
-  
-</div>
-<aside id='l_side'>
+<div class="hidden" id="content">
+  <div id="l_main" class=''></div>
+  <aside id='l_side'>
   
   
     
@@ -2988,235 +2918,48 @@ article > p {
     
     
 
-<section class="widget shadow desktop">
-  
-  <header>
-    
-      <i class="fad fa-award ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
 
 
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>55 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2019/06/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>31.4k </div>
-        </div>
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Tue Aug 31 2021 07:20:45 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2021-08-31 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-08-31 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
-    
-  <header>
-    
-      <a href='/categories/'><i class="fad fa-folder-open CARROT fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E4%BC%98%E5%8C%96/" href="/blog/categories/%E4%BC%98%E5%8C%96/"
-            id="blogcategoriesE4BC98E58C96"
-            ><div class='name'>优化</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
-            id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(16)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E5%B7%A5%E5%85%B7/" href="/blog/categories/%E5%B7%A5%E5%85%B7/"
-            id="blogcategoriesE5B7A5E585B7"
-            ><div class='name'>工具</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E6%B8%B8%E6%88%8F/" href="/blog/categories/%E6%B8%B8%E6%88%8F/"
-            id="blogcategoriesE6B8B8E6888F"
-            ><div class='name'>游戏</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E7%94%9F%E6%B4%BB/" href="/blog/categories/%E7%94%9F%E6%B4%BB/"
-            id="blogcategoriesE7949FE6B4BB"
-            ><div class='name'>生活</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E7%A0%B4%E8%A7%A3/" href="/blog/categories/%E7%A0%B4%E8%A7%A3/"
-            id="blogcategoriesE7A0B4E8A7A3"
-            ><div class='name'>破解</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/" href="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/"
-            id="blogcategoriesE8A786E9A291E78987E6AEB5"
-            ><div class='name'>视频片段</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E9%85%B7%E5%BA%93/" href="/blog/categories/%E9%85%B7%E5%BA%93/"
-            id="blogcategoriesE985B7E5BA93"
-            ><div class='name'>酷库</div><div class='badge'>(23)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E9%97%AE%E9%A2%98/" href="/blog/categories/%E9%97%AE%E9%A2%98/"
-            id="blogcategoriesE997AEE9A298"
-            ><div class='name'>问题</div><div class='badge'>(4)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget list shadow desktop mobile">
-  
-  <header>
-    
-      <i class="fad fa-align-justify POMEGRANATE fa-fw" aria-hidden="true"></i><span class='name'>更多</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation">
-      
-        <li><a class="flat-box" title="/blog/docs/lodash/collection" href="/blog/docs/lodash/collection"
-          
-          
-          id="blogdocslodashcollection"
-          >
-          <div class='name'>
-            
-            更好的 lodash 文档
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/parsing" href="/blog/docs/moment/parsing"
-          
-          
-          id="blogdocsmomentparsing"
-          >
-          <div class='name'>
-            
-            更好的 moment 文档
-          </div>
-          
-        </a></li>
-      
-    </ul>
-  </div>
-</section>
 
   
 
 
 </aside>
 
+</div>
 
+<script>
+  if (window.CryptoJS) {
+    auth()
+  }
+  else {
+    window.onload = auth
+  }
+
+  function auth () {
+    /**
+     *  思路：
+     *    1. 将文章内容打印到变量 article 中，article 需要在 EJS 中进行 DES 加密。
+     *    2. 进入页面后，弹出输入框，输入密码。
+     *    3. 通过输入的 KEY 值在前端进行 DES 解密，成功即显示，失败即不显示。
+     **/
+    let enHtml = `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`
+    let key = window.prompt('请输入秘钥（不要好奇心太重）：')
+
+    try {
+      let html = CryptoJS.DES.decrypt(enHtml, key).toString(CryptoJS.enc.Utf8)
+
+      // 解密成功，显示内容
+      $('#l_main').html(html)
+      $('#content').removeClass('hidden')
+    }
+    catch (err) {
+      console.log(err)
+      window.alert('解密失败，不要好奇心太重。')
+      window.location.href = window.location.origin + '/blog/diaries'
+    }
+  }
+</script>
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
