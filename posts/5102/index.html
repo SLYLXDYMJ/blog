@@ -2917,7 +2917,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：193 字</p>
+      <p>字数：218 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2942,7 +2942,7 @@ article > p {
 <span id="more"></span>
 
 <h2 id="CSS-实现"><a href="#CSS-实现" class="headerlink" title="CSS 实现"></a>CSS 实现</h2><blockquote>
-<p>不让用户选中，就无法复制了<br>注意：该方法在 IE 中有 BUG，只能选中</p>
+<p>不让用户选中，就无法复制了<br>注意：该方法在 IE 中有 BUG，不太好说，建议试下，使用全选之类的操作还是能选中的</p>
 </blockquote>
 <pre><code class="css">div &#123;
   -webkit-user-select: none; /* Safari */
@@ -2951,7 +2951,7 @@ article > p {
 &#125;
 </code></pre>
 <h2 id="JS-实现"><a href="#JS-实现" class="headerlink" title="JS 实现"></a>JS 实现</h2><blockquote>
-<p>监听 copy 方法实现</p>
+<p>监听 copy 事件实现，阻止默认行为。</p>
 </blockquote>
 <pre><code class="javascript">  document.addEventListener(&#39;copy&#39;, function (e) &#123;
     // 获取用户选中的内容
@@ -2999,7 +2999,7 @@ article > p {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-09-17T02:54:20+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-09-17T03:29:09+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2021年9月17日</p>
