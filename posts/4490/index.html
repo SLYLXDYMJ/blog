@@ -26,7 +26,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>🎹 逻辑 - 组件和业务逻辑 - JASON BLOG</title>
+  <title>💯 逻辑 - 组件和业务逻辑 - JASON BLOG</title>
   
     <meta name="keywords" content="Vue,组件">
   
@@ -2899,7 +2899,7 @@ article > p {
     
     
       <h1 class="title">
-        🎹 逻辑 - 组件和业务逻辑
+        💯 逻辑 - 组件和业务逻辑
       </h1>
       <div class='new-meta-box'>
         
@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：376 字</p>
+      <p>字数：424 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2943,33 +2943,41 @@ article > p {
   <p>主要讨论 “业务组件” 和 “基础组件” 的划分，<br>不要小视，这很重要，统一的 “组件风格”，不管前期开发还是后期维护都会有帮助。</p>
 <span id="more"></span>
 
-
-
 <h2 id="想说的话"><a href="#想说的话" class="headerlink" title="想说的话"></a>想说的话</h2><blockquote>
 <p>所有的组件可以抽象成两种 “业务组件” 和 “基础组件”<br>一个组件如果不是 “基础组件”，那么就一定是 “业务组件”<br>PS：有点废话。</p>
 </blockquote>
 <div class="img-wrap"><div class="img-bg"><img class="img" src="overview.jpg" alt="因为这一句话才想写博客（PS：这是幅图片）"/></div><span class="image-caption">因为这一句话才想写博客（PS：这是幅图片）</span></div>
 
+<h2 id="“业务”-是什么"><a href="#“业务”-是什么" class="headerlink" title="“业务” 是什么"></a>“业务” 是什么</h2><p>业务逻辑大部分时候都是指 “涉及与服务器交互，数据请求、数据提交等操作”。</p>
 <h2 id="基础组件"><a href="#基础组件" class="headerlink" title="基础组件"></a>基础组件</h2><blockquote>
-<p>基础组件要做到 “简约”，仅做两件事，当然根据情况非必须，<br>通常是业务组件的子组件或者孙组件</p>
+<p>基础组件要做到 “简约”，通常的 “基础组件” 只做两件事</p>
 </blockquote>
 <ol>
-<li>通过 props 接收数据，渲染页面，可以做一层 computed，转换数据格式成想要的。</li>
-<li>向父组件（业务组件），发送 “事件”，让业务组件处理数据后改变 props。</li>
-<li>罕见情况下，可在 “基础组件” 中，发送业务请求，然后还是已 “事件” 的方式向父组件发送 “成功” 消息。</li>
+<li>接收 props 并监听，渲染页面。</li>
+<li>接收用户的操作，向 “业务组件” 发送 “事件”。</li>
 </ol>
+<pre><code class="text">基础组件在初始化时，有可能需要部分来自后端的数据，并且这些数据与 props 并无依赖关系，
+这时建议将这块逻辑在 &quot;基础组件&quot; 内部实现，抽象成 &quot;基础组件的默认行为&quot; 来看。
+</code></pre>
 <h2 id="业务组件"><a href="#业务组件" class="headerlink" title="业务组件"></a>业务组件</h2><blockquote>
-<p>该组件要做到 “聚合”，要做以下事情：</p>
+<p>该组件要做到 “聚合”，要做以下事情</p>
 </blockquote>
 <ol>
-<li>负责所有数据逻辑的获取，通过 props 的方式传递给子组件（基础组件）。</li>
-<li>接收子组件（基础组件）发来的 “事件” 并处理、改变 props。</li>
+<li>所有的数据获取要在 “业务组件” 完成，通过 props 的方式将数据传递给子组件（基础组件）。</li>
+<li>接收子组件（基础组件）发来的 “事件，做相应的操作。</li>
 </ol>
 <h2 id="嵌套关系"><a href="#嵌套关系" class="headerlink" title="嵌套关系"></a>嵌套关系</h2><ol>
-<li>最顶层的一定是 “业务组件”，并且业务组件只有一个。</li>
+<li>最顶层的一定是 “业务组件”，并且业务组件有且只有一个。</li>
 <li>“业务组件” 可以有很多直接子组件（基础组件）。</li>
-<li>“基础组件” 可以互相嵌套，但是级别不要太深。</li>
+<li>“基础组件” 可以互相嵌套，但是级别最好不要太深。</li>
 </ol>
+<h2 id="实例关系图"><a href="#实例关系图" class="headerlink" title="实例关系图"></a>实例关系图</h2><div class="gallery " data-group='default'><p><div class='fancybox'>
+        <a class='fancybox' pjax-fancybox href='1.jpg' data-fancybox='default' data-caption='简单'><img fancybox src="1.jpg" alt="简单"></a>
+        <span class='image-caption'>简单</span>
+      </div><br><div class='fancybox'>
+        <a class='fancybox' pjax-fancybox href='2.jpg' data-fancybox='default' data-caption='较复杂'><img fancybox src="2.jpg" alt="较复杂"></a>
+        <span class='image-caption'>较复杂</span>
+      </div></p></div>
 
   
   
@@ -3009,10 +3017,10 @@ article > p {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-09T09:36:20+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-11T02:19:17+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月9日</p>
+    <p>更新于：2021年10月11日</p>
   </a>
 </div>
 
@@ -3097,7 +3105,7 @@ article > p {
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E8%AF%B4%E7%9A%84%E8%AF%9D"><span class="toc-text">想说的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6"><span class="toc-text">基础组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6"><span class="toc-text">业务组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97%E5%85%B3%E7%B3%BB"><span class="toc-text">嵌套关系</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%83%B3%E8%AF%B4%E7%9A%84%E8%AF%9D"><span class="toc-text">想说的话</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%80%9C%E4%B8%9A%E5%8A%A1%E2%80%9D-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">“业务” 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6"><span class="toc-text">基础组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6"><span class="toc-text">业务组件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97%E5%85%B3%E7%B3%BB"><span class="toc-text">嵌套关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B%E5%85%B3%E7%B3%BB%E5%9B%BE"><span class="toc-text">实例关系图</span></a></li></ol>
     </div>
   </section>
 
@@ -3115,7 +3123,7 @@ article > p {
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="🎹 逻辑 - 组件和业务逻辑";
+  pdata.postTitle="💯 逻辑 - 组件和业务逻辑";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
