@@ -26,11 +26,11 @@
 
   <!-- 页面元数据 -->
   
-  <title>📢 学习 - 手动赋值表单控件并触发原生事件 - JASON BLOG</title>
+  <title>😔 日记 - 2021-10-21 - JASON BLOG</title>
   
 
   
-    <meta name="description" content="直接通过 JS 修改 input 等原生 HTML 标签的值，是不会触发原生事件的，需要再使用 JS 发出事件通知。">
+    <meta name="description" content="昨天我又疯了，我不希望把这种 “疯” 作为我以后的常态带到我后面的生活中，人生在世，难免不会有大大小小的矛盾，跟家人的，跟朋友的，跟外人的，还是要已 “平和的心态”，小事化了，大事化小，哪怕自己吃点亏。">
   
 
   <!-- feed -->
@@ -2809,7 +2809,7 @@ article > p {
   
     
       <!-- see: /layout/_partial/scripts/coverCtrl.ejs -->
-        <div id="none" class='cover-wrapper post search' style="display: none;">
+        <div id="none" class='cover-wrapper diary search' style="display: none;">
           
             <div class='cover-bg' style='background-image:url()'></div>
           
@@ -2886,156 +2886,10 @@ article > p {
           
 
 
-<div id="l_main" class=''>
-  <article class=" article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
-  
 
-
-  
-  <div class="article-meta" id="top">
-    
-    
-    
-      <h1 class="title">
-        📢 学习 - 手动赋值表单控件并触发原生事件
-      </h1>
-      <div class='new-meta-box'>
-        
-          
-            
-<div class='new-meta-item author'>
-  <a class='author' href="https://q-jason.github.io/blog/" rel="nofollow">
-    <img no-lazy src="https://avatars.githubusercontent.com/u/28495915?v=4">
-    <p>JASON</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class="new-meta-item wordcount">
-    <a class='notlink'>
-      <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：79 字</p>
-    </a>
-  </div>
-  <div class="new-meta-item readtime">
-    <a class='notlink'>
-      <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
-    </a>
-  </div>
-
-
-          
-        
-      </div>
-    
-  </div>
-
-
-  
-  
-  
-  <p>直接通过 JS 修改 input 等原生 HTML 标签的值，是不会触发原生事件的，<br>需要再使用 JS 发出事件通知。</p>
-<span id="more"></span>
-
-<pre><code class="javascript">let inputEl = document.getElementById(&#39;input&#39;)
-let customEvent = document.createEvent(&#39;UIEvents&#39;)
-
-// 修改值
-inputEl.value = &#39;new value&#39;
-
-// 发出事件通知
-customEvent.initUIEvent(&#39;input&#39;, true, true, window, 1)
-inputEl.dispatchEvent(customEvent)
-</code></pre>
-
-  
-  
-    
-    <div class='footer'>
-      
-      
-      
-      
-    </div>
-  
-  
-    
-
-
-  <div class='article-meta' id="bottom">
-    <div class='new-meta-box'>
-      
-        
-          
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fad fa-folder-open EMERALD fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
-    </a>
-  </div>
-
-
-        
-      
-        
-          
-
-        
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-21T02:09:08+00:00">
-  <a class='notlink'>
-    <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月21日</p>
-  </a>
-</div>
-
-        
-      
-        
-          <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fad fa-calendar-alt TURQUOISE fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年1月17日</p>
-  </a>
-</div>
-
-        
-      
-    </div>
-  </div>
-
-
-  
-  
-
-  <!-- 强制隐藏上一篇和下一篇，因为可能会暴露日记内容 -->
-  
-</article>
-
-
-  
-
-  <article class="post white-box reveal shadow" id="comments">
-    <p ct><i class='fad fa-comments POMEGRANATE'></i> 评论</p>
-    
-    <div id="twikoo_container">
-  <i class="fad fa-cog fa-spin fa-fw fa-2x"></i>
-</div>
-
-  </article>
-
-
-
-
-
-
-</div>
-<aside id='l_side'>
+<div class="hidden" id="content">
+  <div id="l_main" class=''></div>
+  <aside id='l_side'>
   
   
     
@@ -3089,15 +2943,47 @@ inputEl.dispatchEvent(customEvent)
 
 </aside>
 
+</div>
 
+<script>
+  if (window.CryptoJS) {
+    auth()
+  }
+  else {
+    window.onload = auth
+  }
 
+  function auth () {
+    /**
+     *  思路：
+     *    1. 将文章内容打印到变量 article 中，article 需要在 EJS 中进行 DES 加密。
+     *    2. 进入页面后，弹出输入框，输入密码。
+     *    3. 通过输入的 KEY 值在前端进行 DES 解密，成功即显示，失败即不显示。
+     **/
+    let enHtml = `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`
+    let key = window.prompt('请输入秘钥（不要好奇心太重）：')
+
+    try {
+      let html = CryptoJS.DES.decrypt(enHtml, key).toString(CryptoJS.enc.Utf8)
+
+      // 解密成功，显示内容
+      $('#l_main').html(html)
+      $('#content').removeClass('hidden')
+    }
+    catch (err) {
+      console.log(err)
+      window.alert('解密失败，不要好奇心太重。')
+      window.location.href = window.location.origin + '/blog/diaries'
+    }
+  }
+</script>
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="📢 学习 - 手动赋值表单控件并触发原生事件";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
