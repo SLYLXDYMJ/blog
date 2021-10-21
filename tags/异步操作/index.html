@@ -10,6 +10,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -26,13 +28,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>⌚ 酷库 - 倒计时 - JASON BLOG</title>
-  
-    <meta name="keywords" content="倒计时">
+  <title>标签：异步操作 - JASON BLOG</title>
   
 
-  
-    <meta name="description" content="倒计时是经常碰到的需求，但是手动计算起来，麻烦的要死 😐，这里记录找到的解决方案，供日后使用。">
   
 
   <!-- feed -->
@@ -2811,7 +2809,7 @@ article > p {
   
     
       <!-- see: /layout/_partial/scripts/coverCtrl.ejs -->
-        <div id="none" class='cover-wrapper post search' style="display: none;">
+        <div id="none" class='cover-wrapper  search' style="display: none;">
           
             <div class='cover-bg' style='background-image:url()'></div>
           
@@ -2888,208 +2886,79 @@ article > p {
           
 
 
+
 <div id="l_main" class=''>
-  <article class=" article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-
-
-  
-  <div class="article-meta" id="top">
     
+      
+  <section class="post-list">
     
-    
-      <h1 class="title">
-        ⌚ 酷库 - 倒计时
-      </h1>
-      <div class='new-meta-box'>
+      
         
           
-            
-<div class='new-meta-item author'>
-  <a class='author' href="https://q-jason.github.io/blog/" rel="nofollow">
-    <img no-lazy src="https://avatars.githubusercontent.com/u/28495915?v=4">
-    <p>JASON</p>
-  </a>
-</div>
-
-          
         
-          
-            
-  <div class="new-meta-item wordcount">
-    <a class='notlink'>
-      <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：350 字</p>
-    </a>
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/6860/">
+        🎠 酷库 - 异步操作
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>ES6 提供了 Promise 来更方便的使用异步操作，<br>后续又出了 async 和 await 关键字，使 Promise 变得更加优雅，<br>Promise 自带的一些方法基本上能满足日常使用，但是处理复杂的异步就没辙了。</p>
+<p>我找到了 async.js，内置的方法可以实现各种逻辑的异步操作，<br>这里记录常用的。</p>
+    
   </div>
-  <div class="new-meta-item readtime">
-    <a class='notlink'>
-      <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
-    </a>
-  </div>
-
-
-          
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2021-10-21</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E9%85%B7%E5%BA%93/">酷库</a>
         
       </div>
-    
-  </div>
-
-
-  
-  
-  
-  <p>倒计时是经常碰到的需求，但是手动计算起来，麻烦的要死 😐，<br>这里记录找到的解决方案，供日后使用。</p>
-<span id="more"></span>
-
-<h2 id="countdown"><a href="#countdown" class="headerlink" title="countdown"></a>countdown</h2><blockquote>
-<p>没有任何依赖的倒计时库。</p>
-</blockquote>
-<h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/mckamey/countdownjs"><img src="https://github-readme-stats.vercel.app/api/pin/?username=mckamey&repo=countdownjs&show_owner=true"/></a>
-
-<h3 id="用法记录"><a href="#用法记录" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">import countdown from &#39;countdown&#39;
-
-/** 可已通过 clearInterval(timer) 取消倒计时 **/
-let timer = countdown(
-  // 结束时间
-  new Date().getTime() + 10000,
-  
-  // 每一秒会触发的函数
-  // result 为倒计时数据
-  // 自定义显示逻辑
-  function(result) &#123;
-    console.log(result)
-  &#125;,
-  
-  // 最大单位
-  // 比如说最大单位只想到 &quot;日&quot;
-  // 就删除 YEARS 和 MONTHS
-  // 下面的 &quot;|&quot; 是位运算符（作者底蕴好强大...）
-  countdown.YEARS | countdown.MONTHS | countdown.DAYS |
-  countdown.HOURS | countdown.MINUTES | countdown.SECONDS
-)
-</code></pre>
-<h2 id="vue-countdown"><a href="#vue-countdown" class="headerlink" title="vue-countdown"></a>vue-countdown</h2><blockquote>
-<p>vue 组件，可以通过 slot 自定义样式，很灵活。</p>
-</blockquote>
-<h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/fengyuanchen/vue-countdown"><img src="https://github-readme-stats.vercel.app/api/pin/?username=fengyuanchen&repo=vue-countdown&show_owner=true"/></a>
-
-<h3 id="用法记录-1"><a href="#用法记录-1" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">import Vue from &#39;vue&#39;;
-import VueCountdown from &#39;@chenfengyuan/vue-countdown&#39;;
-
-Vue.component(VueCountdown.name, VueCountdown);
-</code></pre>
-<pre><code class="html">&lt;vue-countdown :time=&quot;2 * 24 * 60 * 60 * 1000&quot; v-slot=&quot;&#123; days, hours, minutes, seconds &#125;&quot;&gt;
-  Time Remaining：&#123;&#123; days &#125;&#125; days, &#123;&#123; hours &#125;&#125; hours, &#123;&#123; minutes &#125;&#125; minutes, &#123;&#123; seconds &#125;&#125; seconds.
-&lt;/vue-countdown&gt;
-&lt;!-- &lt;span&gt;Time Remaining：1 days, 23 hours, 59 minutes, 59 seconds.&lt;/span&gt; --&gt;
-</code></pre>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li>progress 事件，最后一下不会触发<blockquote>
-<p>10 秒倒计时，progress 触发了 9 次，0 秒时不会触发。</p>
-</blockquote>
-</li>
-</ol>
-<img src="/blog/posts/57001/pit-1.png" class="">
-
-<ol start="2">
-<li>切换网页后，progress 事件中的 totalMilliseconds 会失去精度</li>
-</ol>
-<img src="/blog/posts/57001/pit-2.png" class="">
-
-<h2 id="vue2-flip-countdown"><a href="#vue2-flip-countdown" class="headerlink" title="vue2-flip-countdown"></a>vue2-flip-countdown</h2><blockquote>
-<p>效果很赞的翻页式的倒计时，vue 组件</p>
-</blockquote>
-<h3 id="github-2"><a href="#github-2" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/philipjkim/vue2-flip-countdown"><img src="https://github-readme-stats.vercel.app/api/pin/?username=philipjkim&repo=vue2-flip-countdown&show_owner=true"/></a>
-
-<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><img src="/blog/posts/57001/example.gif" class="">
-
-  
-  
-    
-    <div class='footer'>
       
-      
-      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/6860/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/6860/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
       
     </div>
   
+
+</div>
+
+          </div>
+        
+      
+    
+  </section>
   
     
-
-
-  <div class='article-meta' id="bottom">
-    <div class='new-meta-box'>
-      
-        
-          
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fad fa-folder-open EMERALD fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/blog/categories/%E9%85%B7%E5%BA%93/">酷库</a>
-    </a>
-  </div>
-
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E5%80%92%E8%AE%A1%E6%97%B6/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>倒计时</p></a></div>
-
-
-        
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-10-21T09:46:09+00:00">
-  <a class='notlink'>
-    <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年10月21日</p>
-  </a>
-</div>
-
-        
-      
-        
-          <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fad fa-calendar-alt TURQUOISE fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年2月27日</p>
-  </a>
-</div>
-
-        
-      
-    </div>
-  </div>
-
-
-  
   
 
-  <!-- 强制隐藏上一篇和下一篇，因为可能会暴露日记内容 -->
-  
-</article>
 
-
-  
-
-  <article class="post white-box reveal shadow" id="comments">
-    <p ct><i class='fad fa-comments POMEGRANATE'></i> 评论</p>
     
-    <div id="twikoo_container">
-  <i class="fad fa-cog fa-spin fa-fw fa-2x"></i>
-</div>
-
-  </article>
-
-
-
-
-
-
+  
 </div>
 <aside id='l_side'>
   
@@ -3137,22 +3006,233 @@ Vue.component(VueCountdown.name, VueCountdown);
     
     
 
+<section class="widget shadow desktop">
+  
+  <header>
+    
+      <i class="fad fa-award ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
+    
+  </header>
 
 
-  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+  <div class='content'>
+    <div class="webinfo">
+      
+        <div class="webinfo-item">
+          <div>文章数目：</div>
+          <div>59 篇</div>
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>已运行时间：</div>
+          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
+        </div>
+        <script>
+          var BirthDay = new Date(new Date('2019/06/01'));
+          var today = new Date();
+          var timeold = (today.getTime() - BirthDay.getTime());
+          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
+          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
+        </script>
+      
+
+
+      
+        <div class="webinfo-item">
+          <div>本站总字数：</div>
+          <div>31.7k </div>
+        </div>
+      
+
+      
+
+      
+
+      
+        <div class="webinfo-item">
+          <div>最后活动时间：</div>
+          
+            <div id="last-update" style="display: none;">Thu Oct 21 2021 09:46:34 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2021-10-21 日</div>
+          
+        </div>
+        
+        <script>
+          function timeago(dateTimeStamp) {
+              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
+              var hour = minute * 60;
+              var day = hour * 24;
+              var week = day * 7;
+              var month = day * 30;
+              var now = new Date().getTime(); //获取当前时间毫秒
+              var diffValue = now - dateTimeStamp; //时间差
+              if (diffValue < 0) {
+                  return;
+              }
+              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
+              var hourC = diffValue / hour;
+              var dayC = diffValue / day;
+              var weekC = diffValue / week;
+              var monthC = diffValue / month;
+              if (monthC >= 1 && monthC <= 3) {
+                  result = " " + parseInt(monthC) + " 月前"
+              } else if (weekC >= 1 && weekC <= 3) {
+                  result = " " + parseInt(weekC) + " 周前"
+              } else if (dayC >= 1 && dayC <= 6) {
+                  result = " " + parseInt(dayC) + " 天前"
+              } else if (hourC >= 1 && hourC <= 23) {
+                  result = " " + parseInt(hourC) + " 小时前"
+              } else if (minC >= 1 && minC <= 59) {
+                  result = " " + parseInt(minC) + " 分钟前"
+              } else if (diffValue >= 0 && diffValue <= minute) {
+                  result = "刚刚"
+              } else {
+                  var datetime = new Date();
+                  datetime.setTime(dateTimeStamp);
+                  var Nyear = datetime.getFullYear();
+                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                  result = Nyear + "-" + Nmonth + "-" + Ndate
+              }
+              return result;
+          }
+          var lastUpDate = document.getElementById('last-update').innerHTML;
+          try {
+            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
+          } catch (error) {
+            document.getElementById('last-update-show').innerHTML = '2021-10-21 日';
+          }
+        </script>
+        
+      
+    </div>
+  </div>
+</section>
+
+  
+
+  
+    
+    
+  
+
+  <section class="widget category shadow desktop">
     
   <header>
     
-      <i class="fad fa-list ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+      <a href='/categories/'><i class="fad fa-folder-open CARROT fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
     
   </header>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#countdown"><span class="toc-text">countdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github"><span class="toc-text">github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95"><span class="toc-text">用法记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-countdown"><span class="toc-text">vue-countdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github-1"><span class="toc-text">github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95-1"><span class="toc-text">用法记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue2-flip-countdown"><span class="toc-text">vue2-flip-countdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github-2"><span class="toc-text">github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-text">效果图</span></a></li></ol></li></ol>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E4%BC%98%E5%8C%96/" href="/blog/categories/%E4%BC%98%E5%8C%96/"
+            id="blogcategoriesE4BC98E58C96"
+            ><div class='name'>优化</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
+            id="blogcategoriesE5ADA6E4B9A0"
+            ><div class='name'>学习</div><div class='badge'>(16)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E5%B7%A5%E5%85%B7/" href="/blog/categories/%E5%B7%A5%E5%85%B7/"
+            id="blogcategoriesE5B7A5E585B7"
+            ><div class='name'>工具</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E6%B8%B8%E6%88%8F/" href="/blog/categories/%E6%B8%B8%E6%88%8F/"
+            id="blogcategoriesE6B8B8E6888F"
+            ><div class='name'>游戏</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E7%94%9F%E6%B4%BB/" href="/blog/categories/%E7%94%9F%E6%B4%BB/"
+            id="blogcategoriesE7949FE6B4BB"
+            ><div class='name'>生活</div><div class='badge'>(5)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E7%A0%B4%E8%A7%A3/" href="/blog/categories/%E7%A0%B4%E8%A7%A3/"
+            id="blogcategoriesE7A0B4E8A7A3"
+            ><div class='name'>破解</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/" href="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/"
+            id="blogcategoriesE8A786E9A291E78987E6AEB5"
+            ><div class='name'>视频片段</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E9%80%BB%E8%BE%91/" href="/blog/categories/%E9%80%BB%E8%BE%91/"
+            id="blogcategoriesE980BBE8BE91"
+            ><div class='name'>逻辑</div><div class='badge'>(1)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E9%85%B7%E5%BA%93/" href="/blog/categories/%E9%85%B7%E5%BA%93/"
+            id="blogcategoriesE985B7E5BA93"
+            ><div class='name'>酷库</div><div class='badge'>(24)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/blog/categories/%E9%97%AE%E9%A2%98/" href="/blog/categories/%E9%97%AE%E9%A2%98/"
+            id="blogcategoriesE997AEE9A298"
+            ><div class='name'>问题</div><div class='badge'>(4)</div></a></li>
+        
+      </ul>
     </div>
   </section>
 
+
+  
+
+  
+    
+    
+
+<section class="widget list shadow desktop mobile">
+  
+  <header>
+    
+      <i class="fad fa-align-justify POMEGRANATE fa-fw" aria-hidden="true"></i><span class='name'>更多</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <ul class="list entry navigation">
+      
+        <li><a class="flat-box" title="/blog/docs/lodash/collection" href="/blog/docs/lodash/collection"
+          
+          
+          id="blogdocslodashcollection"
+          >
+          <div class='name'>
+            
+            更好的 lodash 文档
+          </div>
+          
+        </a></li>
+      
+        <li><a class="flat-box" title="/blog/docs/moment/parsing" href="/blog/docs/moment/parsing"
+          
+          
+          id="blogdocsmomentparsing"
+          >
+          <div class='name'>
+            
+            更好的 moment 文档
+          </div>
+          
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
 
   
 
@@ -3160,14 +3240,13 @@ Vue.component(VueCountdown.name, VueCountdown);
 </aside>
 
 
-
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="⌚ 酷库 - 倒计时";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs

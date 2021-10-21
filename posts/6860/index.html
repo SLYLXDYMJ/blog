@@ -26,13 +26,14 @@
 
   <!-- 页面元数据 -->
   
-  <title>⌚ 酷库 - 倒计时 - JASON BLOG</title>
+  <title>🎠 酷库 - 异步操作 - JASON BLOG</title>
   
-    <meta name="keywords" content="倒计时">
+    <meta name="keywords" content="异步操作">
   
 
   
-    <meta name="description" content="倒计时是经常碰到的需求，但是手动计算起来，麻烦的要死 😐，这里记录找到的解决方案，供日后使用。">
+    <meta name="description" content="ES6 提供了 Promise 来更方便的使用异步操作，后续又出了 async 和 await 关键字，使 Promise 变得更加优雅，Promise 自带的一些方法基本上能满足日常使用，但是处理复杂的异步就没辙了。
+我找到了 async.js，内置的方法可以实现各种逻辑的异步操作，这里记录常用的。">
   
 
   <!-- feed -->
@@ -2899,7 +2900,7 @@ article > p {
     
     
       <h1 class="title">
-        ⌚ 酷库 - 倒计时
+        🎠 酷库 - 异步操作
       </h1>
       <div class='new-meta-box'>
         
@@ -2919,13 +2920,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：350 字</p>
+      <p>字数：499 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
+      <p>时长：2 分钟</p>
     </a>
   </div>
 
@@ -2940,70 +2941,76 @@ article > p {
   
   
   
-  <p>倒计时是经常碰到的需求，但是手动计算起来，麻烦的要死 😐，<br>这里记录找到的解决方案，供日后使用。</p>
+  <p>ES6 提供了 Promise 来更方便的使用异步操作，<br>后续又出了 async 和 await 关键字，使 Promise 变得更加优雅，<br>Promise 自带的一些方法基本上能满足日常使用，但是处理复杂的异步就没辙了。</p>
+<p>我找到了 async.js，内置的方法可以实现各种逻辑的异步操作，<br>这里记录常用的。</p>
 <span id="more"></span>
 
-<h2 id="countdown"><a href="#countdown" class="headerlink" title="countdown"></a>countdown</h2><blockquote>
-<p>没有任何依赖的倒计时库。</p>
+<h2 id="async-js"><a href="#async-js" class="headerlink" title="async.js"></a>async.js</h2><blockquote>
+<p>实现各种逻辑的异步操作库。<br>其中的 task（任务函数），都按照了 callback 形式，第一个参数为 err，第二个参数为 result。</p>
 </blockquote>
-<h3 id="github"><a href="#github" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/mckamey/countdownjs"><img src="https://github-readme-stats.vercel.app/api/pin/?username=mckamey&repo=countdownjs&show_owner=true"/></a>
+<h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/caolan/async"><img src="https://github-readme-stats.vercel.app/api/pin/?username=caolan&repo=async&show_owner=true"/></a>
 
-<h3 id="用法记录"><a href="#用法记录" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">import countdown from &#39;countdown&#39;
-
-/** 可已通过 clearInterval(timer) 取消倒计时 **/
-let timer = countdown(
-  // 结束时间
-  new Date().getTime() + 10000,
-  
-  // 每一秒会触发的函数
-  // result 为倒计时数据
-  // 自定义显示逻辑
-  function(result) &#123;
-    console.log(result)
+<h3 id="并行执行"><a href="#并行执行" class="headerlink" title="并行执行"></a>并行执行</h3><pre><code class="javascript">// 其实这个用 Promise.all 也能实现
+// 同时开始执行所有任务，等待所有任务都执行完毕后，执行最终 callback
+// 每个任务的结果会作为一个数组，传入最终 callback
+async.parallel([
+    function(callback) &#123;
+        setTimeout(function() &#123;
+            callback(null, &#39;one&#39;);
+        &#125;, 200);
+    &#125;,
+    function(callback) &#123;
+        setTimeout(function() &#123;
+            callback(null, &#39;two&#39;);
+        &#125;, 100);
+    &#125;
+], function(err, results) &#123;
+    console.log(results);
+    // results is equal to [&#39;one&#39;,&#39;two&#39;] even though
+    // the second function had a shorter timeout.
+&#125;);
+</code></pre>
+<h3 id="串行执行"><a href="#串行执行" class="headerlink" title="串行执行"></a>串行执行</h3><pre><code class="javascript">// 一个接一个的执行任务
+// 若全部完成后，调用最终的 callback，每个任务的结果会作为一个数组传入。
+// 若中途失败，则会放弃后面的任务，调用最终的 callback。
+async.series([
+  function(callback) &#123;
+    setTimeout(function() &#123;
+      // do some async task
+      callback(null, &#39;one&#39;);
+    &#125;, 200);
   &#125;,
-  
-  // 最大单位
-  // 比如说最大单位只想到 &quot;日&quot;
-  // 就删除 YEARS 和 MONTHS
-  // 下面的 &quot;|&quot; 是位运算符（作者底蕴好强大...）
-  countdown.YEARS | countdown.MONTHS | countdown.DAYS |
-  countdown.HOURS | countdown.MINUTES | countdown.SECONDS
-)
+  function(callback) &#123;
+    setTimeout(function() &#123;
+      // then do another async task
+      callback(null, &#39;two&#39;);
+    &#125;, 100);
+  &#125;
+], function(err, results) &#123;
+  console.log(results);
+  // results is equal to [&#39;one&#39;,&#39;two&#39;]
+&#125;);
 </code></pre>
-<h2 id="vue-countdown"><a href="#vue-countdown" class="headerlink" title="vue-countdown"></a>vue-countdown</h2><blockquote>
-<p>vue 组件，可以通过 slot 自定义样式，很灵活。</p>
-</blockquote>
-<h3 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/fengyuanchen/vue-countdown"><img src="https://github-readme-stats.vercel.app/api/pin/?username=fengyuanchen&repo=vue-countdown&show_owner=true"/></a>
-
-<h3 id="用法记录-1"><a href="#用法记录-1" class="headerlink" title="用法记录"></a>用法记录</h3><pre><code class="javascript">import Vue from &#39;vue&#39;;
-import VueCountdown from &#39;@chenfengyuan/vue-countdown&#39;;
-
-Vue.component(VueCountdown.name, VueCountdown);
+<pre><code class="javascript">// 按照顺序依次执行
+// 下一个任务会接收上一个任务的结果作为参数
+// 最终 callback 会接收最后一个任务的结果作为参数
+// 这是与 series 最大的不同
+async.waterfall([
+    function(callback) &#123;
+        callback(null, &#39;one&#39;, &#39;two&#39;);
+    &#125;,
+    function(arg1, arg2, callback) &#123;
+        // arg1 now equals &#39;one&#39; and arg2 now equals &#39;two&#39;
+        callback(null, &#39;three&#39;);
+    &#125;,
+    function(arg1, callback) &#123;
+        // arg1 now equals &#39;three&#39;
+        callback(null, &#39;done&#39;);
+    &#125;
+], function (err, result) &#123;
+    // result now equals &#39;done&#39;
+&#125;);
 </code></pre>
-<pre><code class="html">&lt;vue-countdown :time=&quot;2 * 24 * 60 * 60 * 1000&quot; v-slot=&quot;&#123; days, hours, minutes, seconds &#125;&quot;&gt;
-  Time Remaining：&#123;&#123; days &#125;&#125; days, &#123;&#123; hours &#125;&#125; hours, &#123;&#123; minutes &#125;&#125; minutes, &#123;&#123; seconds &#125;&#125; seconds.
-&lt;/vue-countdown&gt;
-&lt;!-- &lt;span&gt;Time Remaining：1 days, 23 hours, 59 minutes, 59 seconds.&lt;/span&gt; --&gt;
-</code></pre>
-<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
-<li>progress 事件，最后一下不会触发<blockquote>
-<p>10 秒倒计时，progress 触发了 9 次，0 秒时不会触发。</p>
-</blockquote>
-</li>
-</ol>
-<img src="/blog/posts/57001/pit-1.png" class="">
-
-<ol start="2">
-<li>切换网页后，progress 事件中的 totalMilliseconds 会失去精度</li>
-</ol>
-<img src="/blog/posts/57001/pit-2.png" class="">
-
-<h2 id="vue2-flip-countdown"><a href="#vue2-flip-countdown" class="headerlink" title="vue2-flip-countdown"></a>vue2-flip-countdown</h2><blockquote>
-<p>效果很赞的翻页式的倒计时，vue 组件</p>
-</blockquote>
-<h3 id="github-2"><a href="#github-2" class="headerlink" title="github"></a>github</h3><a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/philipjkim/vue2-flip-countdown"><img src="https://github-readme-stats.vercel.app/api/pin/?username=philipjkim&repo=vue2-flip-countdown&show_owner=true"/></a>
-
-<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><img src="/blog/posts/57001/example.gif" class="">
 
   
   
@@ -3037,7 +3044,7 @@ Vue.component(VueCountdown.name, VueCountdown);
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E5%80%92%E8%AE%A1%E6%97%B6/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>倒计时</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>异步操作</p></a></div>
 
 
         
@@ -3056,7 +3063,7 @@ Vue.component(VueCountdown.name, VueCountdown);
           <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fad fa-calendar-alt TURQUOISE fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年2月27日</p>
+    <p>发布于：2021年10月21日</p>
   </a>
 </div>
 
@@ -3149,7 +3156,7 @@ Vue.component(VueCountdown.name, VueCountdown);
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#countdown"><span class="toc-text">countdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github"><span class="toc-text">github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95"><span class="toc-text">用法记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-countdown"><span class="toc-text">vue-countdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github-1"><span class="toc-text">github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95%E8%AE%B0%E5%BD%95-1"><span class="toc-text">用法记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue2-flip-countdown"><span class="toc-text">vue2-flip-countdown</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#github-2"><span class="toc-text">github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-text">效果图</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#async-js"><span class="toc-text">async.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Github"><span class="toc-text">Github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C"><span class="toc-text">并行执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%B2%E8%A1%8C%E6%89%A7%E8%A1%8C"><span class="toc-text">串行执行</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -3167,7 +3174,7 @@ Vue.component(VueCountdown.name, VueCountdown);
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="⌚ 酷库 - 倒计时";
+  pdata.postTitle="🎠 酷库 - 异步操作";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
