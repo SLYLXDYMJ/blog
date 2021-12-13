@@ -3873,6 +3873,7 @@ svg.loading {
   border-bottom: none;
   padding-bottom: 4px;
   border-bottom: none;
+  text-align: center;
 }
 #l_main .post .article-meta {
   color: var(--color-meta);
@@ -5249,59 +5250,56 @@ ul.list-v.rightmenu li a {
 .post.post-v3.white-box {
   text-align: center;
 }
-.post.post-v3.white-box a {
-  font-weight: 600 !important;
-}
-.post.post-v3.white-box p {
+.post.post-v3.white-box .post.post-v3.white-box p {
   text-align: left;
   text-indent: 2em;
 }
-.post.post-v3.white-box p br {
+.post.post-v3.white-box .post.post-v3.white-box p br {
   display: none;
 }
-#l_header {
+.post.post-v3.white-box #l_header {
   background-color: rgba(255,255,255,0.9);
 }
-#l_main .post,
-#l_side .widget {
+.post.post-v3.white-box #l_main .post,
+.post.post-v3.white-box #l_side .widget {
   background-color: rgba(255,255,255,0.9);
   box-shadow: 0 4px 10px -4px #ebedf0;
 }
-#post.post {
+.post.post-v3.white-box #post.post {
   background-color: #fff;
 }
-#l_main .article .prev-next>a p.content {
+.post.post-v3.white-box #l_main .article .prev-next>a p.content {
   max-height: 85px;
   overflow: hidden;
 }
-#l_main .article .headimg-div {
+.post.post-v3.white-box #l_main .article .headimg-div {
   display: none;
 }
-#l_main > article.cus-indent > p {
+.post.post-v3.white-box #l_main > article.cus-indent > p {
   text-indent: 2em;
 }
-#l_main > article.cus-indent > p.center {
+.post.post-v3.white-box #l_main > article.cus-indent > p.center {
   text-indent: initial;
 }
-#l_main > article.cus-indent > p i {
+.post.post-v3.white-box #l_main > article.cus-indent > p i {
   text-indent: initial;
 }
-h1.title {
+.post.post-v3.white-box h1.title {
   margin: 10px;
   text-align: center;
   font-size: 2rem !important;
   font-weight: 600;
   font-family: sxls, "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
 }
-h1.title.common_read_h1 {
+.post.post-v3.white-box h1.title.common_read_h1 {
   text-align: center !important;
   font-size: 2.5rem !important;
 }
-.note strong {
+.post.post-v3.white-box .note strong {
   font-size: 1.5rem;
   font-family: 'sxls';
 }
-details summary {
+.post.post-v3.white-box details summary {
   font-size: 1rem !important;
 }
 @media screen and (max-width: 560px) {
