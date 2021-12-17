@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：535 字</p>
+      <p>字数：621 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2970,10 +2970,16 @@ article > p {
 <p>这是我在写这篇文章前做的功能中用到的方法</p>
 <p>因为需求是:</p>
 <ol>
-<li>不管是什么尺寸的屏幕下，固定三行文字。</li>
-<li>文字后面!!!紧跟!!! “展开/还原” 按钮。</li>
+<li>不管是什么尺寸的屏幕下，固定 3 行文字。</li>
+<li>文字后面 “紧跟” “展开/还原” 按钮。</li>
+<li>如果行数不超过 3 行，则隐藏 “展开/还原” 按钮</li>
 </ol>
-<p>主要是因为第 2 点，让我放弃了使用传统的方式<br>上代码：</p>
+<p>分析难点：</p>
+<ol>
+<li>通过 CSS 实现的无法实现 “按钮紧跟” 的效果。</li>
+<li>通过 CSS 实现的无法判断文字量，做到 “若行数不超过 3 行，则隐藏按钮”。</li>
+</ol>
+<p>种种困难，让我放弃了使用 CSS 的方式实现<br>上实现代码：</p>
 </blockquote>
 <pre><code class="vue">&lt;template&gt;
   &lt;div ref=&quot;text&quot;&gt;
@@ -2987,7 +2993,7 @@ article > p {
         &#123;&#123; text | truncate(wordLimit, '......') &#125;&#125;
       &lt;/template&gt;
     &lt;/span&gt;
-    &lt;a href=&quot;#&quot; @click=&quot;toggleShowMore&quot;&gt;
+    &lt;a href=&quot;#&quot; @click=&quot;toggleShowMore&quot; v-if=&quot;text.length &gt; wordLimit&quot;&gt;
       &#123;&#123; showMore ? '还原' : '展开' &#125;&#125;
     &lt;/a&gt;
   &lt;/div&gt;
@@ -3012,7 +3018,8 @@ article > p {
         
         // 理论上公式为：
         // 宽度 / 每个字的宽度 * 行高
-        // 但实际上影响的因素很多，根据情况慢慢调即可
+        // 但实际上影响的因素很多，中文、英文、数字的宽度都不同
+        // 根据情况慢慢调即可
         this.wordLimit = width / 15.6 * 3
       &#125;,
 
@@ -3071,10 +3078,10 @@ article > p {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-12-16T09:29:15+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-12-17T09:46:35+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年12月16日</p>
+    <p>更新于：2021年12月17日</p>
   </a>
 </div>
 
