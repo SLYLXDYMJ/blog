@@ -2919,13 +2919,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：621 字</p>
+      <p>字数：958 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：2 分钟</p>
+      <p>时长：4 分钟</p>
     </a>
   </div>
 
@@ -2966,7 +2966,7 @@ article > p {
 <h2 id="酷库"><a href="#酷库" class="headerlink" title="酷库"></a>酷库</h2><blockquote>
 <p>原生：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/clamp-js">https://www.npmjs.com/package/clamp-js</a><br>Vue：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vue-line-clamp">https://www.npmjs.com/package/vue-line-clamp</a></p>
 </blockquote>
-<h2 id="通过减少字符的方式实现"><a href="#通过减少字符的方式实现" class="headerlink" title="通过减少字符的方式实现"></a>通过减少字符的方式实现</h2><blockquote>
+<h2 id="通过控制字符的方式实现"><a href="#通过控制字符的方式实现" class="headerlink" title="通过控制字符的方式实现"></a>通过控制字符的方式实现</h2><blockquote>
 <p>这是我在写这篇文章前做的功能中用到的方法</p>
 <p>因为需求是:</p>
 <ol>
@@ -2979,62 +2979,121 @@ article > p {
 <li>通过 CSS 实现的无法实现 “按钮紧跟” 的效果。</li>
 <li>通过 CSS 实现的无法判断文字量，做到 “若行数不超过 3 行，则隐藏按钮”。</li>
 </ol>
-<p>种种困难，让我放弃了使用 CSS 的方式实现<br>上实现代码：</p>
+<p>种种困难，让我放弃了使用 CSS 的方式实现，自己封装了个组件<br>组件代码如下：</p>
+</blockquote>
+<blockquote>
+<p>注意：<br>下面的组件代码依赖于 lodash、vue-filter、jQuery，仅做例子。<br>主要使用了库中少数方便的方法，并不深度集成<br>相关的代码用原生实现也行（懒得改了- -目前公司项目反正都会集成这些库）<br>最好的方式还是使用 clamp-js 或者 vue-line-clamp 这种现成的库<br>但是缺点是无法做到 “收起/更多按钮紧跟在文字后面”<br>使用下面的组件也有缺点 “无法非常精确到行数”，<br>因为内容有中文有英文有数字 不同的类型所占的宽度是不同的<br>只能大概算出来，而做不到十分精确</p>
 </blockquote>
 <pre><code class="vue">&lt;template&gt;
-  &lt;div ref=&quot;text&quot;&gt;
-    &lt;span&gt;
-      &lt;template v-if=&quot;showMore&quot;&gt;
-        &#123;&#123; text &#125;&#125;
-      &lt;/template&gt;
-      &lt;template v-else&gt;
-        &lt;!-- 这里使用了 vue-filter 的 truncate 过滤器，换做其他方式实现其实也行 --&gt;
-        &lt;!-- 主要就是使文本被截断，并且最后显示 ...... 后缀 --&gt;
-        &#123;&#123; text | truncate(wordLimit, '......') &#125;&#125;
-      &lt;/template&gt;
-    &lt;/span&gt;
-    &lt;a href=&quot;#&quot; @click=&quot;toggleShowMore&quot; v-if=&quot;text.length &gt; wordLimit&quot;&gt;
-      &#123;&#123; showMore ? '还原' : '展开' &#125;&#125;
+  &lt;div class=&quot;vue-line-clamp&quot; ref=&quot;vue-line-clamp&quot;&gt;
+    &#123;&#123; innerContent &#125;&#125;
+    &lt;a
+      href=&quot;javascript:&quot;
+      v-if=&quot;content.length &gt; rowWordsCount * row&quot;
+      @click=&quot;toggleShowMore&quot;&gt;
+      &#123;&#123; showMore ? '收起' : '更多' &#125;&#125;
     &lt;/a&gt;
   &lt;/div&gt;
 &lt;/template&gt;
 
-&lt;script &gt;
+&lt;script&gt;
   export default &#123;
-    data () &#123;
-      return &#123;
-        wordLimit: Infinity,
-        
-        // 这里模拟数据
-        text: &#39;&#39;,
-        showMore: false
-      &#125;
-    &#125;,
-    
-    methods: &#123;
-      // 根据文字区域的宽度
-      calculateWordLimit: function () &#123;
-        var width = this.$refs.text.clientWidth
-        
-        // 理论上公式为：
-        // 宽度 / 每个字的宽度 * 行高
-        // 但实际上影响的因素很多，中文、英文、数字的宽度都不同
-        // 根据情况慢慢调即可
-        this.wordLimit = width / 15.6 * 3
+    name: &#39;vue-line-clamp&#39;,
+    props: &#123;
+      // 限制行数
+      row: &#123;
+        type: Number,
+        default: 3
       &#125;,
 
+      // 文本内容
+      content: &#123;
+        type: String
+      &#125;
+    &#125;,
+    data: function () &#123;
+      return &#123;
+        showMore: false,
+
+        // 文字大小
+        fontSize: null,
+        // 行宽
+        width: null,
+
+        // 相同组件独立的 setInfo 方法（引用地址不同）
+        innerSetInfo: null
+      &#125;
+    &#125;,
+    computed: &#123;
+      // 每行的文字量
+      rowWordsCount: function () &#123;
+        var _this = this
+
+        // 判断文字中是否包含中文
+        // 若包含，则用中文字比值处理
+        // 若不包含，则用英文字比值处理
+        var hasChinese = /.*[\u4e00-\u9fa5]+.*$/.test(this.content)
+        var rowWordsCount = (function () &#123;
+          if (hasChinese) &#123;
+            return _this.width / (_this.fontSize * 1)
+          &#125;
+          else &#123;
+            return _this.width / (_this.fontSize * 0.57)
+          &#125;
+        &#125;)()
+
+        return rowWordsCount
+      &#125;,
+
+      // 用于限制的文字，如果不显示更多，会计算并截断文字
+      // 下面是 fontSize 和每个文字的宽度比
+      //    中文字 1 : 1
+      //    英文字 1 : 0.57
+      innerContent: function () &#123;
+        var _this = this
+
+        // 若为显示更多，则不需要处理
+        if (this.showMore) &#123;
+          return this.content
+        &#125;
+        // 若为折叠状态，则截断文字
+        else &#123;
+          return this.$options.filters.truncate(this.content, this.rowWordsCount * this.row, &#39;.....&#39;)
+        &#125;
+      &#125;
+    &#125;,
+    methods: &#123;
+      init: function () &#123;
+        this.innerSetInfo = _.debounce(this.setInfo, 50)
+        this.innerSetInfo()
+        window.addEventListener(&#39;resize&#39;, this.innerSetInfo)
+      &#125;,
+      destory: function () &#123;
+        window.removeEventListener(&#39;resize&#39;, this.innerSetInfo)
+      &#125;,
+
+      // 设置一次组件基本信息
+      setInfo: function () &#123;
+        var _this = this
+
+        var $contentEl = $(this.$refs[ &#39;vue-line-clamp&#39; ])
+        var width = $contentEl.width()
+        var fontSize = parseFloat($contentEl.css(&#39;fontSize&#39;))
+
+        this.width = width
+        this.fontSize = fontSize
+      &#125;,
+
+      // 切换展开/折叠状态
       toggleShowMore: function () &#123;
         this.showMore = !this.showMore
       &#125;
     &#125;,
-    
     mounted: function () &#123;
-      this.calculateWordLimit();
-      // 这里应该做 &quot;防抖动处理&quot;
-      window.addEventListener(&#39;resize&#39;, this.calculateWordLimit)
+      this.init()
     &#125;,
-    destoryed: function () &#123;
-      window.removeEventListener(&#39;resize&#39;, this.calculateWordLimit)
+    destroyed: function () &#123;
+      this.destory()
     &#125;
   &#125;
 &lt;/script&gt;
@@ -3078,10 +3137,10 @@ article > p {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-12-17T09:46:35+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-01-05T05:34:30+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2021年12月17日</p>
+    <p>更新于：2022年1月5日</p>
   </a>
 </div>
 
@@ -3184,7 +3243,7 @@ article > p {
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#webkit-line-clamp-%E7%BA%AF-CSS-%E5%AE%9E%E7%8E%B0"><span class="toc-text">-webkit-line-clamp 纯 CSS 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-text">兼容性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%B7%E5%BA%93"><span class="toc-text">酷库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%87%8F%E5%B0%91%E5%AD%97%E7%AC%A6%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="toc-text">通过减少字符的方式实现</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#webkit-line-clamp-%E7%BA%AF-CSS-%E5%AE%9E%E7%8E%B0"><span class="toc-text">-webkit-line-clamp 纯 CSS 实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7"><span class="toc-text">兼容性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%B7%E5%BA%93"><span class="toc-text">酷库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%8E%A7%E5%88%B6%E5%AD%97%E7%AC%A6%E7%9A%84%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="toc-text">通过控制字符的方式实现</span></a></li></ol>
     </div>
   </section>
 
