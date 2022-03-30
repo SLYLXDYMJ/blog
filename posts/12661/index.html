@@ -26,13 +26,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>🔢 酷库 - 数字增长 - JASON BLOG</title>
+  <title>🥋 游戏 - DNF单机版 - JASON BLOG</title>
   
-    <meta name="keywords" content="数字,动画">
+    <meta name="keywords" content="DNF">
   
 
   
-    <meta name="description" content="数据变化时，会有一个涨幅的过度动画，不会一下子变过去。">
+    <meta name="description" content="不知道什么时候开始，越来越喜欢自己折腾 “改游戏，提高自己的游戏体验” 这种事。。讲道理，其实挺累的，需要研究、再测试，有时让自己心态着急，但是总有种乐此不疲。。。">
   
 
   <!-- feed -->
@@ -2899,7 +2899,7 @@ article > p {
     
     
       <h1 class="title">
-        🔢 酷库 - 数字增长
+        🥋 游戏 - DNF单机版
       </h1>
       <div class='new-meta-box'>
         
@@ -2919,13 +2919,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：55 字</p>
+      <p>字数：835 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
+      <p>时长：3 分钟</p>
     </a>
   </div>
 
@@ -2940,14 +2940,37 @@ article > p {
   
   
   
-  <p>数据变化时，会有一个涨幅的过度动画，不会一下子变过去。</p>
+  <p>不知道什么时候开始，越来越喜欢自己折腾 “改游戏，提高自己的游戏体验” 这种事。。<br>讲道理，其实挺累的，需要研究、再测试，有时让自己心态着急，但是总有种乐此不疲。。。</p>
 <span id="more"></span>
 
-<h2 id="countUp-js"><a href="#countUp-js" class="headerlink" title="countUp.js"></a>countUp.js</h2><blockquote>
-<p>作为一个简单的动画库来说，github 🌟 很多…</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p>想玩的时候又忘了就瞅瞅吧</p>
 </blockquote>
-<p>在 github README 中有基于各种框架的封装</p>
-<a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/inorganik/countUp.js"><img src="https://github-readme-stats.vercel.app/api/pin/?username=inorganik&repo=countUp.js&show_owner=true"/></a>
+<p>现在网上所有的 DNF 单机版好像是 DNF 台服，流露出来的资源<br>资源分为 “<span class='p red'>服务端</span>“ 和 “<span class='p red'>客户端</span>“</p>
+<p>服务器端是个 linux 镜像，里面已经有了 DNF 服务端文件，需要虚拟机来运行<br>客户端没什么可理解的，就是常规软件目录</p>
+<p>网上只要是能下载，并且能正常搭建玩的，其实底层（或者说文件目录）都是一样的<br>导致他们五花八门的原因，是因为玩家自行修改了 <span class='p red'>Script.pvf</span> 文件</p>
+<h3 id="Script-pvf"><a href="#Script-pvf" class="headerlink" title="Script.pvf"></a>Script.pvf</h3><p>Script.pvf 里面装着游戏中所有的东西<br>包括职业、技能、伤害、小怪、副本、装备、任务等等等等<br>修改它就可以多一个副本、多一个职业，只要编程水平够厉害</p>
+<p>所以 <span class='p red'>Script.pvf</span> 文件，就是 <span class='p red'>DNF 版本的核心</span><br>不同的 <span class='p red'>Script.pvf</span> 文件，就是 <span class='p red'>DNF 不同版本的 DNF</span></p>
+<p>这个文件在 “服务端” 和 “客户端” 各有一份，内容是一样的<br>通常 “客户端” 是加密后的，防止其他不怀好意的人拷贝去使用开私服<br>但是如果是自己本地玩的单机，那么还是都统一用 <span class='p red'>不加密</span> 的方便</p>
+<h3 id="ImagePacks2-xxxx-npk"><a href="#ImagePacks2-xxxx-npk" class="headerlink" title="ImagePacks2/xxxx.npk"></a>ImagePacks2/xxxx.npk</h3><p>按照我的理解，他应该是游戏中的图片、视频等资源<br>如果缺少什么贴图等，那就是缺少这个响应的文件</p>
+<p>按照代码角度理解就是在 Script.pvf 中有 npk 路径调用，<br>调用指定的 npk 并且 npk 存在，就能正常显示</p>
+<h2 id="搭建虚拟机"><a href="#搭建虚拟机" class="headerlink" title="搭建虚拟机"></a>搭建虚拟机</h2><blockquote>
+<p>费了我老半天的事…..</p>
+</blockquote>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>下载 VM 和 DNF 服务端镜像。</li>
+<li>打开 VM（<span class='p red'>管理员启动</span>），设置 “虚拟网络编辑器”，将 VMnet 8 的子网 IP 设置为 192.168.200.0</li>
+<li>将镜像的 “网络适配器” 设置为 NAT 模式，然后启动虚拟机</li>
+<li>启动后，首先登录 linux（<span class='p red'>账号 root，密码 123456</span>）</li>
+<li>登录后，执行 <span class='p red'>./run</span> 跑出五国/四国就代表服务端启动成功了。</li>
+</ol>
+<h3 id="ping-不通"><a href="#ping-不通" class="headerlink" title="ping 不通"></a>ping 不通</h3><blockquote>
+<p>执行到上面的第 4 步，登录 linux 后，用本机 ping 192.168.200.131<br>看下是否成功（<span class='p red'>客户端是否能连接服务端</span>），若不通，那么就是网络设置有问题<br>我就是在这里花了大量的时间调通….</p>
+</blockquote>
+<p>检查第 2 步有没有做，然后在虚拟机中输入 ifconfig，查看当前的虚拟机 ip 是否是 192.168.200.131<br>通常如果第 2 步做了，那么 ip 一定是 192.168.200.131</p>
+<p>在本机 CMD 中输入 ipconfig，看下 VMnet8 对应的 IPv4 地址是不是 192.168.200.1<br>如果不是，那么去本机 <span class='p red'>网络连接</span> 中，将 VMnet8 的 IPv4 地址设置为 192.168.200.1<br>掩码为 255.255.255.0，其他的不用设置</p>
+<p>还有可能是因为 “<span class='p red'>之前电脑上有残留的 VM 注册表文件导致的</span>“<br>可以先删除当前的虚拟机，然后去下载一个 <span class='p red'>注册表清理文件</span>（ccleaner等），清理一下后<br>再重新开始</p>
+
   
   
     
@@ -2967,13 +2990,20 @@ article > p {
       
         
           
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fad fa-folder-open EMERALD fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/blog/categories/%E6%B8%B8%E6%88%8F/">游戏</a>
+    </a>
+  </div>
+
 
         
       
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E6%95%B0%E5%AD%97/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>数字</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E5%8A%A8%E7%94%BB/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>动画</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/DNF/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>DNF</p></a></div>
 
 
         
@@ -2992,7 +3022,7 @@ article > p {
           <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fad fa-calendar-alt TURQUOISE fa-fw" aria-hidden="true"></i>
-    <p>发布于：2021年9月18日</p>
+    <p>发布于：2022年3月30日</p>
   </a>
 </div>
 
@@ -3085,7 +3115,7 @@ article > p {
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#countUp-js"><span class="toc-text">countUp.js</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Script-pvf"><span class="toc-text">Script.pvf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ImagePacks2-xxxx-npk"><span class="toc-text">ImagePacks2&#x2F;xxxx.npk</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-text">搭建虚拟机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-text">步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ping-%E4%B8%8D%E9%80%9A"><span class="toc-text">ping 不通</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -3103,7 +3133,7 @@ article > p {
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="🔢 酷库 - 数字增长";
+  pdata.postTitle="🥋 游戏 - DNF单机版";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
