@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：319 字</p>
+      <p>字数：384 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2944,59 +2944,74 @@ article > p {
 <span id="more"></span>
 
 <h2 id="quill-js"><a href="#quill-js" class="headerlink" title="quill.js"></a>quill.js</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://quilljs.com/">https://quilljs.com/</a></p>
-</blockquote>
 <p>美观简洁，还算好使，但是功能较少，若需要下面的功能慎用。</p>
 <ul>
 <li>批量图片上传。</li>
 <li>表格。</li>
 </ul>
+</blockquote>
+<div class="tag link"><a class="link-card" title="官网" target="_blank" rel="noopener" href="https://quilljs.com/"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">官网</p><p class="url">https://quilljs.com/</p></div></a></div>
 <a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/quilljs/quill"><img src="https://github-readme-stats.vercel.app/api/pin/?username=quilljs&repo=quill&show_owner=true"/></a>
 <a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/surmon-china/vue-quill-editor"><img src="https://github-readme-stats.vercel.app/api/pin/?username=surmon-china&repo=vue-quill-editor&show_owner=true"/></a>
 
 <h2 id="wangeditor5"><a href="#wangeditor5" class="headerlink" title="wangeditor5"></a>wangeditor5</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.wangeditor.com/">https://www.wangeditor.com/</a></p>
+<p>新发现的库，功能多，官方支持集成 vue 和 react，待使用，目测很好使。</p>
 </blockquote>
-<p>新发现的库，功能多，官方支持集成 vue 和 react，待使用。</p>
+<div class="tag link"><a class="link-card" title="官网" target="_blank" rel="noopener" href="https://www.wangeditor.com/"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">官网</p><p class="url">https://www.wangeditor.com/</p></div></a></div>
 <a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/wangeditor-team/wangEditor"><img src="https://github-readme-stats.vercel.app/api/pin/?username=wangeditor-team&repo=wangEditor&show_owner=true"/></a>
 
-<h3 id="非工程化使用，又想用-vue-组件"><a href="#非工程化使用，又想用-vue-组件" class="headerlink" title="非工程化使用，又想用 vue 组件"></a>非工程化使用，又想用 vue 组件</h3><blockquote>
-<p>官方提供的 vue 和 react 组件，只用于工程化项目。</p>
+<h3 id="非工程化项目，又想用-vue-组件"><a href="#非工程化项目，又想用-vue-组件" class="headerlink" title="非工程化项目，又想用 vue 组件"></a>非工程化项目，又想用 vue 组件</h3><blockquote>
+<p>官方提供的 vue 和 react 组件，只用于工程化项目。<br>用下面这个，可以支持非工程化项目（测试OK）</p>
 </blockquote>
-<ol>
-<li><p>用 npm 安装 @wangeditor/editor-for-vue</p>
-<pre><code class="text">npm i @wangeditor/editor-for-vue
+<p>没有找到可以下载 js 的地址，可以用 npm 安装 wangeditor5-for-vue2 后<br>然后提取 \node_modules\wangeditor5-for-vue2\dist\lib\index.js 文件<br>复制到项目中引入使用即可</p>
+<div class="tag link"><a class="link-card" title="官网" target="_blank" rel="noopener" href="https://clinfc.github.io/wangeditor5-for-vue2/"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">官网</p><p class="url">https://clinfc.github.io/wangeditor5-for-vue2/</p></div></a></div>
+<a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/clinfc/wangeditor5-for-vue2"><img src="https://github-readme-stats.vercel.app/api/pin/?username=clinfc&repo=wangeditor5-for-vue2&show_owner=true"/></a>
+
+
+
+<pre><code class="html">&lt;link href=&quot;https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+
+&lt;div id=&quot;app&quot;&gt;
+  &lt;we-editor
+    :toolbar-option=&quot;toolbar&quot;
+    :editable-option=&quot;editable&quot;
+    :json.sync=&quot;data.json&quot;
+    :html.sync=&quot;data.html&quot;&gt;
+  &lt;/we-editor&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;./lib/vue.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://unpkg.com/@wangeditor/editor@latest/dist/index.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./lib/editor-for-vue.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  var &#123; useWangEditor &#125; = window.wangEditor5ForVue2
+
+  Vue.use(window.wangEditor5ForVue2.WeEditable)
+  Vue.use(window.wangEditor5ForVue2.WeEditor)
+  Vue.use(window.wangEditor5ForVue2.WeToolbar)
+
+  new Vue(&#123;
+    data() &#123;
+      return &#123;
+        data: &#123;
+          json: &#39;&#39;,
+          html: &#39;&#39;,
+        &#125;,
+        ...useWangEditor(&#123;
+          config: &#123;
+            placeholder: &#39;WeEditor 示例&#39;,
+            onCreated: (inst) =&gt; &#123;
+              console.log(inst)
+              // 使用了箭头函数，因此 this 指向当前组件实例
+              console.log(this.editable.config.placeholder)
+            &#125;,
+          &#125;,
+        &#125;),
+      &#125;
+    &#125;,
+  &#125;).$mount(&#39;#app&#39;)
+&lt;/script&gt;
 </code></pre>
-</li>
-<li><p>从 node_modules 中拿到 dist/index.js 文件（改名为 editor-for-vue.js）</p>
-</li>
-<li><p>在页面中引入 wangeditor5 主体文件和上面拿到的 editor-for-vue.js 文件</p>
-</li>
-<li><p>修改 editor-for-vue.js 文件，在其开头的地方新增代码</p>
-<pre><code class="javascript">// @wangeditor/editor-for-vue 打包格式不是 umd...
-// 这里需要手动处理下
-o = o || window.wangEditor
-</code></pre>
-</li>
-<li><p>修改 editor-for-vue.js 文件，使其 $emit 的事件名字全部改为小写，有多个地方，慢慢改</p>
-<pre><code class="javascript">// if (e.editor = Object.seal(o), e.$emit(&#39;onCreated&#39;, o), t.onCreated) &#123;
-//   var r = a(&#39;onCreated&#39;)
-//   throw new Error(r)
-// &#125;
-if (e.editor = Object.seal(o), e.$emit(&#39;oncreated&#39;, o), t.onCreated) &#123;
-var r = a(&#39;oncreated&#39;)
-throw new Error(r)
-&#125;
-</code></pre>
-</li>
-<li><p>注册组件</p>
-<pre><code class="javascript">Vue.component(&#39;Toolbar&#39;, window.WangEditorForVue.Toolbar)
-Vue.component(&#39;Editor&#39;, window.WangEditorForVue.Editor)
-</code></pre>
-</li>
-<li><p>删掉之前的 node_modules，已经没用了，然后正常使用即可。</p>
-</li>
-</ol>
 
   
   
@@ -3036,7 +3051,7 @@ Vue.component(&#39;Editor&#39;, window.WangEditorForVue.Editor)
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-25T00:55:05+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-25T02:25:13+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2022年5月25日</p>
@@ -3142,7 +3157,7 @@ Vue.component(&#39;Editor&#39;, window.WangEditorForVue.Editor)
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#quill-js"><span class="toc-text">quill.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wangeditor5"><span class="toc-text">wangeditor5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%8C%96%E4%BD%BF%E7%94%A8%EF%BC%8C%E5%8F%88%E6%83%B3%E7%94%A8-vue-%E7%BB%84%E4%BB%B6"><span class="toc-text">非工程化使用，又想用 vue 组件</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#quill-js"><span class="toc-text">quill.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wangeditor5"><span class="toc-text">wangeditor5</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%B7%A5%E7%A8%8B%E5%8C%96%E9%A1%B9%E7%9B%AE%EF%BC%8C%E5%8F%88%E6%83%B3%E7%94%A8-vue-%E7%BB%84%E4%BB%B6"><span class="toc-text">非工程化项目，又想用 vue 组件</span></a></li></ol></li></ol>
     </div>
   </section>
 
