@@ -2920,7 +2920,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：3.4k 字</p>
+      <p>字数：3.5k 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3511,6 +3511,21 @@ tabsHideOnSubPages: false
 <blockquote>
 <p>tabs 页面跳转：<br><a target="_blank" rel="noopener" href="https://ionicframework.com/docs/v3/api/components/tabs/Tabs/">https://ionicframework.com/docs/v3/api/components/tabs/Tabs/</a></p>
 </blockquote>
+<pre><code class="javascript">/**
+ *  Tab 模式的跳转规则一般是
+ *  A -&gt; A1 -&gt; A2 或 B -&gt; B1 -&gt; B2（前进）
+ *  或
+ *  A2 -&gt; A1 -&gt; A 或 B2 -&gt; B -&gt; B1（后退）
+ *  
+ *  如果像下面这种逻辑，可以参考下面的代码，文档中也有
+ *  A -&gt; A1（前进）
+ *  A1 -&gt; B（返回）
+ */
+// 先返回到根部
+this.navCtrl.popToRoot()
+// 切换到指定的 Tab，参数 2 是 tab 索引
+this.navCtrl.parent.select(2)
+</code></pre>
 <h3 id="接收页面参数"><a href="#接收页面参数" class="headerlink" title="接收页面参数"></a>接收页面参数</h3><blockquote>
 <p><a target="_blank" rel="noopener" href="https://ionicframework.com/docs/v3/api/navigation/NavParams/">https://ionicframework.com/docs/v3/api/navigation/NavParams/</a></p>
 </blockquote>
@@ -3562,10 +3577,10 @@ export class MyClass&#123;
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-01T03:20:06+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-14T08:03:56+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年6月1日</p>
+    <p>更新于：2022年6月14日</p>
   </a>
 </div>
 
@@ -4406,7 +4421,7 @@ document.addEventListener("pjax:success", listennSidebarTOC);
 
 
 
-<script src="/blog/blog/js/plugins/pjax.min.js"></script>
+<script src="/blog/js/plugins/pjax.min.js"></script>
 
 
 <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
