@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：649 字</p>
+      <p>字数：677 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2999,25 +2999,28 @@ methods: &#123;
       1 :
       this.page + 1
     
-    canNextAndChangeState() &amp;&amp; this.getList(page).then(function () &#123;
-      canNextAndChangeState()
+    canNextAndChangeState(null) &amp;&amp; this.getList(page).then(function () &#123;
+      canNextAndChangeState($state)
     &#125;)
     
     // 判断是否可以继续滚动加载，并且修改 infinite-loading 组件状态
-    function canNextAndChangeState () &#123;
+    function canNextAndChangeState (_state) &#123;
       // 没有查到数据
       if (_this.total === 0) &#123;
-        $state.complete()
+        _state &amp;&amp; _state.complete()
         return false
       &#125;
       // 已经完成了所有加载
       else if (_this.total &amp;&amp; _this.page &gt;= Math.ceil(_this.total / _this.pageSize)) &#123;
-        $state.loaded()
-        $state.complete()
+        _state &amp;&amp; _state.loaded()
+        _state &amp;&amp; _state.complete()
         return false
       &#125;
-      
-      return true
+      // 可以正常继续加载
+      else &#123;
+        _state &amp;&amp; _state.loaded()
+        return true
+      &#125;
     &#125;
   &#125;
 &#125;
@@ -3061,10 +3064,10 @@ methods: &#123;
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-17T02:26:09+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-20T09:27:07+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年6月17日</p>
+    <p>更新于：2022年6月20日</p>
   </a>
 </div>
 
