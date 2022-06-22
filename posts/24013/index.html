@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：637 字</p>
+      <p>字数：594 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2976,7 +2976,7 @@ article > p {
     dataList: [],
     page: 1,
     pageSize: 10,
-    total: null,
+    total: 0,
     
     // 该属性只为了重置组件，比如说列表筛选项切换后
     // 重置之前的已完成状态，只需要改变该值即可
@@ -3000,24 +3000,16 @@ methods: &#123;
         pageSize: this.pageSize
       &#125;)
       .then(function (res) &#123;
-        if (res.body.list) &#123;
-          _this.total = res.body.total
-          _this.dataList = _.concat(_this.dataList, res.body.list || [])
-          
-          // 标识 &quot;已完成了当次加载&quot;
-          $state.loaded()
-          
-          // 判断是否有下一页，若无，则标识 &quot;已无更多了&quot;
-          if (_this.total === 0 || _this.page &gt;= Math.ceil(_this.total / _this.pageSize)) &#123;
-            $state.complete()
-          &#125;
+        _this.total = res.body.total
+        _this.dataList = (_this.dataList || []).concat(res.body.list || [])
+        
+        // 标识 &quot;已完成了当次加载&quot;
+        $state.loaded()
+        
+        // 判断是否有下一页，若无，则标识 &quot;已无更多了&quot;
+        if (_this.page &gt;= Math.ceil(_this.total / _this.pageSize)) &#123;
+          $state.complete()
         &#125;
-        else &#123;
-          throw new Error()
-        &#125;
-      &#125;)
-      .catch(function (err) &#123;
-        _this.$Message.error(&#123; content: &#39;获取药品列表数据失败，接口报错&#39; &#125;)
       &#125;)
   &#125;,
   // 修改了筛选条件
@@ -3066,10 +3058,10 @@ methods: &#123;
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-21T03:06:49+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-22T06:32:18+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年6月21日</p>
+    <p>更新于：2022年6月22日</p>
   </a>
 </div>
 
