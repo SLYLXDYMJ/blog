@@ -4116,6 +4116,9 @@ svg.loading {
     max-width: 55vw;
   }
 }
+.body-wrapper > #content {
+  width: 100%;
+}
 article#comments p[ct] {
   margin-top: 0;
   margin-bottom: 1em;

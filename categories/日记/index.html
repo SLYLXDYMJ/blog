@@ -2941,7 +2941,7 @@ article > p {
     
       <p>有趣的朋友 🍻</p>
     
-      <p>这样的自己 😇</p>
+      <p>更好的自己 😇</p>
     
   </div>
 </section>
@@ -2966,7 +2966,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>64 篇</div>
+          <div>69 篇</div>
         </div>
       
 
@@ -2988,7 +2988,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>32.9k </div>
+          <div>34.4k </div>
         </div>
       
 
@@ -3000,8 +3000,8 @@ article > p {
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Thu Mar 17 2022 08:04:57 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2022-03-17 日</div>
+            <div id="last-update" style="display: none;">Mon Jul 18 2022 02:18:57 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2022-07-18 日</div>
           
         </div>
         
@@ -3051,7 +3051,7 @@ article > p {
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2022-03-17 日';
+            document.getElementById('last-update-show').innerHTML = '2022-07-18 日';
           }
         </script>
         
@@ -3087,7 +3087,7 @@ article > p {
           <li><a class="flat-box"
             title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
             id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(17)</div></a></li>
+            ><div class='name'>学习</div><div class='badge'>(21)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E5%B7%A5%E5%85%B7/" href="/blog/categories/%E5%B7%A5%E5%85%B7/"
@@ -3112,22 +3112,22 @@ article > p {
           <li><a class="flat-box"
             title="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/" href="/blog/categories/%E8%A7%86%E9%A2%91%E7%89%87%E6%AE%B5/"
             id="blogcategoriesE8A786E9A291E78987E6AEB5"
-            ><div class='name'>视频片段</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>视频片段</div><div class='badge'>(2)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E9%80%BB%E8%BE%91/" href="/blog/categories/%E9%80%BB%E8%BE%91/"
             id="blogcategoriesE980BBE8BE91"
-            ><div class='name'>逻辑</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>逻辑</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E9%85%B7%E5%BA%93/" href="/blog/categories/%E9%85%B7%E5%BA%93/"
             id="blogcategoriesE985B7E5BA93"
-            ><div class='name'>酷库</div><div class='badge'>(28)</div></a></li>
+            ><div class='name'>酷库</div><div class='badge'>(30)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E9%97%AE%E9%A2%98/" href="/blog/categories/%E9%97%AE%E9%A2%98/"
             id="blogcategoriesE997AEE9A298"
-            ><div class='name'>问题</div><div class='badge'>(4)</div></a></li>
+            ><div class='name'>问题</div><div class='badge'>(1)</div></a></li>
         
       </ul>
     </div>
@@ -3385,12 +3385,12 @@ article > p {
   
   
   
-  volantis.css("https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10/build/styles/solarized-light.min.css");
+  volantis.css("/blog/css/plugins/solarized-light.min.css");
   
 </script>
 <!-- required -->
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+<script src="/blog/js/plugins/jquery.min.js"></script>
 
 
 <!-- internal -->
@@ -3535,7 +3535,7 @@ volantis.pjax.send(()=>{
 
 
 
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+  <script src="/blog/js/plugins/clipboard.min.js"></script>
 <script>
     var clipboard = new ClipboardJS('.btn-copy', {
         target: function (trigger) {
@@ -3599,11 +3599,11 @@ volantis.pjax.send(()=>{
     volantis.APlayerController = {};
     volantis.APlayerController.id = '7716882294';  // 设定全局音乐播放ID
     volantis.APlayerController.volume = '0.7';
-    volantis.css("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css");
+    volantis.css("/blog/css/plugins/APlayer.min.css");
     // APlayer 需要在  MetingJS 之前加载
     (async () => {
-      await volantis.js("https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js")
-      await volantis.js("https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js")
+      await volantis.js("/blog/js/plugins/APlayer.min.js")
+      await volantis.js("/blog/js/plugins/Meting.min.js")
 
       
     })();
@@ -3735,14 +3735,14 @@ function setSearchService() {
 
 
   
-<script src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2/js/comment_typing.js"></script>
+<script src="/blog/js/plugins/comment_typing.js"></script>
 
 
 
 
   
 
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10/build/highlight.min.js"></script>
+<script src="/blog/js/plugins/highlight.min.js"></script>
 
 <script>hljs.initHighlightingOnLoad();</script>
 
@@ -3912,14 +3912,14 @@ document.addEventListener("pjax:success", listennSidebarTOC);
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+<script src="/blog/js/plugins/pjax.min.js"></script>
 
 
 <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
 
 <div class="pjax-animate">
   
-    <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+    <script src="/blog/js/plugins/nprogress.min.js"></script>
     <div id="loading-bar-wrapper"><script>NProgress.configure({parent:"#loading-bar-wrapper",trickleSpeed: 100})</script></div>
     <script>
       window.ShowLoading = function() {
