@@ -2915,7 +2915,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：272 字</p>
+      <p>字数：400 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2939,10 +2939,43 @@ article > p {
   <h2 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h2><blockquote>
 <p>用于处理复杂的数据转换 <br/><br>优化代码，提高阅读性</p>
 </blockquote>
-<h2 id="注意（惰性）"><a href="#注意（惰性）" class="headerlink" title="注意（惰性）"></a>注意（惰性）</h2><blockquote>
+<h3 id="chain"><a href="#chain" class="headerlink" title="chain"></a>chain</h3><blockquote>
+<p>创建一个 lodash 包装实例。</p>
+</blockquote>
+<pre><code class="javascript">// 若想解除链式（获得值）必须调用 value 方法。
+_.chain(1)
+  // ...
+  .value()
+// =&gt; 1
+</code></pre>
+<h3 id="tap"><a href="#tap" class="headerlink" title="tap"></a>tap</h3><blockquote>
+<p>该方法的目的是进入方法链序列以便修改中间结果。</p>
+</blockquote>
+<pre><code class="javascript">_.chain([1, 2, 3])
+ .tap(function(array) &#123;
+  // 改变传入的数组
+   array.pop();
+ &#125;)
+ .reverse()
+ .value();
+// =&gt; [2, 1]
+</code></pre>
+<h3 id="thru"><a href="#thru" class="headerlink" title="thru"></a>thru</h3><blockquote>
+<p>该方法的目的是”传递” 值到一个方法链序列以取代中间结果。</p>
+</blockquote>
+<pre><code class="javascript">_.chain(&#39;  abc  &#39;)
+ .chain()
+ .trim()
+ .thru(function(value) &#123;
+   return [value];
+ &#125;)
+ .value();
+// =&gt; [&#39;abc&#39;]
+</code></pre>
+<h2 id="不太重要"><a href="#不太重要" class="headerlink" title="不太重要"></a>不太重要</h2><h3 id="注意（惰性）"><a href="#注意（惰性）" class="headerlink" title="注意（惰性）"></a>注意（惰性）</h3><blockquote>
 <p>若是值为原始类型，那么值不能改，改了也没用，还是会用原来值<br/><br>若是值为引用类型，那么引用指针不能改，改了也没用，只能在源对象上进行操作</p>
 </blockquote>
-<h2 id="隐式调用"><a href="#隐式调用" class="headerlink" title="隐式调用"></a>隐式调用</h2><blockquote>
+<h3 id="隐式调用"><a href="#隐式调用" class="headerlink" title="隐式调用"></a>隐式调用</h3><blockquote>
 <p>结尾必须是返回原始值或唯一值的函数 <br/><br>才会自动执行整个链条函数（value 函数） <br/><br>否则就和显示调用一样了…value 结尾才返回值 <br/></p>
 </blockquote>
 <pre><code class="javascript">let arr = [1, 2, 3];
@@ -2958,7 +2991,7 @@ _(arr)
   .value();
 // =&gt; 14
 </code></pre>
-<h2 id="显式调用"><a href="#显式调用" class="headerlink" title="显式调用"></a>显式调用</h2><blockquote>
+<h3 id="显式调用"><a href="#显式调用" class="headerlink" title="显式调用"></a>显式调用</h3><blockquote>
 <p>结尾必须是 value 函数 <br/><br>显式的结束整个链条 <br/><br>个人通常用这个比较多…感觉比隐式明确些</p>
 </blockquote>
 <pre><code class="javascript">let arr = [];
@@ -3004,10 +3037,10 @@ console.log(handler.value());
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-08-09T02:24:54+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-08-10T02:36:08+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年8月9日</p>
+    <p>更新于：2022年8月10日</p>
   </a>
 </div>
 
@@ -3252,7 +3285,7 @@ console.log(handler.value());
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-text">链式调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%88%E6%83%B0%E6%80%A7%EF%BC%89"><span class="toc-text">注意（惰性）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-text">隐式调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-text">显式调用</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-text">链式调用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#chain"><span class="toc-text">chain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tap"><span class="toc-text">tap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#thru"><span class="toc-text">thru</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%A4%AA%E9%87%8D%E8%A6%81"><span class="toc-text">不太重要</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%88%E6%83%B0%E6%80%A7%EF%BC%89"><span class="toc-text">注意（惰性）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%90%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-text">隐式调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%BE%E5%BC%8F%E8%B0%83%E7%94%A8"><span class="toc-text">显式调用</span></a></li></ol></li></ol>
     </div>
   </section>
 
