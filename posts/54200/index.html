@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：277 字</p>
+      <p>字数：393 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2943,7 +2943,7 @@ article > p {
   <p>工作用用到了递归函数，写起来感觉奇奇怪怪的，这里总结一下逻辑。</p>
 <span id="more"></span>
 
-<pre><code class="javascript">/**
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><pre><code class="javascript">/**
  *  递归函数：
  *    1. 递归函数中需要有 &quot;跳出判断&quot;，当判断成立后，不会继续递归下去。
  *    2. 若 &quot;跳出判断&quot; 不成立，则会继续递归。
@@ -2966,6 +2966,41 @@ function sum (num) &#123;
   else &#123;
     return arguments.callee(num - 1) + num
   &#125;
+&#125;
+</code></pre>
+<h2 id="根据-“关键词”-递归搜索"><a href="#根据-“关键词”-递归搜索" class="headerlink" title="根据 “关键词” 递归搜索"></a>根据 “关键词” 递归搜索</h2><blockquote>
+<p>百度找的</p>
+</blockquote>
+<pre><code class="javascript">var getNewTreeData = function (treeData, value) &#123;
+  if (!treeData) &#123;
+    return null
+  &#125;
+  var newTreeData = new Array()
+  var node = null
+  var children = null
+  var text = &#39;&#39;
+  for (var i = 0; i &lt; treeData.length; i++) &#123;//多个根节点开始遍历
+    node = treeData[ i ]
+    if (node.children) &#123;
+      children = node.children
+    &#125;
+    text = node.title
+    if (text.indexOf(value) &gt; -1) &#123;
+      newTreeData.push(node)
+      continue
+    &#125;
+    else &#123;
+      if (children) &#123;
+        var newNodes = getNewTreeData(node.children, value)
+        if (newNodes.length &gt; 0) &#123;
+          node.children = newNodes
+          newTreeData.push(node)
+        &#125;
+      &#125;
+    &#125;
+    
+  &#125;
+  return newTreeData
 &#125;
 </code></pre>
 
@@ -3007,7 +3042,7 @@ function sum (num) &#123;
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-08-29T01:23:01+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-08-29T07:18:49+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2022年8月29日</p>
@@ -3102,6 +3137,20 @@ function sum (num) &#123;
     
 
 
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fad fa-list ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE-%E2%80%9C%E5%85%B3%E9%94%AE%E8%AF%8D%E2%80%9D-%E9%80%92%E5%BD%92%E6%90%9C%E7%B4%A2"><span class="toc-text">根据 “关键词” 递归搜索</span></a></li></ol>
+    </div>
+  </section>
 
 
   
