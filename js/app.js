@@ -187,7 +187,7 @@ const VolantisApp = (() => {
   // 设置导航栏
   fn.setHeader = () => {
     // !!! 此处的jQuery对象需要重载 !!!
-    if (!pdata.ispage) return
+    // if (!pdata.ispage) return
     
     // 填充二级导航文章标题 【移动端 PC】
     volantis.$.wrapper.find('.nav-sub .title').html(pdata.postTitle)
@@ -346,8 +346,8 @@ const VolantisApp = (() => {
   
   // 设置 tabs 标签  【移动端 PC】
   fn.setTabs = () => {
-    if (!$('#l_main .tabs .nav-tabs').length) return
-    $('#l_main .tabs .nav-tabs').on('click', 'a', (e) => {
+    // if (!$('#l_main .tabs .nav-tabs').length) return
+    $('body').on('click', '#l_main .tabs .nav-tabs a', (e) => {
       e.preventDefault()
       e.stopPropagation()
       const $tab = $(e.target.parentElement.parentElement.parentElement)
