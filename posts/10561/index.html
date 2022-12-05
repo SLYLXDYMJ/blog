@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：300 字</p>
+      <p>字数：345 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2943,34 +2943,39 @@ article > p {
   <p>mutation 的定义比较迷…<br>个人喜欢不管是不是异步逻辑，都放在 action 中处理，然后提交 mutation<br>但是如果一个 state 就定义一个 mutation 方法，就太累了<br>这里记录定义一个统一的方法<br>PS：基于 lodash 的 set 方法实现</p>
 <span id="more"></span>
 
-<pre><code class="javascript">  mutations: &#123;
-    /**
-     *  统一更新值的方法
-     *
-     *  @requires lodash
-     *
-     *  @param &#123; Object | Array &#125; payload
-     *
-     *  @param &#123; String &#125; [payload.path] - 要修改的字段路径
-     *  @param &#123; String &#125; payload[].path - 要修改的字段路径
-     *
-     *  @param &#123; Any &#125; [payload.value] - 要修改的字段值
-     *  @param &#123; Any &#125; payload[].value - 要修改的字段值
-     *
-     *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
-     *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
-     **/
-    UPDATE_VALUE: function (state, payload) &#123;
-      var arr = [].concat(payload)
+<pre><code class="javascript">// 定义在全局，通过路径的方式可以直接修改子模块的 state
+mutations: &#123;
+  /**
+   *  统一更新值的方法
+   *
+   *  @requires lodash
+   *
+   *  @param &#123; Object | Array &#125; payload
+   *
+   *  @param &#123; String &#125; [payload.path] - 要修改的字段路径
+   *  @param &#123; String &#125; payload[].path - 要修改的字段路径
+   *
+   *  @param &#123; Any &#125; [payload.value] - 要修改的字段值
+   *  @param &#123; Any &#125; payload[].value - 要修改的字段值
+   *
+   *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
+   *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
+   **/
+  UPDATE_VALUE: function (state, payload) &#123;
+    var arr = [].concat(payload)
+    
+    arr.forEach(function (item) &#123;
+      var path = item.path
+      var value = item.value
       
-      arr.forEach(function (item) &#123;
-        var path = item.path
-        var value = item.value
-        
-        _.set(state, path, value)
-      &#125;)
-    &#125;
+      if (!path) &#123;
+        throw new Error(&#39;来自 vuex mutation UPDATE_VALUE 的报错：path 不能为空&#39;)
+      &#125;
+      
+      _.set(state, path, value)
+    &#125;)
   &#125;
+&#125;
 </code></pre>
 <pre><code class="javascript">// 使用
 
@@ -3036,10 +3041,10 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-11-25T09:29:32+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-12-05T04:01:55+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年11月25日</p>
+    <p>更新于：2022年12月5日</p>
   </a>
 </div>
 
