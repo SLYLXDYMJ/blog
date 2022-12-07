@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：345 字</p>
+      <p>字数：396 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2946,7 +2946,7 @@ article > p {
 <pre><code class="javascript">// 定义在全局，通过路径的方式可以直接修改子模块的 state
 mutations: &#123;
   /**
-   *  统一更新值的方法
+   *  全局统一更新 state 的方法
    *
    *  @requires lodash
    *
@@ -2960,8 +2960,12 @@ mutations: &#123;
    *
    *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
    *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
+   *
+   *  @example
+   *    this.$store.dispatch(&#39;any&#39;, [&#123; path: &#39;a&#39;, value: &#39;a&#39; &#125;, &#123; path: &#39;b&#39;, value: &#39;b&#39; &#125;])
+   *    this.$store.dispatch(&#39;any/any&#39;, &#123; path: &#39;any.any&#39;, value: &#39;any&#39; &#125;, &#123; root: true &#125;)
    **/
-  UPDATE_VALUE: function (state, payload) &#123;
+  UPDATE_STATE: function (state, payload) &#123;
     var arr = [].concat(payload)
     
     arr.forEach(function (item) &#123;
@@ -3041,10 +3045,10 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-12-05T04:01:55+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-12-07T02:37:40+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年12月5日</p>
+    <p>更新于：2022年12月7日</p>
   </a>
 </div>
 
