@@ -2919,7 +2919,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：347 字</p>
+      <p>字数：413 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -3001,6 +3001,21 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
     value: new Date().getTime()
   &#125;
 ])
+
+// 如果是在 modules 里 namespaced 为 true 的情况下
+// 在 actions 里提交 mutation
+// 需要在 commit 方法的第三个参数里设置 root: true
+&#123;
+  namespaced: true,
+  actions: &#123;
+    handler: function (context) &#123;
+      context.commit(&#39;UPDATE_STATE&#39;, &#123;
+        path: &#39;any.any&#39;,
+        value: 10086
+      &#125;, &#123; root: true &#125;)
+    &#125;
+  &#125;
+&#125;
 </code></pre>
 
   
@@ -3041,7 +3056,7 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-12-08T01:07:32+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-12-08T02:19:01+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2022年12月8日</p>
