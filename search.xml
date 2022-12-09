@@ -4,16 +4,66 @@
   
     
     <entry>
-      <title>🏻 记录 - vuex 统一的 mutation 方法</title>
-      <link href="/blog/posts/10561/"/>
-      <url>/blog/posts/10561/</url>
+      <title>🍘 酷库 - Vuex</title>
+      <link href="/blog/posts/43314/"/>
+      <url>/blog/posts/43314/</url>
       
-        <content type="html"><![CDATA[<p>mutation 的定义比较迷…<br>个人喜欢不管是不是异步逻辑，都放在 action 中处理，然后提交 mutation<br>但是如果一个 state 就定义一个 mutation 方法，就太累了<br>这里记录定义一个统一的方法<br>PS：基于 lodash 的 set 方法实现</p><span id="more"></span><pre><code class="javascript">// 定义在全局，通过路径的方式可以直接修改子模块的 statemutations: &#123;  /**   *  全局统一更新 state 的方法   *   *  @requires lodash   *   *  @param &#123; Object | Array &#125; payload   *   *  @param &#123; String &#125; [payload.path] - 要修改的字段路径   *  @param &#123; String &#125; payload[].path - 要修改的字段路径   *   *  @param &#123; Any &#125; [payload.value] - 要修改的字段值   *  @param &#123; Any &#125; payload[].value - 要修改的字段值   *   *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途   *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途   **/  UPDATE_STATE: function (state, payload) &#123;    var arr = [].concat(payload)        arr.forEach(function (item) &#123;      var path = item.path      var value = item.value            if (!path) &#123;        throw new Error(&#39;来自 vuex mutation UPDATE_VALUE 的报错：path 不能为空&#39;)      &#125;            _.set(state, path, value)    &#125;)  &#125;&#125;</code></pre><pre><code class="javascript">// 使用this.$store.commit(&#39;UPDATE_VALUE&#39;, &#123;  path: &#39;arr[0][0][0].test&#39;,  value: new Date().getTime(),  comment: &#39;我是备注&#39;&#125;)// orthis.$store.commit(&#39;UPDATE_VALUE&#39;, [  &#123;    path: &#39;test&#39;,    value: new Date().getTime()  &#125;,  &#123;    path: &#39;obj.obj.test&#39;,    value: new Date().getTime()  &#125;,  &#123;    path: &#39;arr[0][0][0].test&#39;,    value: new Date().getTime()  &#125;])// 如果是在 modules 里 namespaced 为 true 的情况下// 在 actions 里提交 mutation// 需要在 commit 方法的第三个参数里设置 root: true&#123;  namespaced: true,  actions: &#123;    handler: function (context) &#123;      context.commit(&#39;UPDATE_STATE&#39;, &#123;        path: &#39;any.any&#39;,        value: 10086      &#125;, &#123; root: true &#125;)    &#125;  &#125;&#125;</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>Vue 全家桶之一</p><span id="more"></span><h2 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h2><div class="tag link"><a class="link-card" title="Vuex3" href="https://v3.vuex.vuejs.org/zh/"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">Vuex3</p><p class="url">https://v3.vuex.vuejs.org/zh/</p></div></a></div><div class="tag link"><a class="link-card" title="Vuex4" href="https://vuex.vuejs.org/zh/index.html"><div class="left"><img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/256/safari.png"/></div><div class="right"><p class="text">Vuex4</p><p class="url">https://vuex.vuejs.org/zh/index.html</p></div></a></div><h2 id="统一更新-state-的全局方法"><a href="#统一更新-state-的全局方法" class="headerlink" title="统一更新 state 的全局方法"></a>统一更新 state 的全局方法</h2><p>mutation 的定义比较迷…<br>个人喜欢不管是不是异步逻辑，都放在 action 中处理，然后提交 mutation<br>但是如果一个 state 就定义一个 mutation 方法，就太累了<br>这里记录定义一个统一的方法<br>PS：基于 lodash 的 set 方法实现</p><pre><code class="javascript">// 定义在全局，通过路径的方式可以直接修改子模块的 statenew Vuex.Store(&#123;  mutations: &#123;    /**     *  全局统一更新 state 的方法     *     *  @requires lodash     *     *  @param &#123; Object | Array &#125; payload     *     *  @param &#123; String &#125; [payload.path] - 要修改的字段路径     *  @param &#123; String &#125; payload[].path - 要修改的字段路径     *     *  @param &#123; Any &#125; [payload.value] - 要修改的字段值     *  @param &#123; Any &#125; payload[].value - 要修改的字段值     *     *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途     *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途     **/    UPDATE_STATE: function (state, payload) &#123;      var arr = [].concat(payload)            arr.forEach(function (item) &#123;        var path = item.path        var value = item.value                if (!path) &#123;          throw new Error(&#39;来自 vuex mutation UPDATE_VALUE 的报错：path 不能为空&#39;)        &#125;                _.set(state, path, value)      &#125;)    &#125;  &#125;&#125;)</code></pre><pre><code class="javascript">// 使用this.$store.commit(&#39;UPDATE_VALUE&#39;, &#123;  path: &#39;arr[0][0][0].test&#39;,  value: new Date().getTime(),  comment: &#39;我是备注&#39;&#125;)// orthis.$store.commit(&#39;UPDATE_VALUE&#39;, [  &#123;    path: &#39;test&#39;,    value: new Date().getTime()  &#125;,  &#123;    path: &#39;obj.obj.test&#39;,    value: new Date().getTime()  &#125;,  &#123;    path: &#39;arr[0][0][0].test&#39;,    value: new Date().getTime()  &#125;])// 如果是在 modules 里 namespaced 为 true 的情况下// 在 actions 里提交 mutation// 需要在 commit 方法的第三个参数里设置 root: truenew Vuex.Store(&#123;  modules: &#123;    any: &#123;      namespaced: true,      actions: &#123;        handler: function (context) &#123;          context.commit(&#39;UPDATE_STATE&#39;, &#123;            path: &#39;any.any&#39;,            value: 10086          &#125;, &#123; root: true &#125;)        &#125;      &#125;    &#125;  &#125;&#125;)</code></pre>]]></content>
       
       
       <categories>
           
-          <category> 记录 </category>
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🍜 酷库 - Vue</title>
+      <link href="/blog/posts/62437/"/>
+      <url>/blog/posts/62437/</url>
+      
+        <content type="html"><![CDATA[<p>🍛</p><span id="more"></span><h2 id="解决开发时跨域问题"><a href="#解决开发时跨域问题" class="headerlink" title="解决开发时跨域问题"></a>解决开发时跨域问题</h2><pre><code class="javascript">// vue.config.jsmodule.exports = &#123;  devServer: &#123;    proxy: &#123;      &#39;/dev-api&#39;: &#123;        target: &#39;http://47.97.154.202:1091&#39;,        changeOrigin: true,        pathRewrite: &#123; &#39;^/dev-api&#39;: &#39;&#39; &#125;      &#125;    &#125;  &#125;&#125;</code></pre><h2 id="静态文件转为-Base64-格式引入"><a href="#静态文件转为-Base64-格式引入" class="headerlink" title="静态文件转为 Base64 格式引入"></a>静态文件转为 Base64 格式引入</h2><blockquote><p>下面是将字体文件，转为 base64 的配置<br>问题来自 element-ui IE11 部分版本图标不显示<br>但是转为 base64 就好了</p></blockquote><pre><code class="javascript">// vue.config.jsmodule.exports = &#123;  chainWebpack: config =&gt; &#123;    const fontsRule = config.module.rule(&#39;fonts&#39;)    fontsRule.uses.clear()    fontsRule.test(/\.(woff|eot|ttf|otf)(\?.*)?$/i)    fontsRule.use(&#39;file-loader&#39;)      .loader(&#39;url-loader&#39;)      .options(&#123;        fallback: &#123;          loader: &#39;file-loader&#39;,          options: &#123;            name: &#39;fonts/[name].[hash:8].[ext]&#39;          &#125;        &#125;      &#125;)  &#125;&#125;</code></pre><h2 id="Vue3-学习"><a href="#Vue3-学习" class="headerlink" title="Vue3 学习"></a>Vue3 学习</h2><h3 id="setup-方法"><a href="#setup-方法" class="headerlink" title="setup 方法"></a>setup 方法</h3><blockquote><p>触发时机位于 beforeCreated 和 created 之间<br>无法获取 this，也没有必要获取 this</p></blockquote><p>Vue3 相比于 Vue2 新增了 setup 方法，作为初始化方法<br>将 data、computed、methods、watch、生命周期函数全都整合到这一个方法中定义<br>但这不是必须的，继续使用 Vue2 的定义方式也是可以的。</p><psw>个人更喜欢 setup 的方式定义，代码都放在一起，关联性强，可以快速阅读书写，更方便一些 😛</psw><pre><code class="javascript">import &#123; ref, toRefs &#125; from &#39;vue&#39;;export default &#123;  props: &#123;    title: &#123;      type: String,      default: &#39;默认值&#39;    &#125;  &#125;,    /**   *  props 是 &quot;响应式数据&quot;，不能使用 ES6 解构，它会消除 prop 的响应性。   *  若非要解构，则需要使用 toRefs 方法将 props 转为普通对象（对象内部的值为 ref 对象）   **/  setup (props, &#123; attrs, slots, emit &#125;) &#123;    const &#123; title &#125; = toRefs(props)    const num = ref(10)        /**     *  只有通过 return 暴露出去的属性和方法才可以在 template 中使用     *  所以 Vue3 开发时感觉最常见的错误应该就是 &quot;忘记写 return 了&quot;     *  不过应该可以通过统一定义到一个对象中，然后在 return 中已解构的方式，一劳永逸     *  待测试开发友好度~~     **/    return &#123; num &#125;  &#125;&#125;</code></pre><h3 id="响应式数据定义"><a href="#响应式数据定义" class="headerlink" title="响应式数据定义"></a>响应式数据定义</h3><p>通过 ref 方法或 reactive 方法定义 “响应式数据”</p><div class="tabs" id="响应式数据定义"><ul class="nav-tabs"><li class="tab active"><a class="#响应式数据定义-1">Vue3</a></li><li class="tab"><a class="#响应式数据定义-2">Vue3 说明</a></li><li class="tab"><a class="#响应式数据定义-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="响应式数据定义-1"><pre><code class="javascript">import { ref, reactive } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const num = ref(0)    const state = reactive({ num: 0 })        return { num, state }  }}</code></pre></div><div class="tab-pane" id="响应式数据定义-2"><pre><code class="javascript">/** *  ref 方法用来定义 &quot;简单&quot; 的响应式数据，参数不限制类型 *  ref 会将传入的数据，套一层对象，并将数据作为对象的 value 属性 *  ref 方法会将内部的引用类型全部转为 &quot;响应式数据&quot; *  ref 内部其实也是用的 reactive * *  使用 attr.value 的方式获取值 *  使用 attr.value = any 的方式改变值 * *  shallowRef 与 ref 类似 *  区别是不会将值内部的引用类型的值转为 &quot;响应式数据&quot; *    const data = ref({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 是响应式数据，obj 中的值改了，页面就会自动刷新 * *    const data = shallowRef({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 不是响应式数据，obj 中的值虽然改了，但是页面不会自动刷新 **/const num = ref(0)</code></pre><pre><code class="javascript">/** *  reactive 方法用来定义 &quot;复杂&quot; 的响应式数据 *  参数必须是对象或者数组，通常为对象（对象中再定义数组） *  比较好的思想是 &quot;抽象&quot; 一个功能，将相关的数据都封装在一起。 *  一旦定义之后，无法改变自身，可以改变内部的属性值。 * *  reactive 不会像 ref 一样套一层 value *  因为 reactive 的参数只可传入引用类型 *  直接使用 attr.key 的方式获取值 *  使用 attr.key = any 的方式改变值 * *  reactive 和 shallowReactive 的区别 *  区别是不会将值内部的引用类型的值转为 &quot;响应式数据&quot; *    const data = reactive({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 是响应式数据，obj 中的值改了，页面就会自动刷新 * *    const data = shallowReactive({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 不是响应式数据，obj 中的值虽然改了，但是页面不会自动刷新 **/const state = reactive({ num: 0 })</code></pre></div><div class="tab-pane" id="响应式数据定义-3"><pre><code class="javascript">export default {  data () {    return {      num: 0,      state: { num: 0 }    }  }}</code></pre></div></div></div><h3 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h3><p>概念上没啥大变化。</p><div class="tabs" id="计算属性"><ul class="nav-tabs"><li class="tab active"><a class="#计算属性-1">Vue3</a></li><li class="tab"><a class="#计算属性-2">Vue3 说明</a></li><li class="tab"><a class="#计算属性-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="计算属性-1"><pre><code class="javascript">import { computed } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const name = ref(&#39;jason&#39;)    const fullName = computed(() =&gt; {      return `------ ${ name.value } ------`    })        // 可以将计算属性写在 ref 或者 reactive 定义的对象类型 &quot;响应式数据&quot; 中    const state = reactive({       fullName: computed(() =&gt; {        return `====== ${ name.value } ======`      })    })        console.log(name.value)    // =&gt; jason    console.log(fullName.value)    // =&gt; ------ jason ------    console.log(state.fullName)    // =&gt; ====== jason ======        return { name, fullName, state }  }}</code></pre></div><div class="tab-pane" id="计算属性-2"><pre><code class="javascript">/** *  computed 用来定义计算属性 *  和 vue2 的没有任何的不同，都是基于 &quot;响应式数据&quot; 来实时计算结果。 *  也可以传入一个对象，同时设置 get 和 set。 *  注意的是 computed 将返回一个 ref 对象 *  也可以将 computed 写在 ref 和 reactive 定义的中 &quot;响应式数据&quot; 对象中 **/</code></pre></div><div class="tab-pane" id="计算属性-3"><pre><code class="javascript">export default {  data () {    return {      name: &#39;jason&#39;    }  },  computed: {    fullName () {      return `------ ${ this.name } ------`    }  }}</code></pre></div></div></div><h3 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h3><p>没啥大变化</p><div class="tabs" id="方法定义"><ul class="nav-tabs"><li class="tab active"><a class="#方法定义-1">Vue3</a></li><li class="tab"><a class="#方法定义-2">Vue3 说明</a></li><li class="tab"><a class="#方法定义-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="方法定义-1"><pre><code class="javascript">import { computed } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const submit = () =&gt; {      console.log(&#39;submit&#39;)    }        return { submit }  }}</code></pre></div><div class="tab-pane" id="方法定义-2"><pre><code class="javascript">/** *  methods 应该是最容易理解的了 *  写在 setup 中，内部的话直接调用即可 *  return 出去，就可以在 template 中调用了 **/</code></pre></div><div class="tab-pane" id="方法定义-3"><pre><code class="javascript">export default {  methods: {    submit () {      console.log(&#39;submit&#39;)    }  }}</code></pre></div></div></div><h3 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h3><ol><li>可以监听到数组直接赋值子项的情况了（vue2 中 this.arr[0] = 10 将不会触发 watch）</li><li>可以同时监听多个 “响应式数据” 了。</li><li>新增了 onInvalidate 方法，用来在函数即将重新执行时、侦听器被停止时清除异步代码带来的影响。</li><li>增加了 watchEffect 方法，不用指定需要监听的 “响应式数据”，通过定义的函数内部自动依赖监听项。</li><li>watch 方法的第一个参数，需要理解后使用，否则总会出问题。</li></ol><div class="tabs" id="监听器"><ul class="nav-tabs"><li class="tab active"><a class="#监听器-1">Vue3</a></li><li class="tab"><a class="#监听器-2">Vue3 说明</a></li><li class="tab"><a class="#监听器-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="监听器-1"><pre><code class="javascript">import { watch, watchEffect } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const num = ref(0)    const state = { num: 0 }    const arr = ref([ 1, 2 ])        // 若监听某 &quot;响应式数据&quot; 的替换型改变（ref.value = any）时，直接传入 ref 就行。    watch(num, (newValue, oldValue, onInvalidate) =&gt; {})        // 若 &quot;响应式数据&quot; 为对象，并且想监听对象内部值变化时    // 需要传入一个函数，返回这个对象，并且配置 deep: true    // 注意：此时 oldValue = newValue    watch(() =&gt; state, (newValue, oldValue, onInvalidate) =&gt; {      // ...    }, { deep: true })        // 若 &quot;响应式数据&quot; 为对象，并且想监听固定某内部值的变化时    // 则需要传入一个函数，返回指定的字段    // 注意：必须深拷贝对象，才能保证 oldValue 值正确    watch(() =&gt; _.cloneDeep(state), (newValue, oldValue, onInvalidate) =&gt; {})        // 若 &quot;响应式数据&quot; 为对象，并且想监听固定某内部值的变化时    // 则需要传入一个函数，返回指定的字段    watch(() =&gt; state.num, (newValue, oldValue, onInvalidate) =&gt; {})      // 若想监听的值为数组，则需要传入一个函数，函数中返回数组的克隆副本    // 若数组中含有引用类型，则还是需要深拷贝，否则 oldValue 值错误    watch(() =&gt; [ ...arr ], (newValue, oldValue, onInvalidate) =&gt; {})    watch(() =&gt; _.cloneDeep(arr), (newValue, oldValue, onInvalidate) =&gt; {})        // 不需要指定监听的 &quot;响应式数据&quot;，内部自动依赖    // 值改变后，重新执行函数    watchEffect((onInvalidate) =&gt; {})  }}</code></pre></div><div class="tab-pane" id="监听器-2"><pre><code class="javascript">/** *  watch 方法用来监听 &quot;响应式数据&quot; 的变化 *  当指定的 &quot;响应式数据&quot; 变化时，触发回调 * *  需要传入两个必要参数和一个可选参数 *    1. 指定需要监听的 &quot;响应式数据&quot;，可以为数组，代表同时监听多个 &quot;响应式数据&quot; *    2. 回调函数，调用时将传入 newValue、oldValue、onInvalidate *    3. 配置项，{ deep: false, immediate: true } * *  复杂点在第一个参数上 *    - 若监听某 &quot;响应式数据&quot; 的替换型改变（ref.value = any）时，直接传入 ref 就行。 *    - 若 &quot;响应式数据&quot; 为对象，并且想监听对象内部值变化时，需要传入一个函数，返回这个对象，并且配置 deep: true *    - 若 &quot;响应式数据&quot; 为对象，并且想监听固定某内部值的变化时，则需要传入一个函数，返回指定的字段 *    - 若想监听的值为数组，则需要传入一个函数，函数中返回数组的克隆副本 * *  oldValue *    若监听值为对象或者数组中包含引用类型，想正确获取 oldValue 值 *    需要在传入的函数中返回深拷贝的副本 *    lodash _.cloneDeep 方法可以帮助做到 *    若使用了深拷贝，则不需要 deep: true * *  onInvalidate *  函数执行时，将接收 onInvalidate 函数作为入参， *  需要自行实现 *  在函数即将重新执行时、侦听器被停止时调用 *  主要用来清除异步代码带来的 &quot;副作用&quot; **/</code></pre></div><div class="tab-pane" id="监听器-3"><pre><code class="javascript">export default {  data () {    return {      num: 0,      arr: [ 1, 2, 3 ],      state: { num: 0 }    }  },  watch: {    num (newValue, oldValue) {},    state: {      deep: true,      handler (newValue, oldValue) {}    },    &#39;state.num&#39; (newValue, oldValue) {},        // 无法监听 this.arr[0] = 10 的这种情况    arr (newValue, oldValue) {},  }}</code></pre></div></div></div><h3 id="template-ref"><a href="#template-ref" class="headerlink" title="template ref"></a>template ref</h3><div class="tabs" id="templateref"><ul class="nav-tabs"><li class="tab active"><a class="#templateref-1">Vue3</a></li><li class="tab"><a class="#templateref-2">Vue3 说明</a></li><li class="tab"><a class="#templateref-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="templateref-1"><pre><code class="html">&lt;template&gt;  &lt;!--    注意：      - ref 不需要动态绑定的写法      - 若元素/组件未渲染，btn = null  --&gt;  &lt;comp-button ref=&quot;btn&quot;/&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  setup (props, { attrs, slots, emit }) {    const btn = ref(null)        return { btn }  }}</code></pre></div><div class="tab-pane" id="templateref-2"><p>若为数组，动态循环渲染的情况暂时未找到方案…</p></div><div class="tab-pane" id="templateref-3"><pre><code class="html">&lt;template&gt;  &lt;comp-button ref=&quot;btn&quot;/&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  mounted () {    console.log(this.$refs.btn)  }}</code></pre></div></div></div><h3 id="emits"><a href="#emits" class="headerlink" title="emits"></a>emits</h3><p>这是 Vue3 新增的 “声明属性”，<br>类似于 props， 在子组件中提前声明内部向父组件发出的事件列表，<br>并且还可以校验 emit 时参数是否正确，若不正确 Vue 将发出警告，<br>不一定非要定义，向 Vue2 一样，不定义，也可以 emit。</p><emp>学习到了，Vue2 虽然没有这个特性，但是也可以仿照着定义在 emits 上，预览组件内部可以发出的事件。</emp><pre><code class="javascript">export default &#123;  emits: &#123;    // emit(&#39;submit&#39;, &#123; name: &#39;jason&#39; &#125;)    submit: function (payload) &#123;      return typeof payload.name === &#39;string&#39;    &#125;,        // 当然可以不指定校验    quit: null  &#125;&#125;</code></pre><h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>可以定义多个 v-model 了，弃用了 sync 修饰符语法糖</p><div class="tabs" id="v-model"><ul class="nav-tabs"><li class="tab active"><a class="#v-model-1">Vue3</a></li><li class="tab"><a class="#v-model-2">Vue3 说明</a></li><li class="tab"><a class="#v-model-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v-model-1"><pre><code class="html">&lt;template&gt;  &lt;div&gt;    &lt;!--      在 comp-dialog 组件内部      使用 emit(&#39;update:title&#39;, newValue) 的方式传递事件      其中，默认的 v-model prop 名字为 value    --&gt;    &lt;comp-dialog      v-model=&quot;show&quot;      v-model:title=&quot;text&quot;      v-model:content=&quot;content&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  setup (props, { attrs, slots, emit }) {    const show = ref(false)    const text = ref(&#39;我是标题&#39;)    const content = ref(&#39;我是内容&#39;)        return { show, text, content }  }}</code></pre></div><div class="tab-pane" id="v-model-2"><p>太简单了，就是 sync 修饰符换成了统一的 v-model 指令写法，<br>并且好像之前的 sync 串用不了向 trim 这种修饰符，而 v-model 可以，<br>算是增强功能了。</p></div><div class="tab-pane" id="v-model-3"><pre><code class="html">&lt;template&gt;  &lt;div&gt;    &lt;!--      在 comp-dialog 组件内部      使用 this.$emit(&#39;update:title&#39;, newValue) 的方式传递事件      其中，默认的 v-model prop 名字为 value    --&gt;    &lt;comp-dialog      v-model=&quot;show&quot;      :title.sync=&quot;text&quot;      :content.sync=&quot;content&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  data () {    return {      show: false,      text: &#39;我是标题&#39;,      content: &#39;我是内容&#39;    }  }}</code></pre></div></div></div><h3 id="v-slot"><a href="#v-slot" class="headerlink" title="v-slot"></a>v-slot</h3><p>统一使用 v-slot 指令来定义插槽，统一了 slot 和 slot-scope<br>同时提供了 v-slot 的简写形式（使用了 # 符），就像 v-bind 和 v-on</p><div class="tabs" id="v-slot"><ul class="nav-tabs"><li class="tab active"><a class="#v-slot-1">Vue3</a></li><li class="tab"><a class="#v-slot-2">Vue3 说明</a></li><li class="tab"><a class="#v-slot-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v-slot-1"><pre><code class="html">&lt;!-- comp-dialog --&gt;&lt;template&gt;  &lt;div&gt;    &lt;slot name=&quot;header&quot; text=&quot;header&quot;/&gt;    &lt;slot name=&quot;default&quot; text=&quot;default&quot;/&gt;    &lt;slot name=&quot;footer&quot; text=&quot;footer&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="html">&lt;template&gt;  &lt;!-- 简写 v-slot --&gt;  &lt;comp-dialog&gt;    &lt;template #header=&quot;{ text }&quot;&gt;&lt;/template&gt;    &lt;template #default=&quot;scope&quot;&gt;&lt;/template&gt;    &lt;template #footer=&quot;{ text }&quot;&gt;&lt;/template&gt;  &lt;/comp-dialog&gt;    &lt;!-- 正常写 v-slot --&gt;  &lt;comp-dialog&gt;    &lt;template v-slot:header=&quot;{ text }&quot;&gt;&lt;/template&gt;    &lt;template v-slot:default=&quot;scope&quot;&gt;&lt;/template&gt;    &lt;template v-slot:footer=&quot;{ text }&quot;&gt;&lt;/template&gt;  &lt;/comp-dialog&gt;&lt;/template&gt;  </code></pre></div><div class="tab-pane" id="v-slot-2"><p>v-slot 指令在 Vue 2.6 就已经有了<br>但是在 Vue 2.6 之后还可以继续使用 slot 和 slot-scope（）<br>但是在 Vue3 中 slot 和 slot-scope 已经被移除了</p></div><div class="tab-pane" id="v-slot-3"><pre><code class="html">&lt;!-- comp-dialog --&gt;&lt;template&gt;  &lt;div&gt;    &lt;slot name=&quot;header&quot; text=&quot;header&quot;/&gt;    &lt;slot name=&quot;default&quot; text=&quot;default&quot;/&gt;    &lt;slot name=&quot;footer&quot; text=&quot;footer&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="html">&lt;template&gt;  &lt;comp-dialog&gt;    &lt;template slot=&quot;header&quot; slot-scope=&quot;{ name }&quot;&gt;&lt;/template&gt;    &lt;template slot=&quot;default&quot; slot-scope=&quot;scope&quot;&gt;&lt;/template&gt;    &lt;template slot=&quot;footer&quot; slot-scope=&quot;{ name }&quot;&gt;&lt;/template&gt;  &lt;/comp-dialog&gt;&lt;/template&gt;  </code></pre></div></div></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🏻 学习 - vuex 统一的 mutation 方法</title>
+      <link href="/blog/posts/10561/"/>
+      <url>/blog/posts/10561/</url>
+      
+        <content type="html"><![CDATA[<p>mutation 的定义比较迷…<br>个人喜欢不管是不是异步逻辑，都放在 action 中处理，然后提交 mutation<br>但是如果一个 state 就定义一个 mutation 方法，就太累了<br>这里记录定义一个统一的方法<br>PS：基于 lodash 的 set 方法实现</p><span id="more"></span><pre><code class="javascript">// 定义在全局，通过路径的方式可以直接修改子模块的 statenew Vuex.Store(&#123;  mutations: &#123;    /**     *  全局统一更新 state 的方法     *     *  @requires lodash     *     *  @param &#123; Object | Array &#125; payload     *     *  @param &#123; String &#125; [payload.path] - 要修改的字段路径     *  @param &#123; String &#125; payload[].path - 要修改的字段路径     *     *  @param &#123; Any &#125; [payload.value] - 要修改的字段值     *  @param &#123; Any &#125; payload[].value - 要修改的字段值     *     *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途     *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途     **/    UPDATE_STATE: function (state, payload) &#123;      var arr = [].concat(payload)            arr.forEach(function (item) &#123;        var path = item.path        var value = item.value                if (!path) &#123;          throw new Error(&#39;来自 vuex mutation UPDATE_VALUE 的报错：path 不能为空&#39;)        &#125;                _.set(state, path, value)      &#125;)    &#125;  &#125;&#125;)</code></pre><pre><code class="javascript">// 使用this.$store.commit(&#39;UPDATE_VALUE&#39;, &#123;  path: &#39;arr[0][0][0].test&#39;,  value: new Date().getTime(),  comment: &#39;我是备注&#39;&#125;)// orthis.$store.commit(&#39;UPDATE_VALUE&#39;, [  &#123;    path: &#39;test&#39;,    value: new Date().getTime()  &#125;,  &#123;    path: &#39;obj.obj.test&#39;,    value: new Date().getTime()  &#125;,  &#123;    path: &#39;arr[0][0][0].test&#39;,    value: new Date().getTime()  &#125;])// 如果是在 modules 里 namespaced 为 true 的情况下// 在 actions 里提交 mutation// 需要在 commit 方法的第三个参数里设置 root: truenew Vuex.Store(&#123;  modules: &#123;    any: &#123;      namespaced: true,      actions: &#123;        handler: function (context) &#123;          context.commit(&#39;UPDATE_STATE&#39;, &#123;            path: &#39;any.any&#39;,            value: 10086          &#125;, &#123; root: true &#125;)        &#125;      &#125;    &#125;  &#125;&#125;)</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
           
       </categories>
       
@@ -80,6 +130,18 @@
         <content type="html"><![CDATA[<p>记录所有做过的项目，以及访问方式。</p><span id="more"></span><h2 id="识林平台（官网）"><a href="#识林平台（官网）" class="headerlink" title="识林平台（官网）"></a>识林平台（官网）</h2><blockquote><p><a href="http://lib.shilinx.com/">http://lib.shilinx.com/</a></p></blockquote><h2 id="识林平台（药品检查助手）"><a href="#识林平台（药品检查助手）" class="headerlink" title="识林平台（药品检查助手）"></a>识林平台（药品检查助手）</h2><blockquote><p>网址暂无</p></blockquote><h2 id="识林平台（量化质量管理工具）"><a href="#识林平台（量化质量管理工具）" class="headerlink" title="识林平台（量化质量管理工具）"></a>识林平台（量化质量管理工具）</h2><blockquote><p><a href="http://lib.shilinx.com/quality.php/login/index">http://lib.shilinx.com/quality.php/login/index</a></p></blockquote><h2 id="识林平台（Medical-药识2）"><a href="#识林平台（Medical-药识2）" class="headerlink" title="识林平台（Medical 药识2）"></a>识林平台（Medical 药识2）</h2><blockquote><p><a href="https://lib.labelleduse.net/medical.php/login/index">https://lib.labelleduse.net/medical.php/login/index</a></p></blockquote><h2 id="识林平台（能力提升答题模块）"><a href="#识林平台（能力提升答题模块）" class="headerlink" title="识林平台（能力提升答题模块）"></a>识林平台（能力提升答题模块）</h2><blockquote><p><a href="http://lib.shilinx.com/ability.php/home/index">http://lib.shilinx.com/ability.php/home/index</a><br>用 2506 可以登录并且有数据</p></blockquote><h2 id="识林平台（Med-药识）"><a href="#识林平台（Med-药识）" class="headerlink" title="识林平台（Med 药识）"></a>识林平台（Med 药识）</h2><blockquote><p><a href="https://lib.labelleduse.net/med.php/med_detail/index">https://lib.labelleduse.net/med.php/med_detail/index</a></p></blockquote><h2 id="大数据源码检测工具"><a href="#大数据源码检测工具" class="headerlink" title="大数据源码检测工具"></a>大数据源码检测工具</h2><blockquote><p><a href="https://armour.tdchain.cn/">https://armour.tdchain.cn/</a><br><a href="http://47.97.154.202:1091/index.html">http://47.97.154.202:1091/index.html</a></p></blockquote><h2 id="数链中心（网盘项目）"><a href="#数链中心（网盘项目）" class="headerlink" title="数链中心（网盘项目）"></a>数链中心（网盘项目）</h2><blockquote><p><a href="https://data.tdchain.cn/">https://data.tdchain.cn/</a><br><a href="http://47.97.154.202:1091/index.html">http://47.97.154.202:1091/index.html</a></p></blockquote><h2 id="海信地产小程序"><a href="#海信地产小程序" class="headerlink" title="海信地产小程序"></a>海信地产小程序</h2><blockquote><p>微信搜索 “海信地产” 或 “海信家” 小程序即可。</p></blockquote><h2 id="华控"><a href="#华控" class="headerlink" title="华控"></a>华控</h2><blockquote><p><a href="http://www.sinoesco.com/">http://www.sinoesco.com/</a></p></blockquote><h2 id="KYB"><a href="#KYB" class="headerlink" title="KYB"></a>KYB</h2><blockquote><p><a href="http://www.kyb-china.com/">http://www.kyb-china.com/</a></p></blockquote><h2 id="埃斯倍风电科技-青岛-有限公司"><a href="#埃斯倍风电科技-青岛-有限公司" class="headerlink" title="埃斯倍风电科技(青岛)有限公司"></a>埃斯倍风电科技(青岛)有限公司</h2><blockquote><p><a href="http://www.ssbwindsystems.cn/">http://www.ssbwindsystems.cn/</a></p></blockquote><h2 id="青岛子午园作景观设计"><a href="#青岛子午园作景观设计" class="headerlink" title="青岛子午园作景观设计"></a>青岛子午园作景观设计</h2><blockquote><p><a href="http://www.h-mscape.com/index.html">http://www.h-mscape.com/index.html</a></p></blockquote><h2 id="青岛禾润智能电动门窗有限公司"><a href="#青岛禾润智能电动门窗有限公司" class="headerlink" title="青岛禾润智能电动门窗有限公司"></a>青岛禾润智能电动门窗有限公司</h2><blockquote><p><a href="http://www.imheron.cn/">http://www.imheron.cn/</a></p></blockquote><h2 id="美在澳"><a href="#美在澳" class="headerlink" title="美在澳"></a>美在澳</h2><blockquote><p><a href="http://www.mzeco.com.cn/">http://www.mzeco.com.cn/</a></p></blockquote><h2 id="青岛网站设计-制作-唯时™"><a href="#青岛网站设计-制作-唯时™" class="headerlink" title="青岛网站设计, 制作 - 唯时™"></a>青岛网站设计, 制作 - 唯时™</h2><blockquote><p><a href="http://www.websiter.com.cn/">http://www.websiter.com.cn/</a></p></blockquote><h2 id="加利福"><a href="#加利福" class="headerlink" title="加利福"></a>加利福</h2><blockquote><p><a href="http://www.trustonechina.com/">http://www.trustonechina.com/</a></p></blockquote><h2 id="善明食品有限公司网站后台管理"><a href="#善明食品有限公司网站后台管理" class="headerlink" title="善明食品有限公司网站后台管理"></a>善明食品有限公司网站后台管理</h2><blockquote><p><a href="http://shanming.leadto.cn/webhoutai/login.php?gotopage=/webhoutai/index.php">http://shanming.leadto.cn/webhoutai/login.php?gotopage=%2Fwebhoutai%2Findex.php</a></p></blockquote><h2 id="凡思右脑教育咨询集团有限公司"><a href="#凡思右脑教育咨询集团有限公司" class="headerlink" title="凡思右脑教育咨询集团有限公司"></a>凡思右脑教育咨询集团有限公司</h2><blockquote><p><a href="http://www.fcfyn.cn/">http://www.fcfyn.cn/</a></p></blockquote><h2 id="青岛网站设计-制作-唯时™-1"><a href="#青岛网站设计-制作-唯时™-1" class="headerlink" title="青岛网站设计, 制作 - 唯时™"></a>青岛网站设计, 制作 - 唯时™</h2><blockquote><p><a href="http://www.websiter.com.cn/index.html">http://www.websiter.com.cn/index.html</a></p></blockquote><h2 id="泰凯英"><a href="#泰凯英" class="headerlink" title="泰凯英"></a>泰凯英</h2><blockquote><p><a href="http://www.techking.com/">http://www.techking.com/</a></p></blockquote><h2 id="善明"><a href="#善明" class="headerlink" title="善明"></a>善明</h2><blockquote><p><a href="http://www.sunnut.cn/">http://www.sunnut.cn/</a></p></blockquote><h2 id="i4AI工业4-0人工智能实验室"><a href="#i4AI工业4-0人工智能实验室" class="headerlink" title="i4AI工业4.0人工智能实验室"></a>i4AI工业4.0人工智能实验室</h2><blockquote><p><a href="http://www.i4ai.org/index.html">http://www.i4ai.org/index.html</a></p></blockquote><h2 id="海信商显"><a href="#海信商显" class="headerlink" title="海信商显"></a>海信商显</h2><blockquote><p><a href="http://www.hisense-syxs.com/">http://www.hisense-syxs.com/</a></p></blockquote><h2 id="平度市博物馆"><a href="#平度市博物馆" class="headerlink" title="平度市博物馆"></a>平度市博物馆</h2><blockquote><p><a href="http://www.pdsbwg.net/">http://www.pdsbwg.net/</a></p></blockquote><h2 id="新亚姜糖（香港）有限公司"><a href="#新亚姜糖（香港）有限公司" class="headerlink" title="新亚姜糖（香港）有限公司"></a>新亚姜糖（香港）有限公司</h2><blockquote><p><a href="http://www.sinaginger.cn/">http://www.sinaginger.cn/</a></p></blockquote><h2 id="澳科技术"><a href="#澳科技术" class="headerlink" title="澳科技术"></a>澳科技术</h2><blockquote><p><a href="http://aoke.leadto.cn/">http://aoke.leadto.cn/</a></p></blockquote><h2 id="乐办公"><a href="#乐办公" class="headerlink" title="乐办公"></a>乐办公</h2><blockquote><p><a href="http://www.leffice.com.cn/">http://www.leffice.com.cn/</a></p></blockquote><h2 id="xland轮胎"><a href="#xland轮胎" class="headerlink" title="xland轮胎"></a>xland轮胎</h2><blockquote><p><a href="http://www.xlandtires.com/">http://www.xlandtires.com/</a></p></blockquote><h2 id="海信技能王"><a href="#海信技能王" class="headerlink" title="海信技能王"></a>海信技能王</h2><blockquote><p><a href="http://skills.hisense.com/index.html">http://skills.hisense.com/index.html</a></p></blockquote><h2 id="青岛市社会公共安全防范协会"><a href="#青岛市社会公共安全防范协会" class="headerlink" title="青岛市社会公共安全防范协会"></a>青岛市社会公共安全防范协会</h2><blockquote><p><a href="http://www.qdcps.com/">http://www.qdcps.com/</a></p></blockquote><h2 id="格力普轮胎"><a href="#格力普轮胎" class="headerlink" title="格力普轮胎"></a>格力普轮胎</h2><blockquote><p><a href="https://www.gripmax.com/">https://www.gripmax.com/</a></p></blockquote><h2 id="海信网络科技"><a href="#海信网络科技" class="headerlink" title="海信网络科技"></a>海信网络科技</h2><blockquote><p><a href="https://www.hisense-transtech.com.cn/">https://www.hisense-transtech.com.cn/</a></p></blockquote><h2 id="青岛海洋投资集团有限公司"><a href="#青岛海洋投资集团有限公司" class="headerlink" title="青岛海洋投资集团有限公司"></a>青岛海洋投资集团有限公司</h2><blockquote><p><a href="http://www.qdoi.com.cn/">http://www.qdoi.com.cn/</a></p></blockquote><h2 id="海信商显-1"><a href="#海信商显-1" class="headerlink" title="海信商显"></a>海信商显</h2><blockquote><p><a href="http://shangxian.leadto.cn/webhoutai/index.php">http://shangxian.leadto.cn/webhoutai/index.php</a></p></blockquote><h2 id="尼欧迪克"><a href="#尼欧迪克" class="headerlink" title="尼欧迪克"></a>尼欧迪克</h2><blockquote><p><a href="http://neotechnik.leadto.cn/">http://neotechnik.leadto.cn/</a></p></blockquote><h2 id="兴和石墨"><a href="#兴和石墨" class="headerlink" title="兴和石墨"></a>兴和石墨</h2><blockquote><p><a href="http://www.qdxhsm.com/index.html">http://www.qdxhsm.com/index.html</a></p></blockquote><h2 id="luxxan"><a href="#luxxan" class="headerlink" title="luxxan"></a>luxxan</h2><blockquote><p><a href="http://www.luxxan.com/">http://www.luxxan.com/</a></p></blockquote><h2 id="卓越液袋包装"><a href="#卓越液袋包装" class="headerlink" title="卓越液袋包装"></a>卓越液袋包装</h2><blockquote><p><a href="http://www.bltflexitank.com/">http://www.bltflexitank.com/</a></p></blockquote><h2 id="海信地产"><a href="#海信地产" class="headerlink" title="海信地产"></a>海信地产</h2><blockquote><p><a href="https://www.haixindichan.com/html/qingdao/index.html">https://www.haixindichan.com/html/qingdao/index.html</a></p></blockquote>]]></content>
       
       
+      <categories>
+          
+          <category> 记录 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 做过的项目 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -157,31 +219,6 @@
     
     
     <entry>
-      <title>⭕ 逻辑 - 使单选按钮可以取消</title>
-      <link href="/blog/posts/54998/"/>
-      <url>/blog/posts/54998/</url>
-      
-        <content type="html"><![CDATA[<p>前端中的单选按钮默认都是选中后不可以被取消的<br>但是可以通过 JS 判断，把选中状态给取消掉</p><span id="more"></span><h2 id="iview-例子"><a href="#iview-例子" class="headerlink" title="iview 例子"></a>iview 例子</h2><blockquote><p>重点是 radioCancel 方法<br>使用了 lodash 的 _.get 和 _.set 方法，使代码更通用。 </p></blockquote><pre><code class="html">&lt;Radio-Group v-model=&quot;innerFilter.user.type&quot;&gt;  &lt;Radio    v-for=&quot;item in data.user.type&quot;    :key=&quot;item.id&quot;    :label=&quot;item.id&quot;    @click.native=&quot;radioCancel(item.id, &#39;innerFilter.user.type&#39;)&quot;&gt;    &#123;&#123; item.name &#125;&#125;  &lt;/Radio&gt;&lt;/Radio-Group&gt;</code></pre><pre><code class="javascript">// 让单选框可以取消选择radioCancel: function (value, fieldPath) &#123;  var _this = this    if (value === _.get(this, fieldPath)) &#123;    /**     *  这里需要延迟，适配 iview 的单选组件     *  因为 click.native 会触发两次，不知道为啥     *  反正写个定时器就好使     **/    setTimeout(function () &#123;      _.set(_this, fieldPath, null)    &#125;)  &#125;&#125;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 逻辑 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 单选按钮 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>🔭 酷库 - 滚动加载</title>
       <link href="/blog/posts/24013/"/>
       <url>/blog/posts/24013/</url>
@@ -234,7 +271,7 @@
     
     
     <entry>
-      <title>👩🏻 电影 - 失去了父亲的角色与参与感</title>
+      <title>👩🏻 句子 - 失去了父亲的角色与参与感</title>
       <link href="/blog/posts/33574/"/>
       <url>/blog/posts/33574/</url>
       
@@ -243,23 +280,17 @@
       
       <categories>
           
-          <category> 视频片段 </category>
+          <category> 句子 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 电影 </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>🔄 逻辑 - 递归组件</title>
+      <title>🔄 学习 - 递归组件</title>
       <link href="/blog/posts/41860/"/>
       <url>/blog/posts/41860/</url>
       
@@ -268,14 +299,14 @@
       
       <categories>
           
-          <category> 逻辑 </category>
+          <category> 学习 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Vue </tag>
+            <tag> 递归 </tag>
             
         </tags>
       
@@ -436,39 +467,18 @@
     
     
     <entry>
-      <title>💯 逻辑 - 组件和业务逻辑</title>
-      <link href="/blog/posts/4490/"/>
-      <url>/blog/posts/4490/</url>
-      
-        <content type="html"><![CDATA[<p>主要讨论 “业务组件” 和 “基础组件” 的划分，<br>不要小视，这很重要，统一的 “组件风格”，不管前期开发还是后期维护都会有帮助。</p><span id="more"></span><h2 id="想说的话"><a href="#想说的话" class="headerlink" title="想说的话"></a>想说的话</h2><blockquote><p>所有的组件可以抽象成两种 “业务组件” 和 “基础组件”<br>一个组件如果不是 “基础组件”，那么就一定是 “业务组件”<br>PS：有点废话。</p></blockquote><div class="img-wrap"><div class="img-bg"><img class="img" src="overview.jpg" alt="因为这一句话才想写博客（PS：这是幅图片）"/></div><span class="image-caption">因为这一句话才想写博客（PS：这是幅图片）</span></div><h2 id="什么是-“业务”"><a href="#什么是-“业务”" class="headerlink" title="什么是 “业务”"></a>什么是 “业务”</h2><blockquote><p>借用上图的话</p></blockquote><p>业务逻辑大部分时候都是指 “涉及与服务器交互，数据请求、数据提交等操作”。</p><h2 id="基础组件"><a href="#基础组件" class="headerlink" title="基础组件"></a>基础组件</h2><blockquote><p>基础组件要做到 “简约”。</p></blockquote><ol><li>接收 props 并监听，渲染页面。</li><li>接收用户的操作，向 “业务组件” 发送 “事件”。</li><li>做到 “内聚”，尽量封装会大量调用的代码逻辑，抽象成 “基础组件的默认行为” 来看，如下解释。</li></ol><pre><code class="text">基础组件在初始化时，有可能需要部分来自后端的数据，这些数据与 props 并无依赖关系，并且 &quot;专属于该组件&quot; 使用，这时建议将这些获取逻辑在 &quot;基础组件&quot; 内部实现，抽象成 &quot;基础组件的默认行为&quot; 来看，基础组件可能会拥有 &quot;固定的提交逻辑&quot;，与 props 无关系的，并且组件被调用的地方可能很多，这样的话，通过 &quot;事件&quot; 让 &quot;父业务组件&quot; 处理，就显得太麻烦了，可以在 &quot;基础组件&quot; 内部进行处理，处理完成后，通过 &quot;事件&quot; 告诉 &quot;父业务组件&quot; 是否成功即可，&quot;父业务组件&quot; 可能会做其他操作。</code></pre><h2 id="业务组件"><a href="#业务组件" class="headerlink" title="业务组件"></a>业务组件</h2><blockquote><p>该组件要做到 “聚合”，要做以下事情</p></blockquote><ol><li>尽量在 “业务组件” 中完成需要数据的获取，并且在 “业务组件” 中统一管理数据，通过 props 向下传递。</li><li>接收子组件（基础组件）发来的 “事件，做相应的处理。</li></ol><pre><code class="text">在 &quot;业务组件&quot; 中统一管理数据是因为数据可能会给多个 &quot;子组件&quot; 使用，如果在 &quot;子组件&quot; 中管理，修改时不方便同步数据。</code></pre><h2 id="嵌套关系"><a href="#嵌套关系" class="headerlink" title="嵌套关系"></a>嵌套关系</h2><ol><li>最顶层的一定是 “业务组件”，并且业务组件有且只有一个。</li><li>“业务组件” 可以有很多直接子组件（基础组件）。</li><li>“基础组件” 可以互相嵌套，但是级别最好不要太深。</li></ol><h2 id="实例关系图"><a href="#实例关系图" class="headerlink" title="实例关系图"></a>实例关系图</h2><div class="gallery " data-group='default'><p><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='1.jpg' data-fancybox='default' data-caption='简单'><img fancybox src="1.jpg" alt="简单"></a>        <span class='image-caption'>简单</span>      </div><br><div class='fancybox'>        <a class='fancybox' pjax-fancybox href='2.jpg' data-fancybox='default' data-caption='较复杂'><img fancybox src="2.jpg" alt="较复杂"></a>        <span class='image-caption'>较复杂</span>      </div></p></div>]]></content>
-      
-      
-      <categories>
-          
-          <category> 逻辑 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Vue </tag>
-            
-            <tag> 组件 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>🔢 酷库 - 数字增长</title>
       <link href="/blog/posts/11612/"/>
       <url>/blog/posts/11612/</url>
       
         <content type="html"><![CDATA[<p>数据变化时，会有一个涨幅的过度动画，不会一下子变过去。</p><span id="more"></span><h2 id="countUp-js"><a href="#countUp-js" class="headerlink" title="countUp.js"></a>countUp.js</h2><blockquote><p>作为一个简单的动画库来说，github 🌟 很多…</p></blockquote><p>在 github README 中有基于各种框架的封装</p><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/inorganik/countUp.js"><img src="https://github-readme-stats.vercel.app/api/pin/?username=inorganik&repo=countUp.js&show_owner=true"/></a>]]></content>
       
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
       
       
         <tags>
@@ -503,32 +513,7 @@
     
     
     <entry>
-      <title>🏡 生活 - 装修</title>
-      <link href="/blog/posts/29590/"/>
-      <url>/blog/posts/29590/</url>
-      
-        <content type="html"><![CDATA[<p>学学吧，都要经历。</p><span id="more"></span><h2 id="专业名词"><a href="#专业名词" class="headerlink" title="专业名词"></a>专业名词</h2><blockquote><p>装修基础</p></blockquote><h3 id="硬装"><a href="#硬装" class="headerlink" title="硬装"></a>硬装</h3><p>硬装指的是将 “毛坯房” 装修成 “只缺少家具和家电就可以拎包入住” 的房子<br>水路、电路、气道的布线都按照预先设计留好了接口</p><h3 id="主材"><a href="#主材" class="headerlink" title="主材"></a>主材</h3><p>“硬装阶段需要的材料”，瓷砖、地板、门、卫具、橱柜、中央空调。</p><h3 id="软装"><a href="#软装" class="headerlink" title="软装"></a>软装</h3><p>指的是 “家具和家电”，像衣橱，冰箱，床等，这种相对来说可以轻易挪动的都算 “软装”</p><h3 id="全包"><a href="#全包" class="headerlink" title="全包"></a>全包</h3><p>装修的材料分类两大部分 “辅材” 和 “主材”，<br>全包指的是自己不需要操心任何事情（自己的房子，哪能不操心），<br>“主材” 和 “辅料” 都由装修公司负责购买并且安装，<br>自己只需要到时候和设计师沟通好房屋样子后，施工完毕后，拎包入住。<br>PS：装修公司通常很愿意让住户选择 “全包” 形式，因为他们会有提成。</p><h3 id="半包"><a href="#半包" class="headerlink" title="半包"></a>半包</h3><blockquote><p>也叫轻工辅料</p></blockquote><p>装修的材料分类两大部分 “辅材” 和 “主材”，<br>半包指的是，装修公司负责 “辅材” 和 “辅材的人工”，<br>“主材” 由自己去购买并且安装（在哪里买，哪里就包安装）<br>在哪里买都可以，装修公司不管，下面简称为 “第三方”<br>只要在装修的期间，需要安装 “主材” 的时候，预约 “第三方” 进行安装即可。</p><p>PS：”瓷砖”是个例外，”第三方” 不包安装，通常装修公司会安装，但是 “瓷砖” 还是需要自己去买。<br>PS：装修公司都会有合作品牌，会定期举办活动，它想让你在这些品牌里定 “主材”，因为会有提成。</p><h2 id="装修的套路"><a href="#装修的套路" class="headerlink" title="装修的套路"></a>装修的套路</h2><blockquote><p>特奶奶个熊。</p></blockquote><h3 id="前期报价"><a href="#前期报价" class="headerlink" title="前期报价"></a>前期报价</h3><blockquote><p>按照我的经历来说。</p></blockquote><p>一开始，设计师会按照户型图，进行布局设计（CAD图纸）<br>哪里需要砸墙，哪里需要改拆（改拆砸墙需要钱，比如说打通屋子，门改位置等）<br>确定，客厅、卧室铺瓷砖还是地板（铺瓷砖会收安装费，地板不收安装费）<br>需不需要安装中央空调（中央空调需要吊顶，需要收石膏板吊顶的钱）<br>然后开始算钱，算钱其实很简单，就是按照房屋的平方数，然后乘他们材料和人工的单价<br>俗称 “一平多少钱”，是不是很耳熟，原理其实很简单，不要以为很复杂。</p><p>但是，由于我们的 “不懂”，有一种操作是，在算钱的时候，设计师故意漏算其中一部分，<br>就比如说，也不问我们需不需要安装中央空调（需不需要吊顶），不问铺瓷砖还是地板（地板不收钱）等</p><u>目的是为了 减少签合同时候的价格，让我们感觉到便宜，就会提高我们 签单 的概率</u><p>但是到了真正开始施工装修的时候，再一项一项增加（这不是冤枉钱，是装修要花的钱，只不过开始的时候没有算上）<br>俗称 “增项”，是不是很耳熟。</p><p>PS：如果前期想用 “地板”，但没施工前又想改用 “瓷砖”，这种叫改需求，是必然要重新算钱的。</p><h3 id="装修公司的-“合作品牌”"><a href="#装修公司的-“合作品牌”" class="headerlink" title="装修公司的 “合作品牌”"></a>装修公司的 “合作品牌”</h3><p>装修公司通常和很多的 “主材公司” 有合作，定期举办活动，<br>大白话就是让住户在指定的 “主材公司” 预定主材，价格会优惠一些，</p><p>我的这个装修公司对外的宣传是 “市场最低价，若在外找到再低的 10 倍反差价”，<br>质量神马的，我感觉只要是大品牌的主材，应该啥大没问题</p><p>问题（坑）在于：<br>像我第一次参加这种 “主材活动” 的时候，我还不知道想装修成什么风格（比较纠结）<br>因为是期房，装修时间还早，我想再看看，还没告诉设计师想要什么风格，效果图当然也就还没有，<br>我意识到了 “主材” 和 “风格” 问题，我怕先买了之后万一和想要的风格不搭配，就尴尬了</p><p>但是还是想先定 “吊顶”、”地板”，这种 “全天下都长一个样子的主材”<br>但是我的装修公司有一个经理（不是设计师），因为交谈的比较好，<br>就非常的想让我们先预定上，一直说是再也找不到这么优惠的价格了（销售话术），<br>他应该是想挣钱吧….<br>然后最终我们什么也没定，我决定还是确定了整体风格后，再去买。</p><h2 id="吊顶的各种尺寸参考"><a href="#吊顶的各种尺寸参考" class="headerlink" title="吊顶的各种尺寸参考"></a>吊顶的各种尺寸参考</h2><h3 id="窗帘盒"><a href="#窗帘盒" class="headerlink" title="窗帘盒"></a>窗帘盒</h3><p>需要预留 200mm 宽度</p><h3 id="藏中央空调"><a href="#藏中央空调" class="headerlink" title="藏中央空调"></a>藏中央空调</h3><p>中央空调内机高度一般都是 200mm 左右，管道厚度和排水空间一般是 50mm 左右，<br>吊顶高度一般在 250mm ~ 300mm 之间。</p><h3 id="隐藏式晾衣架"><a href="#隐藏式晾衣架" class="headerlink" title="隐藏式晾衣架"></a>隐藏式晾衣架</h3><p>需要预留空隙：<br>长度 1800mm<br>宽度 600mm<br>深度 250mm</p><h3 id="双眼皮吊顶"><a href="#双眼皮吊顶" class="headerlink" title="双眼皮吊顶"></a>双眼皮吊顶</h3><p>最内层厚度 9mm 石膏板，下吊 220mm ~ 260mm，有窗帘盒、中央空调等可以适当下调到 300mm 左右。<br>最外层厚度 12mm 石膏板，与最内层之间的落差控制在 30mm ~ 50mm 之间。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 生活 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 装修 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>🧐 逻辑 - 递归函数</title>
+      <title>🧐 学习 - 递归函数</title>
       <link href="/blog/posts/54200/"/>
       <url>/blog/posts/54200/</url>
       
@@ -537,7 +522,7 @@
       
       <categories>
           
-          <category> 逻辑 </category>
+          <category> 学习 </category>
           
       </categories>
       
@@ -545,31 +530,6 @@
         <tags>
             
             <tag> 递归 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>🌎 游戏 - 环世界（边缘世界）</title>
-      <link href="/blog/posts/7847/"/>
-      <url>/blog/posts/7847/</url>
-      
-        <content type="html"><![CDATA[<p>玩游戏开心最重要….</p><span id="more"></span><h3 id="前期关键技能"><a href="#前期关键技能" class="headerlink" title="前期关键技能"></a>前期关键技能</h3><blockquote><p>没有的话玩起来就比较难受</p></blockquote><ol><li>建造 8 级，建造失败很蛋疼，浪费资源，不嫌麻烦的可以SL。</li><li>研究要有兴趣，单火双火都行，等级可以不用太高，有兴趣的话等级提升的很快。</li><li>挖矿初始等级尽量高，钢铁很缺，总要挖。</li></ol><h3 id="营养膏机"><a href="#营养膏机" class="headerlink" title="营养膏机"></a>营养膏机</h3><blockquote><p>营养膏本身拥有 -4 的心情减益，但是好处多多</p></blockquote><ul><li>相同的食材，可以做出更多的食物</li><li>不会被烹饪等级影响，不会食物中毒</li><li>省去做饭的人力</li><li>保质期短，不适合作为远行队的食物</li></ul><p>PS：<br>等小人去拿的时候，并且已经拿到的瞬间按暂停，然后征召，营养膏会掉地上，然后禁用，<br>不停的按 R 就会 “主动的拿营养膏” 了</p><h3 id="前期营房"><a href="#前期营房" class="headerlink" title="前期营房"></a>前期营房</h3><blockquote><p>建议集成：研究、睡觉、餐厅、娱乐<br>不建议集成：</p><ul><li>仓库（建筑做专门的仓库，太影响感观了）</li><li>制造（建议直接放仓库，省的小人搬运了）</li><li>屠宰（影响清洁度，建议直接放户外或冷库）</li></ul></blockquote><p>前期比较公认的建房思路都是先起一个吃喝拉撒都在里面的 “营房”<br>并且尽量少的建造其他屋子，减少工作量、降低财富值、统一管理温度<br>等到游戏变的容易后，再慢慢区分房屋，或者干脆就直接还用营房，省地方</p><p>营房有一个好处是 “只需要提高一个房间的感观就可以享受所有类型房间带来的Buff”<br>比如说 “体面的卧室”、”令人深刻的餐厅” 等 Buff，并且小人都在这个房间生活，会经常收到加成<br>所以当感觉到 “心情稳定不住的时候”，去铺铺地面，摆些雕像，能带来很可观的心情加成<br>还有一种方法是种花，可以快速增加感观，但是有温度要求，不稳定，隔一段时间就要重新种</p><p>PS：前期的囚犯房、奴隶房建议在营房隔壁，用通风口统一温度管理。</p><h3 id="研究科技"><a href="#研究科技" class="headerlink" title="研究科技"></a>研究科技</h3><blockquote><p>有这么几个科技比较有战略意义，建议根据实际情况优先研究。</p></blockquote><ul><li><p>机枪塔</p><blockquote><p>入侵的时候拉仇恨、补伤害，大幅度减少小人伤亡<br>对于战斗有极大的帮助，建议优先研究</p></blockquote></li><li><p>精炼设备/弹射仓/远程地质扫描仪</p><blockquote><p>这仨是绑在一起的<br>精炼设备产燃料<br>弹射仓快速出门<br>远程地质扫描仪挖零件</p></blockquote></li><li><p>水栽培</p><blockquote><p>提供稳定的食物来源，缺食物时可以速出<br>PS：冬天的时候需要太阳灯和电暖气，会消耗大量电力<br>PS：精练设备、燃料发电、水栽培、太阳灯、电暖气，这几个设备组合起来可以做到循环产能，作物还有额外富裕。</p></blockquote></li><li><p>深钻井/地质扫描仪</p><blockquote><p>挖钢铁、玻璃钢等常用矿<br>地图上没有铁资源时需要速出<br>注意扫不出来零部件。</p></blockquote></li></ul><h3 id="赚钱手段"><a href="#赚钱手段" class="headerlink" title="赚钱手段"></a>赚钱手段</h3><blockquote><p>白银建议拥有一定数量后，快速兑换成战斗力，预防下一次的袭击。</p></blockquote><ul><li><p>卖垃圾</p><blockquote><p>这里的 “垃圾” 指的是在建设基地过程中收集到的物品<br>比如说 “各种皮”、”入侵小人掉落的装备” 等<br>攒起来一下子也能卖一些钱</p></blockquote></li><li><p>俘虏小人，取器官卖</p><blockquote><p>文化 DLC 有模因后，取器官不减心情<br>入侵总是源源不断的，所以这真是个赚钱的好办法…<br>建议保证光亮、铺无菌地板、医疗床品质高的时候再手术<br>价值：心/肝 &gt; 肺 &gt; 肾<br>PS：能赚不少钱，并且可以练医疗。</p></blockquote></li><li><p>地质扫描金矿，挖了卖钱</p><blockquote><p>需要研究科技，并且需要专门派小人过去挖/钻</p></blockquote></li><li><p>建筑、艺术卖钱</p><blockquote><p>高品质沙发、雕像卖钱，需要基础材料富裕的情况下。</p></blockquote></li></ul><h3 id="地质扫描仪的区别"><a href="#地质扫描仪的区别" class="headerlink" title="地质扫描仪的区别"></a>地质扫描仪的区别</h3><blockquote><p>分为 “地质扫描仪” 和 “远程地质扫描仪”</p></blockquote><div class="tabs" id="地质扫描仪的区别"><ul class="nav-tabs"><li class="tab active"><a class="#地质扫描仪的区别-1">地质扫描仪</a></li><li class="tab"><a class="#地质扫描仪的区别-2">远程地质扫描仪</a></li></ul><div class="tab-content"><div class="tab-pane active" id="地质扫描仪的区别-1"><p>不能指定扫描什么东西，扫出来的矿在地图内，需要用深钻井挖<br>适合挖需求量大、质量大的东西（铁铀玻璃钢）<br>PS：扫不出来零部件</p></div><div class="tab-pane" id="地质扫描仪的区别-2"><p>可以指定扫描什么东西，扫出来的东西在地图外<br>需要组建远征队小人去挖，落地后可能有危险<br>适合挖需求量和质量都相对小的东西（零部件和黄金）<br>PS：可以扫出来零部件</p></div></div></div><h3 id="冲击枪和错乱枪的区别"><a href="#冲击枪和错乱枪的区别" class="headerlink" title="冲击枪和错乱枪的区别"></a>冲击枪和错乱枪的区别</h3><blockquote><p>傻傻分不清楚，但是建议不论在什么时候，至少各有一把，多多益善。</p></blockquote><div class="tabs" id="冲击枪和错乱枪的区别"><ul class="nav-tabs"><li class="tab active"><a class="#冲击枪和错乱枪的区别-1">心灵冲击枪</a></li><li class="tab"><a class="#冲击枪和错乱枪的区别-2">心灵错乱枪</a></li></ul><div class="tab-content"><div class="tab-pane active" id="冲击枪和错乱枪的区别-1"><p>使用后，小人大脑会被冲击，会晕过去一段时间<br>不过有 30% 的几率（概率来自wiki），造成永久脑损伤<br>Ps：可以 SL 呀</p><p>通常是用来俘虏看好的小人，防止小人在战斗中缺胳膊断腿</p><p>也可以在没有错乱枪的时候下，冲击敌方重武器敌人，减少伤亡<br>不过只能算是无奈的方案，效果不如错乱枪，小人一会就恢复过来了</p></div><div class="tab-pane" id="冲击枪和错乱枪的区别-2"><p>使用后可以理解指定的敌方小人 “背叛” 了原先的组织<br>附近的小人都会打他，基本必死</p><p>通常错乱敌方带有重武器的小人（毁灭、三连）。</p><p>围攻入侵的机制是当敌方小人伤亡到一定程度就会放弃发射迫击炮，进攻玩家<br>可以用无伤用错乱枪做到这一点</p></div></div></div><h3 id="掩体"><a href="#掩体" class="headerlink" title="掩体"></a>掩体</h3><blockquote><p>来自白洋大神：不要对射！<br>但是游戏中总有要对射的情况，这时就需要掩体了<br>否则缺胳膊断腿的会很蛋疼<br>效果从高到低数据如下：</p></blockquote><ol><li>墙（档子弹概率最高，但是影响射击角度）</li><li>沙袋/路障（这俩效果一样，不影响射击角度，实用性最强）</li><li>石块（和沙袋/路障类似，并且概率只差 5%）</li><li>树（无奈之举就躲树后面吧）</li></ol><p>PS：如果敌我双方掩体效果差距巨大，是可以对射的。</p><h3 id="好兄弟的一万种坑法"><a href="#好兄弟的一万种坑法" class="headerlink" title="好兄弟的一万种坑法"></a>好兄弟的一万种坑法</h3><blockquote><p>游戏中好兄弟可以帮我们干很多事….</p></blockquote><div class="tabs" id="好兄弟的一万种坑法"><ul class="nav-tabs"><li class="tab active"><a class="#好兄弟的一万种坑法-1">随缘的坑法</a></li><li class="tab"><a class="#好兄弟的一万种坑法-2">打猎、狂暴的动物</a></li><li class="tab"><a class="#好兄弟的一万种坑法-3">主动呼叫，抵抗袭击当肉盾</a></li></ul><div class="tab-content"><div class="tab-pane active" id="好兄弟的一万种坑法-1"><p>这些都是不稳定的坑法，主要是因为好兄弟进地图和出地图的位置是随机的</p><ol><li>商队好兄弟来时，整好赶上入侵。</li><li>商队好兄弟来时/去时，路径整好在机械集群范围内（死亡不掉好感）</li><li>商队好兄弟来时/去时，路径上整好有远古威胁。</li></ol></div><div class="tab-pane" id="好兄弟的一万种坑法-2"><p>去主动挑衅会反抗的动物（建议群体动物，这样利益最大化）<br>然后触发狂暴后，引到好兄弟那里，好兄弟就会主动帮我们打了，白嫖肉和皮<br>好兄弟如果倒地了，可以白嫖掉落的资源<br>然后我们要救助他们，养好伤走出地图后，白嫖好感度。</p></div><div class="tab-pane" id="好兄弟的一万种坑法-3"><p>需要研究通讯台，并且将好感度拉到 75 成为盟友<br>这里只推荐呼叫联盟的好兄弟，部落的好兄弟好像就不会来？<br>呼叫后，他们会空降到地图中，然后我们可以把他们当肉盾，然后找其他位置输出。</p></div></div></div><h3 id="袭击心得"><a href="#袭击心得" class="headerlink" title="袭击心得"></a>袭击心得</h3><div class="tabs" id="对付机械族"><ul class="nav-tabs"><li class="tab active"><a class="#对付机械族-1">空投</a></li><li class="tab"><a class="#对付机械族-2">围攻</a></li><li class="tab"><a class="#对付机械族-3">机械集群</a></li></ul><div class="tab-content"><div class="tab-pane active" id="对付机械族-1"><p>空投规则应该是优先 “床” 吧。。。<br>像前期的那种 “营房”，若碰到 “空投袭击”，通常都是降到脸上 🤧<br>所以基本上应对一次袭击后，基本家里都是一片狼藉…</p><p>若看到了 “空投袭击警告”，赶紧征召附近的全部小人，跑出屋子，<br>然后想办法引出屋子里的敌人，在屋外消灭掉，<br>不得不说白洋大佬的防空阵地真好使- -</p><p>PS：空投无视屋顶，就直接掉屋子里了</p></div><div class="tab-pane" id="对付机械族-2"><p>难点在迫击炮，放任不管的话会轰二三十发炮弹，基地表示很难受<br>不过围攻有个机制是 “当伤亡达到一定程度，就会放弃迫击炮阵地，袭击基地”<br>这一点可以通过 “心灵错乱枪” 无伤达到（当然远程狙击也行）<br>只要进攻基地，那么就可以当做普通袭击打了<br>打完后顺便还能白嫖迫击炮和子弹</p></div><div class="tab-pane" id="对付机械族-3"><p>类似围攻事件，会有 “启动时间”，<br>在启动时间内，只要不主动过去触发战斗，都是安全的</p><p>通常会有一个 “特效建筑”，比如说 “温度控制”、”放毒的建筑” 等<br>激活后，会增加生存难度，需要优先打点（逼着玩家主动触发战斗）</p><p>这种袭击，利益最大化的方式是 “打掉特效建筑后放任不管”<br>规划好活动区，别轻易走过去，让机械族和别的入侵碰面战斗，最终渔翁得利。</p><p>PS：<br>特效建筑体积都比较大，若位置在边缘，可以绕后靠近，炮塔打不到的，<br>打掉建筑后，烟罐包撤退，或者炮灰一个小人。</p></div></div></div>]]></content>
-      
-      
-      <categories>
-          
-          <category> 游戏 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 沙盒 </tag>
             
         </tags>
       
@@ -603,7 +563,7 @@
     
     
     <entry>
-      <title>🐂 学习 - Strapi</title>
+      <title>🐂 酷库 - Strapi</title>
       <link href="/blog/posts/54009/"/>
       <url>/blog/posts/54009/</url>
       
@@ -612,7 +572,7 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> 酷库 </category>
           
       </categories>
       
@@ -624,83 +584,6 @@
             <tag> CMS </tag>
             
             <tag> ORM </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>👨‍💻 逻辑 - 优秀的表单逻辑</title>
-      <link href="/blog/posts/43599/"/>
-      <url>/blog/posts/43599/</url>
-      
-        <content type="html"><![CDATA[<p>网页开发中表单提交应该是 最最最最最 常见的逻辑了，<br>但是写法千变万化，养成一个通用的代码风格以及习惯是必要的。</p><span id="more"></span><h2 id="思路整理"><a href="#思路整理" class="headerlink" title="思路整理"></a>思路整理</h2><ol><li>整理需要哪些用户输入的字段，哪些隐藏字段。</li><li>创建表单数据模型，将其整理成一个对象。</li><li>根据表单数据模型，创建表单数据校验方法。</li><li>考虑表单拥有初始值的情况、修改表单的情况。</li><li>提交表单方法、重置表单方法。</li></ol><h2 id="需要实现的方法"><a href="#需要实现的方法" class="headerlink" title="需要实现的方法"></a>需要实现的方法</h2><blockquote><p>实现形式有很多，根据实际情况实际处理吧。<br>但是肯定都离不开下面的几种方法思路</p></blockquote><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><pre><code class="javascript">const init = () =&gt; &#123;  /**   *  表单的初始化方法，打开表单时调用，可在这个方法中加载已有表单内容等操作   *  建议在初始化方法的一开头，调用一次 reset 已确保表单数据模型的正确性   **/&#125;</code></pre><h3 id="重置表单"><a href="#重置表单" class="headerlink" title="重置表单"></a>重置表单</h3><pre><code class="javascript">const reset = () =&gt; &#123;  /**   *  该方法用来重置表单，将表单数据模型中所有值，赋值为空   *  PS: 不要在这个方法中实现其他逻辑   **/&#125;</code></pre><h3 id="还原"><a href="#还原" class="headerlink" title="还原"></a>还原</h3><pre><code class="javascript">const restore = () =&gt; &#123;  /**   *  将表单数据恢复到初始数据   *  实现逻辑就是在 init 中深克隆一份表单数据   *  然后这里赋值还原回去即可   **/&#125;</code></pre><h3 id="校验表单"><a href="#校验表单" class="headerlink" title="校验表单"></a>校验表单</h3><pre><code class="javascript">const validate = () =&gt; &#123;  /**   *  校验表单的内容是否正确，若不正确，给出用户提示   *  通常返回 Boolean   **/&#125;</code></pre><h3 id="提交表单"><a href="#提交表单" class="headerlink" title="提交表单"></a>提交表单</h3><pre><code class="javascript">const submit = () =&gt; &#123;  /**   *  提交表单的逻辑就放这里吧。    **/&#125;</code></pre><h3 id="销毁表单"><a href="#销毁表单" class="headerlink" title="销毁表单"></a>销毁表单</h3><pre><code class="javascript">const destroy = () =&gt; &#123;  /**   *  表单关闭或者销毁的方法，清理表单带来的副作用   *  建议在完全关闭前（方法的最后）执行一次 reset 清空表单数据   **/&#125;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 逻辑 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 表单 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>🌟 学习 - Vue3</title>
-      <link href="/blog/posts/7138/"/>
-      <url>/blog/posts/7138/</url>
-      
-        <content type="html"><![CDATA[<p>以后肯定会慢慢的都变为 Vue3，但是现在还是老老实实的用 Vue2吧…<br>社区比 Vue3 完善的多，但是也不能落下 Vue3 的学习，毕竟学完可以更好的比对 Vue2 优缺点，<br>自我提升。</p><span id="more"></span><h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><h3 id="setup-方法"><a href="#setup-方法" class="headerlink" title="setup 方法"></a>setup 方法</h3><blockquote><p>触发时机位于 beforeCreated 和 created 之间<br>无法获取 this，也没有必要获取 this</p></blockquote><p>Vue3 相比于 Vue2 新增了 setup 方法，作为初始化方法<br>将 data、computed、methods、watch、生命周期函数全都整合到这一个方法中定义<br>但这不是必须的，继续使用 Vue2 的定义方式也是可以的。</p><psw>个人更喜欢 setup 的方式定义，代码都放在一起，关联性强，可以快速阅读书写，更方便一些 😛</psw><pre><code class="javascript">import &#123; ref, toRefs &#125; from &#39;vue&#39;;export default &#123;  props: &#123;    title: &#123;      type: String,      default: &#39;默认值&#39;    &#125;  &#125;,    /**   *  props 是 &quot;响应式数据&quot;，不能使用 ES6 解构，它会消除 prop 的响应性。   *  若非要解构，则需要使用 toRefs 方法将 props 转为普通对象（对象内部的值为 ref 对象）   **/  setup (props, &#123; attrs, slots, emit &#125;) &#123;    const &#123; title &#125; = toRefs(props)    const num = ref(10)        /**     *  只有通过 return 暴露出去的属性和方法才可以在 template 中使用     *  所以 Vue3 开发时感觉最常见的错误应该就是 &quot;忘记写 return 了&quot;     *  不过应该可以通过统一定义到一个对象中，然后在 return 中已解构的方式，一劳永逸     *  待测试开发友好度~~     **/    return &#123; num &#125;  &#125;&#125;</code></pre><h3 id="响应式数据定义"><a href="#响应式数据定义" class="headerlink" title="响应式数据定义"></a>响应式数据定义</h3><p>通过 ref 方法或 reactive 方法定义 “响应式数据”</p><div class="tabs" id="响应式数据定义"><ul class="nav-tabs"><li class="tab active"><a class="#响应式数据定义-1">Vue3</a></li><li class="tab"><a class="#响应式数据定义-2">Vue3 说明</a></li><li class="tab"><a class="#响应式数据定义-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="响应式数据定义-1"><pre><code class="javascript">import { ref, reactive } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const num = ref(0)    const state = reactive({ num: 0 })        return { num, state }  }}</code></pre></div><div class="tab-pane" id="响应式数据定义-2"><pre><code class="javascript">/** *  ref 方法用来定义 &quot;简单&quot; 的响应式数据，参数不限制类型 *  ref 会将传入的数据，套一层对象，并将数据作为对象的 value 属性 *  ref 方法会将内部的引用类型全部转为 &quot;响应式数据&quot; *  ref 内部其实也是用的 reactive * *  使用 attr.value 的方式获取值 *  使用 attr.value = any 的方式改变值 * *  shallowRef 与 ref 类似 *  区别是不会将值内部的引用类型的值转为 &quot;响应式数据&quot; *    const data = ref({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 是响应式数据，obj 中的值改了，页面就会自动刷新 * *    const data = shallowRef({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 不是响应式数据，obj 中的值虽然改了，但是页面不会自动刷新 **/const num = ref(0)</code></pre><pre><code class="javascript">/** *  reactive 方法用来定义 &quot;复杂&quot; 的响应式数据 *  参数必须是对象或者数组，通常为对象（对象中再定义数组） *  比较好的思想是 &quot;抽象&quot; 一个功能，将相关的数据都封装在一起。 *  一旦定义之后，无法改变自身，可以改变内部的属性值。 * *  reactive 不会像 ref 一样套一层 value *  因为 reactive 的参数只可传入引用类型 *  直接使用 attr.key 的方式获取值 *  使用 attr.key = any 的方式改变值 * *  reactive 和 shallowReactive 的区别 *  区别是不会将值内部的引用类型的值转为 &quot;响应式数据&quot; *    const data = reactive({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 是响应式数据，obj 中的值改了，页面就会自动刷新 * *    const data = shallowReactive({ obj: { count: 0 } }) *    data.value.obj.count = 10 *    // =&gt; data.value.obj 不是响应式数据，obj 中的值虽然改了，但是页面不会自动刷新 **/const state = reactive({ num: 0 })</code></pre></div><div class="tab-pane" id="响应式数据定义-3"><pre><code class="javascript">export default {  data () {    return {      num: 0,      state: { num: 0 }    }  }}</code></pre></div></div></div><h3 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h3><p>概念上没啥大变化。</p><div class="tabs" id="计算属性"><ul class="nav-tabs"><li class="tab active"><a class="#计算属性-1">Vue3</a></li><li class="tab"><a class="#计算属性-2">Vue3 说明</a></li><li class="tab"><a class="#计算属性-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="计算属性-1"><pre><code class="javascript">import { computed } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const name = ref(&#39;jason&#39;)    const fullName = computed(() =&gt; {      return `------ ${ name.value } ------`    })        // 可以将计算属性写在 ref 或者 reactive 定义的对象类型 &quot;响应式数据&quot; 中    const state = reactive({       fullName: computed(() =&gt; {        return `====== ${ name.value } ======`      })    })        console.log(name.value)    // =&gt; jason    console.log(fullName.value)    // =&gt; ------ jason ------    console.log(state.fullName)    // =&gt; ====== jason ======        return { name, fullName, state }  }}</code></pre></div><div class="tab-pane" id="计算属性-2"><pre><code class="javascript">/** *  computed 用来定义计算属性 *  和 vue2 的没有任何的不同，都是基于 &quot;响应式数据&quot; 来实时计算结果。 *  也可以传入一个对象，同时设置 get 和 set。 *  注意的是 computed 将返回一个 ref 对象 *  也可以将 computed 写在 ref 和 reactive 定义的中 &quot;响应式数据&quot; 对象中 **/</code></pre></div><div class="tab-pane" id="计算属性-3"><pre><code class="javascript">export default {  data () {    return {      name: &#39;jason&#39;    }  },  computed: {    fullName () {      return `------ ${ this.name } ------`    }  }}</code></pre></div></div></div><h3 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h3><p>没啥大变化</p><div class="tabs" id="方法定义"><ul class="nav-tabs"><li class="tab active"><a class="#方法定义-1">Vue3</a></li><li class="tab"><a class="#方法定义-2">Vue3 说明</a></li><li class="tab"><a class="#方法定义-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="方法定义-1"><pre><code class="javascript">import { computed } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const submit = () =&gt; {      console.log(&#39;submit&#39;)    }        return { submit }  }}</code></pre></div><div class="tab-pane" id="方法定义-2"><pre><code class="javascript">/** *  methods 应该是最容易理解的了 *  写在 setup 中，内部的话直接调用即可 *  return 出去，就可以在 template 中调用了 **/</code></pre></div><div class="tab-pane" id="方法定义-3"><pre><code class="javascript">export default {  methods: {    submit () {      console.log(&#39;submit&#39;)    }  }}</code></pre></div></div></div><h3 id="监听器"><a href="#监听器" class="headerlink" title="监听器"></a>监听器</h3><ol><li>可以监听到数组直接赋值子项的情况了（vue2 中 this.arr[0] = 10 将不会触发 watch）</li><li>可以同时监听多个 “响应式数据” 了。</li><li>新增了 onInvalidate 方法，用来在函数即将重新执行时、侦听器被停止时清除异步代码带来的影响。</li><li>增加了 watchEffect 方法，不用指定需要监听的 “响应式数据”，通过定义的函数内部自动依赖监听项。</li><li>watch 方法的第一个参数，需要理解后使用，否则总会出问题。</li></ol><div class="tabs" id="监听器"><ul class="nav-tabs"><li class="tab active"><a class="#监听器-1">Vue3</a></li><li class="tab"><a class="#监听器-2">Vue3 说明</a></li><li class="tab"><a class="#监听器-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="监听器-1"><pre><code class="javascript">import { watch, watchEffect } from &#39;vue&#39;;export default {  setup (props, { attrs, slots, emit }) {    const num = ref(0)    const state = { num: 0 }    const arr = ref([ 1, 2 ])        // 若监听某 &quot;响应式数据&quot; 的替换型改变（ref.value = any）时，直接传入 ref 就行。    watch(num, (newValue, oldValue, onInvalidate) =&gt; {})        // 若 &quot;响应式数据&quot; 为对象，并且想监听对象内部值变化时    // 需要传入一个函数，返回这个对象，并且配置 deep: true    // 注意：此时 oldValue = newValue    watch(() =&gt; state, (newValue, oldValue, onInvalidate) =&gt; {      // ...    }, { deep: true })        // 若 &quot;响应式数据&quot; 为对象，并且想监听固定某内部值的变化时    // 则需要传入一个函数，返回指定的字段    // 注意：必须深拷贝对象，才能保证 oldValue 值正确    watch(() =&gt; _.cloneDeep(state), (newValue, oldValue, onInvalidate) =&gt; {})        // 若 &quot;响应式数据&quot; 为对象，并且想监听固定某内部值的变化时    // 则需要传入一个函数，返回指定的字段    watch(() =&gt; state.num, (newValue, oldValue, onInvalidate) =&gt; {})      // 若想监听的值为数组，则需要传入一个函数，函数中返回数组的克隆副本    // 若数组中含有引用类型，则还是需要深拷贝，否则 oldValue 值错误    watch(() =&gt; [ ...arr ], (newValue, oldValue, onInvalidate) =&gt; {})    watch(() =&gt; _.cloneDeep(arr), (newValue, oldValue, onInvalidate) =&gt; {})        // 不需要指定监听的 &quot;响应式数据&quot;，内部自动依赖    // 值改变后，重新执行函数    watchEffect((onInvalidate) =&gt; {})  }}</code></pre></div><div class="tab-pane" id="监听器-2"><pre><code class="javascript">/** *  watch 方法用来监听 &quot;响应式数据&quot; 的变化 *  当指定的 &quot;响应式数据&quot; 变化时，触发回调 * *  需要传入两个必要参数和一个可选参数 *    1. 指定需要监听的 &quot;响应式数据&quot;，可以为数组，代表同时监听多个 &quot;响应式数据&quot; *    2. 回调函数，调用时将传入 newValue、oldValue、onInvalidate *    3. 配置项，{ deep: false, immediate: true } * *  复杂点在第一个参数上 *    - 若监听某 &quot;响应式数据&quot; 的替换型改变（ref.value = any）时，直接传入 ref 就行。 *    - 若 &quot;响应式数据&quot; 为对象，并且想监听对象内部值变化时，需要传入一个函数，返回这个对象，并且配置 deep: true *    - 若 &quot;响应式数据&quot; 为对象，并且想监听固定某内部值的变化时，则需要传入一个函数，返回指定的字段 *    - 若想监听的值为数组，则需要传入一个函数，函数中返回数组的克隆副本 * *  oldValue *    若监听值为对象或者数组中包含引用类型，想正确获取 oldValue 值 *    需要在传入的函数中返回深拷贝的副本 *    lodash _.cloneDeep 方法可以帮助做到 *    若使用了深拷贝，则不需要 deep: true * *  onInvalidate *  函数执行时，将接收 onInvalidate 函数作为入参， *  需要自行实现 *  在函数即将重新执行时、侦听器被停止时调用 *  主要用来清除异步代码带来的 &quot;副作用&quot; **/</code></pre></div><div class="tab-pane" id="监听器-3"><pre><code class="javascript">export default {  data () {    return {      num: 0,      arr: [ 1, 2, 3 ],      state: { num: 0 }    }  },  watch: {    num (newValue, oldValue) {},    state: {      deep: true,      handler (newValue, oldValue) {}    },    &#39;state.num&#39; (newValue, oldValue) {},        // 无法监听 this.arr[0] = 10 的这种情况    arr (newValue, oldValue) {},  }}</code></pre></div></div></div><h3 id="template-ref"><a href="#template-ref" class="headerlink" title="template ref"></a>template ref</h3><div class="tabs" id="templateref"><ul class="nav-tabs"><li class="tab active"><a class="#templateref-1">Vue3</a></li><li class="tab"><a class="#templateref-2">Vue3 说明</a></li><li class="tab"><a class="#templateref-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="templateref-1"><pre><code class="html">&lt;template&gt;  &lt;!--    注意：      - ref 不需要动态绑定的写法      - 若元素/组件未渲染，btn = null  --&gt;  &lt;comp-button ref=&quot;btn&quot;/&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  setup (props, { attrs, slots, emit }) {    const btn = ref(null)        return { btn }  }}</code></pre></div><div class="tab-pane" id="templateref-2"><p>若为数组，动态循环渲染的情况暂时未找到方案…</p></div><div class="tab-pane" id="templateref-3"><pre><code class="html">&lt;template&gt;  &lt;comp-button ref=&quot;btn&quot;/&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  mounted () {    console.log(this.$refs.btn)  }}</code></pre></div></div></div><h3 id="emits"><a href="#emits" class="headerlink" title="emits"></a>emits</h3><p>这是 Vue3 新增的 “声明属性”，<br>类似于 props， 在子组件中提前声明内部向父组件发出的事件列表，<br>并且还可以校验 emit 时参数是否正确，若不正确 Vue 将发出警告，<br>不一定非要定义，向 Vue2 一样，不定义，也可以 emit。</p><emp>学习到了，Vue2 虽然没有这个特性，但是也可以仿照着定义在 emits 上，预览组件内部可以发出的事件。</emp><pre><code class="javascript">export default &#123;  emits: &#123;    // emit(&#39;submit&#39;, &#123; name: &#39;jason&#39; &#125;)    submit: function (payload) &#123;      return typeof payload.name === &#39;string&#39;    &#125;,        // 当然可以不指定校验    quit: null  &#125;&#125;</code></pre><h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>可以定义多个 v-model 了，弃用了 sync 修饰符语法糖</p><div class="tabs" id="v-model"><ul class="nav-tabs"><li class="tab active"><a class="#v-model-1">Vue3</a></li><li class="tab"><a class="#v-model-2">Vue3 说明</a></li><li class="tab"><a class="#v-model-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v-model-1"><pre><code class="html">&lt;template&gt;  &lt;div&gt;    &lt;!--      在 comp-dialog 组件内部      使用 emit(&#39;update:title&#39;, newValue) 的方式传递事件      其中，默认的 v-model prop 名字为 value    --&gt;    &lt;comp-dialog      v-model=&quot;show&quot;      v-model:title=&quot;text&quot;      v-model:content=&quot;content&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  setup (props, { attrs, slots, emit }) {    const show = ref(false)    const text = ref(&#39;我是标题&#39;)    const content = ref(&#39;我是内容&#39;)        return { show, text, content }  }}</code></pre></div><div class="tab-pane" id="v-model-2"><p>太简单了，就是 sync 修饰符换成了统一的 v-model 指令写法，<br>并且好像之前的 sync 串用不了向 trim 这种修饰符，而 v-model 可以，<br>算是增强功能了。</p></div><div class="tab-pane" id="v-model-3"><pre><code class="html">&lt;template&gt;  &lt;div&gt;    &lt;!--      在 comp-dialog 组件内部      使用 this.$emit(&#39;update:title&#39;, newValue) 的方式传递事件      其中，默认的 v-model prop 名字为 value    --&gt;    &lt;comp-dialog      v-model=&quot;show&quot;      :title.sync=&quot;text&quot;      :content.sync=&quot;content&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="javascript">export default {  data () {    return {      show: false,      text: &#39;我是标题&#39;,      content: &#39;我是内容&#39;    }  }}</code></pre></div></div></div><h3 id="v-slot"><a href="#v-slot" class="headerlink" title="v-slot"></a>v-slot</h3><p>统一使用 v-slot 指令来定义插槽，统一了 slot 和 slot-scope<br>同时提供了 v-slot 的简写形式（使用了 # 符），就像 v-bind 和 v-on</p><div class="tabs" id="v-slot"><ul class="nav-tabs"><li class="tab active"><a class="#v-slot-1">Vue3</a></li><li class="tab"><a class="#v-slot-2">Vue3 说明</a></li><li class="tab"><a class="#v-slot-3">Vue2</a></li></ul><div class="tab-content"><div class="tab-pane active" id="v-slot-1"><pre><code class="html">&lt;!-- comp-dialog --&gt;&lt;template&gt;  &lt;div&gt;    &lt;slot name=&quot;header&quot; text=&quot;header&quot;/&gt;    &lt;slot name=&quot;default&quot; text=&quot;default&quot;/&gt;    &lt;slot name=&quot;footer&quot; text=&quot;footer&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="html">&lt;template&gt;  &lt;!-- 简写 v-slot --&gt;  &lt;comp-dialog&gt;    &lt;template #header=&quot;{ text }&quot;&gt;&lt;/template&gt;    &lt;template #default=&quot;scope&quot;&gt;&lt;/template&gt;    &lt;template #footer=&quot;{ text }&quot;&gt;&lt;/template&gt;  &lt;/comp-dialog&gt;    &lt;!-- 正常写 v-slot --&gt;  &lt;comp-dialog&gt;    &lt;template v-slot:header=&quot;{ text }&quot;&gt;&lt;/template&gt;    &lt;template v-slot:default=&quot;scope&quot;&gt;&lt;/template&gt;    &lt;template v-slot:footer=&quot;{ text }&quot;&gt;&lt;/template&gt;  &lt;/comp-dialog&gt;&lt;/template&gt;  </code></pre></div><div class="tab-pane" id="v-slot-2"><p>v-slot 指令在 Vue 2.6 就已经有了<br>但是在 Vue 2.6 之后还可以继续使用 slot 和 slot-scope（）<br>但是在 Vue3 中 slot 和 slot-scope 已经被移除了</p></div><div class="tab-pane" id="v-slot-3"><pre><code class="html">&lt;!-- comp-dialog --&gt;&lt;template&gt;  &lt;div&gt;    &lt;slot name=&quot;header&quot; text=&quot;header&quot;/&gt;    &lt;slot name=&quot;default&quot; text=&quot;default&quot;/&gt;    &lt;slot name=&quot;footer&quot; text=&quot;footer&quot;/&gt;  &lt;/div&gt;&lt;/template&gt;</code></pre><pre><code class="html">&lt;template&gt;  &lt;comp-dialog&gt;    &lt;template slot=&quot;header&quot; slot-scope=&quot;{ name }&quot;&gt;&lt;/template&gt;    &lt;template slot=&quot;default&quot; slot-scope=&quot;scope&quot;&gt;&lt;/template&gt;    &lt;template slot=&quot;footer&quot; slot-scope=&quot;{ name }&quot;&gt;&lt;/template&gt;  &lt;/comp-dialog&gt;&lt;/template&gt;  </code></pre></div></div></div>]]></content>
-      
-      
-      <categories>
-          
-          <category> 学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Vue </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>📗 学习 - Vue2</title>
-      <link href="/blog/posts/64015/"/>
-      <url>/blog/posts/64015/</url>
-      
-        <content type="html"><![CDATA[<p>😃 记录着使用 Vue 开发时的各种心得、配置，以及坑。</p><span id="more"></span><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="解决跨域问题，设置反向代理"><a href="#解决跨域问题，设置反向代理" class="headerlink" title="解决跨域问题，设置反向代理"></a>解决跨域问题，设置反向代理</h3><pre><code class="javascript">// vue.config.jsmodule.exports = &#123;  devServer: &#123;    proxy: &#123;      &#39;/dev-api&#39;: &#123;        target: &#39;http://47.97.154.202:1091&#39;,        changeOrigin: true,        pathRewrite: &#123; &#39;^/dev-api&#39;: &#39;&#39; &#125;      &#125;    &#125;  &#125;&#125;</code></pre><h3 id="静态文件转为-Base64-格式引入"><a href="#静态文件转为-Base64-格式引入" class="headerlink" title="静态文件转为 Base64 格式引入"></a>静态文件转为 Base64 格式引入</h3><blockquote><p>下面是将字体文件，转为 base64 的配置<br>问题来自 element-ui IE11 部分版本图标不显示<br>但是转为 base64 就好了</p></blockquote><pre><code class="javascript">// vue.config.jsmodule.exports = &#123;  chainWebpack: config =&gt; &#123;    const fontsRule = config.module.rule(&#39;fonts&#39;)    fontsRule.uses.clear()    fontsRule.test(/\.(woff|eot|ttf|otf)(\?.*)?$/i)    fontsRule.use(&#39;file-loader&#39;)      .loader(&#39;url-loader&#39;)      .options(&#123;        fallback: &#123;          loader: &#39;file-loader&#39;,          options: &#123;            name: &#39;fonts/[name].[hash:8].[ext]&#39;          &#125;        &#125;      &#125;)  &#125;&#125;</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 学习 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Vue </tag>
-            
-            <tag> 配置 </tag>
             
         </tags>
       
@@ -786,33 +669,6 @@
     
     
     <entry>
-      <title>🧚‍♂ 优化 - 耗时异步操作的客户端体验</title>
-      <link href="/blog/posts/42460/"/>
-      <url>/blog/posts/42460/</url>
-      
-        <content type="html"><![CDATA[<p>现在的客户端多多少少都会带一点异步操作，举例的话当时是和服务器的交互请求了，<br>有时，这种异步操作会异常的慢，通常还有网络环境的干扰，<br>这时如果不给出用户友好的提示，那用户还以为这个页面坏掉了。</p><span id="more"></span><h2 id="思路一（全屏-Loading）"><a href="#思路一（全屏-Loading）" class="headerlink" title="思路一（全屏 Loading）"></a>思路一（全屏 Loading）</h2><p>在耗时操作的开始，开始计时<br>若计时超过一定时长，则给出用户全屏 Loading<br>一是给出用户友好提示<br>二是防止用户操作页面其他地方</p><p>在考试操作的结束，结束计时。<br>若之前已经显示了全屏 Loading 则关闭。</p><p>优化：<br>在结束计时时，判断计时总时长，若小于 500/1000 毫秒<br>则暂不做操作，直到总时长到达 500/1000 毫秒后才关闭 Loading<br>这样做的目的是防止页面闪烁，Loading 刚开始就关闭的情况。</p><h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="full-loading.jpg" alt="全屏的加载中状态"/></div><span class="image-caption">全屏的加载中状态</span></div><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>代码上通常可以统一定义，比如在 axios 库中通过请求、响应拦截器统一处理。</p><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>Loading 是全屏的，样式相对于比较单调。<br>不灵活，如果异步操作有取消逻辑的话，不适用。</p><h2 id="思路二（局部-Loading）"><a href="#思路二（局部-Loading）" class="headerlink" title="思路二（局部 Loading）"></a>思路二（局部 Loading）</h2><p>在耗时操作的相关部分，比如说点击的按钮，<br>网页里，加载中的一部分区域，<br>显示 Loading 样式，如下图</p><h3 id="效果图-1"><a href="#效果图-1" class="headerlink" title="效果图"></a>效果图</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="btn-loading.jpg" alt="按钮的加载中状态"/></div><span class="image-caption">按钮的加载中状态</span></div><div class="img-wrap"><div class="img-bg"><img class="img" src="part-loading.jpg" alt="仅页面一部分的加载中状态"/></div><span class="image-caption">仅页面一部分的加载中状态</span></div><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>灵活，哪里用到哪里显示局部 loading</p><h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>代码上需要在多处注入判断 Loading 状态的相关代码，无法统一定义。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>建议项目在开发时，用思路一。<br>之后再看需要慢慢优化为思路二。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 优化 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 用户体验 </tag>
-            
-            <tag> 异步 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>📷 酷库 - 智能图片</title>
       <link href="/blog/posts/36844/"/>
       <url>/blog/posts/36844/</url>
@@ -865,7 +721,7 @@
     
     
     <entry>
-      <title>💿 破解 - 百度云限速破解</title>
+      <title>💿 学习 - 百度云限速破解</title>
       <link href="/blog/posts/17895/"/>
       <url>/blog/posts/17895/</url>
       
@@ -874,7 +730,7 @@
       
       <categories>
           
-          <category> 破解 </category>
+          <category> 学习 </category>
           
       </categories>
       
@@ -894,7 +750,7 @@
     
     
     <entry>
-      <title>✨ 工具 - nvm</title>
+      <title>✨ 学习 - nvm</title>
       <link href="/blog/posts/10982/"/>
       <url>/blog/posts/10982/</url>
       
@@ -903,16 +759,16 @@
       
       <categories>
           
-          <category> 工具 </category>
+          <category> 学习 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> node </tag>
+            <tag> npm </tag>
             
-            <tag> 版本管理 </tag>
+            <tag> node </tag>
             
         </tags>
       
@@ -921,7 +777,7 @@
     
     
     <entry>
-      <title>👽 学习 - Ionic</title>
+      <title>👽 酷库 - Ionic</title>
       <link href="/blog/posts/53768/"/>
       <url>/blog/posts/53768/</url>
       
@@ -930,7 +786,7 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> 酷库 </category>
           
       </categories>
       
@@ -975,7 +831,7 @@
     
     
     <entry>
-      <title>🏥 生活 - 医保</title>
+      <title>🏥 学习 - 医保</title>
       <link href="/blog/posts/21772/"/>
       <url>/blog/posts/21772/</url>
       
@@ -984,7 +840,7 @@
       
       <categories>
           
-          <category> 生活 </category>
+          <category> 学习 </category>
           
       </categories>
       
@@ -1222,9 +1078,9 @@
       
         <tags>
             
-            <tag> React </tag>
-            
             <tag> Vue </tag>
+            
+            <tag> React </tag>
             
         </tags>
       
@@ -1233,7 +1089,7 @@
     
     
     <entry>
-      <title>📝 生活 - 人事档案</title>
+      <title>📝 学习 - 人事档案</title>
       <link href="/blog/posts/11313/"/>
       <url>/blog/posts/11313/</url>
       
@@ -1242,7 +1098,7 @@
       
       <categories>
           
-          <category> 生活 </category>
+          <category> 学习 </category>
           
       </categories>
       
@@ -1258,7 +1114,7 @@
     
     
     <entry>
-      <title>🏢 生活 - 离职和入职</title>
+      <title>🏢 学习 - 离职和入职</title>
       <link href="/blog/posts/6011/"/>
       <url>/blog/posts/6011/</url>
       
@@ -1267,7 +1123,7 @@
       
       <categories>
           
-          <category> 生活 </category>
+          <category> 学习 </category>
           
       </categories>
       
@@ -1410,7 +1266,7 @@
     
     
     <entry>
-      <title>🥈 学习 - react</title>
+      <title>🥈 酷库 - react</title>
       <link href="/blog/posts/58126/"/>
       <url>/blog/posts/58126/</url>
       
@@ -1419,7 +1275,7 @@
       
       <categories>
           
-          <category> 学习 </category>
+          <category> 酷库 </category>
           
       </categories>
       
@@ -1460,7 +1316,7 @@
     
     
     <entry>
-      <title>😄 电影 - 我想让大家都开心</title>
+      <title>😄 句子 - 我想让大家都开心</title>
       <link href="/blog/posts/61328/"/>
       <url>/blog/posts/61328/</url>
       
@@ -1469,23 +1325,17 @@
       
       <categories>
           
-          <category> 视频片段 </category>
+          <category> 句子 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 电影 </tag>
-            
-        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>❌ 问题 - node-sass 安装失败</title>
+      <title>❌ 学习 - node-sass 安装失败</title>
       <link href="/blog/posts/17805/"/>
       <url>/blog/posts/17805/</url>
       
@@ -1494,7 +1344,7 @@
       
       <categories>
           
-          <category> 问题 </category>
+          <category> 学习 </category>
           
       </categories>
       
@@ -1502,6 +1352,8 @@
         <tags>
             
             <tag> npm </tag>
+            
+            <tag> sass </tag>
             
         </tags>
       
@@ -1635,7 +1487,7 @@
       <link href="/blog/posts/3202/"/>
       <url>/blog/posts/3202/</url>
       
-        <content type="html"><![CDATA[<p>强大的轮播库。</p><span id="more"></span><h2 id="swiper"><a href="#swiper" class="headerlink" title="swiper"></a>swiper</h2><blockquote><p><a href="https://github.com/nolimits4web/swiper">https://github.com/nolimits4web/swiper</a><br>非常知名的触摸滑动解决方案</p></blockquote><h2 id="this-emit-方法"><a href="#this-emit-方法" class="headerlink" title="this.emit 方法"></a>this.emit 方法</h2><blockquote><p>该函数用于主动触发 swiper 的事件，文档中找不到….<br>比如在 transitionStart 中写好了切换函数，但是在 初始化(init) 中也想调用一次<br>就可以在 init 中使用 this.emit(‘transitionStart’) 来调用执行</p></blockquote><h2 id="mousewheel-心得"><a href="#mousewheel-心得" class="headerlink" title="mousewheel 心得"></a>mousewheel 心得</h2><ul><li>建议开启 mousewheel.releaseOnEdges 否则鼠标滚轮无效</li><li>写项目时使用 <a href="mailto:&#x73;&#x77;&#x69;&#x70;&#x65;&#x72;&#64;&#x35;&#46;&#50;&#46;&#49;">&#x73;&#x77;&#x69;&#x70;&#x65;&#x72;&#64;&#x35;&#46;&#50;&#46;&#49;</a>，mousewheel 功能有些 bug，垂直滚动异常，降级即可解决</li></ul>]]></content>
+        <content type="html"><![CDATA[<p>强大的轮播库。</p><span id="more"></span><h2 id="swiper"><a href="#swiper" class="headerlink" title="swiper"></a>swiper</h2><blockquote><p><a href="https://github.com/nolimits4web/swiper">https://github.com/nolimits4web/swiper</a><br>非常知名的触摸滑动解决方案</p></blockquote><h2 id="this-emit-方法"><a href="#this-emit-方法" class="headerlink" title="this.emit 方法"></a>this.emit 方法</h2><blockquote><p>该函数用于主动触发 swiper 的事件，文档中找不到….<br>比如在 transitionStart 中写好了切换函数，但是在 初始化(init) 中也想调用一次<br>就可以在 init 中使用 this.emit(‘transitionStart’) 来调用执行</p></blockquote><h2 id="mousewheel-心得"><a href="#mousewheel-心得" class="headerlink" title="mousewheel 心得"></a>mousewheel 心得</h2><ul><li>建议开启 mousewheel.releaseOnEdges 否则鼠标滚轮无效</li><li>写项目时使用 <a href="mailto:&#x73;&#119;&#x69;&#x70;&#x65;&#x72;&#x40;&#53;&#46;&#x32;&#46;&#49;">&#x73;&#119;&#x69;&#x70;&#x65;&#x72;&#x40;&#53;&#46;&#x32;&#46;&#49;</a>，mousewheel 功能有些 bug，垂直滚动异常，降级即可解决</li></ul>]]></content>
       
       
       <categories>
@@ -1660,7 +1512,7 @@
       <link href="/blog/posts/23541/"/>
       <url>/blog/posts/23541/</url>
       
-        <content type="html"><![CDATA[<p>记载着小程序的开发心得</p><span id="more"></span><h2 id="框架的选择"><a href="#框架的选择" class="headerlink" title="框架的选择"></a>框架的选择</h2><blockquote><p>若原生撸请忽略，但并不推荐<br>原生的开发体验较为差劲，解决方案少<br>现在是 2020.1.3，个人推荐 uni-app 这个框架<br>真心强大！</p></blockquote><h3 id="uni-app"><a href="#uni-app" class="headerlink" title="uni-app"></a>uni-app</h3><blockquote><p><a href="https://github.com/dcloudio/uni-app">https://github.com/dcloudio/uni-app</a><br>非常推荐<br>体验：完全的 vue 开发体验，支持所有 vue 语法，支持跨端，社区完善，并拥有插件平台</p></blockquote><p>碰到的问题…</p><ol><li>使用 <a href="mailto:&#108;&#x6f;&#x64;&#97;&#115;&#x68;&#x40;&#52;&#x2e;&#x31;&#55;&#46;&#49;&#53;">&#108;&#x6f;&#x64;&#97;&#115;&#x68;&#x40;&#52;&#x2e;&#x31;&#55;&#46;&#49;&#53;</a>，dev 正常，pro 报错，降级到 <a href="mailto:&#x6c;&#x6f;&#100;&#x61;&#x73;&#104;&#64;&#x34;&#46;&#x31;&#x36;&#46;&#x30;">&#x6c;&#x6f;&#100;&#x61;&#x73;&#104;&#64;&#x34;&#46;&#x31;&#x36;&#46;&#x30;</a> 好了</li><li>prop 在 template 中传入时，要用驼峰命名，短横线命名会无效</li></ol><h3 id="wepy"><a href="#wepy" class="headerlink" title="wepy"></a>wepy</h3><blockquote><p><a href="https://github.com/Tencent/wepy">https://github.com/Tencent/wepy</a><br>不推荐<br>体验：类 vue 开发体验，但是区别还是比较大的，有学习成本<br>问题：使用过一段时间，问题比较多…，放弃使用的原因是 repeat 双层循环，内层循环读取不到数据，并且无解决办法</p></blockquote><h3 id="mpvue"><a href="#mpvue" class="headerlink" title="mpvue"></a>mpvue</h3><blockquote><p><a href="https://github.com/Meituan-Dianping/mpvue">https://github.com/Meituan-Dianping/mpvue</a><br>推荐<br>体验：不完全的 vue 开发体验，不支持 filter 等，其他基本相同，支持跨端<br>问题：据说停止维护了….</p></blockquote><hr><h2 id="UI-库的选择"><a href="#UI-库的选择" class="headerlink" title="UI 库的选择"></a>UI 库的选择</h2><blockquote><p>使用好的 UI 组件库，事半功倍</p></blockquote><h3 id="uView-UI"><a href="#uView-UI" class="headerlink" title="uView UI"></a>uView UI</h3><blockquote><p><a href="https://github.com/YanxinNet/uView">https://github.com/YanxinNet/uView</a><br>适配 uni-app 的跨端 UI 框架<br>很强大！</p></blockquote><h3 id="vant-webapp"><a href="#vant-webapp" class="headerlink" title="vant-webapp"></a>vant-webapp</h3><blockquote><p><a href="https://youzan.github.io/vant-weapp/#/intro">https://youzan.github.io/vant-weapp/#/intro</a><br>小程序原生组件库<br>应该是目前最出名的小程序 UI 库吧。。<br>注意：若项目使用的是 uni-app 并且需要跨端（h5）则不能使用</p></blockquote><h3 id="ThorUI"><a href="#ThorUI" class="headerlink" title="ThorUI"></a>ThorUI</h3><blockquote><p><a href="https://thorui.cn/doc/guide.html">https://thorui.cn/doc/guide.html</a><br>最近发现的一个强无敌的组件库<br>内置了很多 vant 没有的组件（图片裁剪，中文转拼音等）<br>有 uni-app 版本（开源、支持跨端）<br>原生小程序版本（不开源，需付费）<br>附带官方的一句话</p></blockquote><pre><code class="text">注：自1.4.2版本之后，ThorUI只对uni-app版本进行开源（后期开始区分会员和非会员版本）小程序原生版付费会员才可使用（￥30），1.4.2版本之前不受影响。如若需要，请联系QQ：3168647172。【目前价格只是对初期支持者优惠，下个版本统一会员价￥99~￥199】</code></pre><p>备注：目前感觉并不是非常健壮，若无跨端需求，还是用 vant-weapp 吧</p><h2 id="云函数"><a href="#云函数" class="headerlink" title="云函数"></a>云函数</h2><blockquote><p>这玩意是眼前一亮的东西<br>简单来说就是用 node 语言写接口文件<br>同步到云函数仓库中，他会自动安装依赖（node_modules）<br>不用管 node 环境 和 数据库等其他因素（内置）<br>只要根据规定的规则去写，就可以出来接口<br>在前端使用官方提供的方法即可调用</p></blockquote><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul><li>微信小程序的云函数和 uni-app 的云函数是两个不同的平台</li><li>微信小程序云函数一旦创建，无法修改名称，无法删除</li></ul><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul><li>微信的云函数拥有天然鉴权（access_token不用自己管理了），相对于自己的服务器会少写些逻辑代码</li></ul><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><ul><li>这玩意眼前一亮但是并不强大，肯定不如自己的服务器环境写逻辑接口，经过测试一些图片库（sharp等）不支持，会报错，接口返回 500</li></ul><h2 id="酷库-html-渲染方案"><a href="#酷库-html-渲染方案" class="headerlink" title="酷库 - html 渲染方案"></a>酷库 - html 渲染方案</h2><h3 id="原生-rich-text-组件"><a href="#原生-rich-text-组件" class="headerlink" title="原生 rich-text 组件"></a>原生 rich-text 组件</h3><blockquote><p>无法主动控制样式，只能想办法改变 html 字符串中的 style<br>非常不灵活</p></blockquote><h3 id="wxParse"><a href="#wxParse" class="headerlink" title="wxParse"></a>wxParse</h3><blockquote><p>github：<a href="https://github.com/icindy/wxParse">https://github.com/icindy/wxParse</a><br>基于原生小程序，若没有使用其他小程序框架就用它吧</p></blockquote><h3 id="gaoyia-parse"><a href="#gaoyia-parse" class="headerlink" title="gaoyia-parse"></a>gaoyia-parse</h3><blockquote><p>github：<a href="https://github.com/gaoyia/parse#readme">https://github.com/gaoyia/parse#readme</a><br>npm：<a href="https://www.npmjs.com/package/gaoyia-parse">https://www.npmjs.com/package/gaoyia-parse</a><br>若为 mpvue uni-app 就用这个</p></blockquote><h2 id="酷库-支持-cookie"><a href="#酷库-支持-cookie" class="headerlink" title="酷库 - 支持 cookie"></a>酷库 - 支持 cookie</h2><blockquote><p>小程序默认不支持 cookie 传输<br>解决方案：<a href="https://github.com/charleslo1/weapp-cookie">https://github.com/charleslo1/weapp-cookie</a><br>使用起来非常方便，只需要引入即可，对开发透明</p></blockquote><hr><h2 id="酷库-优雅的发送请求"><a href="#酷库-优雅的发送请求" class="headerlink" title="酷库 - 优雅的发送请求"></a>酷库 - 优雅的发送请求</h2><blockquote><p>wx-axios 用这个库，同时适配 browser、node.js、微信小程序<br>作者 fork 原本的 axios 实现<br>api 和 axios 完全一样<br>github：<a href="https://github.com/SoloJiang/axios">https://github.com/SoloJiang/axios</a><br>npm：<a href="https://www.npmjs.com/package/wx-axios">https://www.npmjs.com/package/wx-axios</a></p></blockquote><hr><h2 id="酷库-图片拼合，生成海报"><a href="#酷库-图片拼合，生成海报" class="headerlink" title="酷库 - 图片拼合，生成海报"></a>酷库 - 图片拼合，生成海报</h2><h3 id="mp-canvas-drawer"><a href="#mp-canvas-drawer" class="headerlink" title="mp_canvas_drawer"></a>mp_canvas_drawer</h3><blockquote><p><a href="https://github.com/kuckboy1994/mp_canvas_drawer">https://github.com/kuckboy1994/mp_canvas_drawer</a><br>仅支持微信小程序<br>图片高度可以随心所欲的限制<br>纯小程序，不跨端，尽量用这个</p></blockquote><p>坑：</p><ul><li>canvas 本身不会显示内容，需要用 images 标签来显示<blockquote><p>龙弟弟碰到的 bug..</p></blockquote></li></ul><h3 id="json2canvas"><a href="#json2canvas" class="headerlink" title="json2canvas"></a>json2canvas</h3><blockquote><p><a href="https://github.com/willnewii/json2canvas">https://github.com/willnewii/json2canvas</a><br>同时支持 h5 和 小程序</p></blockquote><p>坑：</p><ul><li><p>小程序端，图片高度无法限制，跟随着宽度等比例变化</p><blockquote><p>这是个大坑，插件本身无解决方案！</p></blockquote></li><li><p>uni-app 项目引入较为麻烦</p><blockquote><p>先下载官方例子构件 npm 生成 miniprogram_npm 目录<br>复制到 uni-app 项目的 wxcomponents 目录<br>在 page.json usingComponents 中注册 wxcomponents 目录的组件<br>之后像正常 vue 组件使用即可</p></blockquote></li><li><p>生成的 canvas 有灰色边框</p><blockquote><p>在全局样式中覆盖定义即可 border: none !important</p></blockquote></li><li><p>保存后的图片不全或者完全没内容</p><blockquote><p>这要怪 wx.canvasToTempFilePath 这个方法（bug）<br>在 miniprogram_npm/json2canvas/index.js 中搜索 this.saveImageToLocal()<br>外层包个延迟定时器就好了，如下</p></blockquote></li></ul><pre><code class="javascript">setTimeout(() =&gt; &#123;  this.saveImageToLocal();&#125;, 100)</code></pre><hr><h2 id="酷库-Promise-化小程序-api"><a href="#酷库-Promise-化小程序-api" class="headerlink" title="酷库 - Promise 化小程序 api"></a>酷库 - Promise 化小程序 api</h2><blockquote><p>来自官方的库<br><a href="https://developers.weixin.qq.com/miniprogram/dev/extended/utils/api-promise.html">https://developers.weixin.qq.com/miniprogram/dev/extended/utils/api-promise.html</a></p></blockquote><hr><h2 id="经验-getCurrentPages-使用注意"><a href="#经验-getCurrentPages-使用注意" class="headerlink" title="经验 - getCurrentPages 使用注意"></a>经验 - getCurrentPages 使用注意</h2><blockquote><p>getCurrentPages 方法返回的页面数组中 route 属性无查询字符串<br>查询字符串保存在 options 属性中(对象形式)，想要完整的需要自己拼接<br>建议使用 qs 库做拼接</p></blockquote><hr><h2 id="经验-储存图片到本地"><a href="#经验-储存图片到本地" class="headerlink" title="经验 - 储存图片到本地"></a>经验 - 储存图片到本地</h2><blockquote><p>建议使用 saveImageToPhotosAlbum 这个方法<br>saveFile 保存后，路径很迷，并且无后缀，相册中也找不到<br>saveImageToPhotosAlbum 成功后，微信会自动弹出一个友好提示（水平居中垂直居下的 Toast 弹框）<br>下载图片时，别忘了在微信公众后台增加上 download domain 否则上线后，下载会报错</p></blockquote><hr><h2 id="经验-字体（iconfont）引入"><a href="#经验-字体（iconfont）引入" class="headerlink" title="经验 - 字体（iconfont）引入"></a>经验 - 字体（iconfont）引入</h2><blockquote><p>小程序不支持加载本地字体文件<br>支持加载网络字体 或把字体文件转为 base64</p></blockquote><hr><h2 id="经验-button-标签边框"><a href="#经验-button-标签边框" class="headerlink" title="经验 - button 标签边框"></a>经验 - button 标签边框</h2><blockquote><p>button 边框是用 :after 实现的<br>并不是 border 实现</p></blockquote><hr><h2 id="经验-分包"><a href="#经验-分包" class="headerlink" title="经验 - 分包"></a>经验 - 分包</h2><blockquote><p>小程序有代码体积限制（小于 2m）<br>若体积过大就只能用分包的形式<br>建议稍微大一丢丢的项目一开始就考虑分包</p></blockquote><blockquote><p>uni-app 可以强制开启代码压缩缓解在开发环境下体积过大，无法真机预览的问题</p></blockquote><pre><code class="javascript">// vue.config.js// uni-app 强制开启代码压缩module.exports = &#123;  configureWebpack (config) &#123;    // 防止在开发环境文件过大的情况    config.optimization.minimize = true  &#125;&#125;</code></pre><pre><code>// uni-app 的分包优化配置&quot;mp-weixin&quot;: &#123;  &quot;optimization&quot; : &#123;    &quot;subPackages&quot; : true  &#125;&#125;</code></pre><hr><h2 id="经验-map-组件"><a href="#经验-map-组件" class="headerlink" title="经验 - map 组件"></a>经验 - map 组件</h2><h3 id="marker-自定义文字的位置"><a href="#marker-自定义文字的位置" class="headerlink" title="marker 自定义文字的位置"></a>marker 自定义文字的位置</h3><blockquote><p>2020.1.2…<br>建议放弃使用下面的想法，还是改用一张图片实现<br>经过测试有些 bug 无法解决</p></blockquote><ol><li>位置太难对准</li><li>ios 设备上有 marker 和 label 的层叠性问题</li></ol><p>ios 效果如下</p><blockquote><p><del>marker callout 只能显示在 marker 的上方，位置不能改变</del><br><del>marker label 可以改变相对于 marker 的位置(大约计算)</del><br><del>但是没有 left，center，right 这种属性</del><br><del>下面例子使用 label 实现文字垂直居中对其</del></p></blockquote><pre><code class="javascript">let markerArr = [  &#123;    // ... marker options ...    label: &#123;      // ... label options ...      anchorX: (&#39;自定义文字&#39;.length * 4.7) * -1,      anchorY: -29    &#125;  &#125;,  // ... other marker]</code></pre><hr><h3 id="map-组件影响了页面滚动"><a href="#map-组件影响了页面滚动" class="headerlink" title="map 组件影响了页面滚动"></a>map 组件影响了页面滚动</h3><blockquote><p>设置了 enable-scroll=’false‘ 后安卓手机页面不能滑动</p></blockquote><p>解决办法是用一个 view 标签覆盖在 map 上面，即可解决</p><p>注意1：不要使用 cover-view 标签，这个和 map 一样不支持滑动<br>注意2：将 map 组件的点击事件放在 view 标签上<br>注意3：若想同时实现散点（marker）点击，暂无解决办法….</p><h2 id="经验-input-change-事件不触发"><a href="#经验-input-change-事件不触发" class="headerlink" title="经验 - input change 事件不触发"></a>经验 - input change 事件不触发</h2><blockquote><p>已知基础库 2.9.3 有这个 bug<br>若出现，降级或升级试试看</p></blockquote><hr><h2 id="经验-h5-helper（使用h5页面辅助完成小程序功能）"><a href="#经验-h5-helper（使用h5页面辅助完成小程序功能）" class="headerlink" title="经验 - h5-helper（使用h5页面辅助完成小程序功能）"></a>经验 - h5-helper（使用h5页面辅助完成小程序功能）</h2><blockquote><p>小程序的部分场景功能，可以使用 web-view 引入 h5 网页来实现<br>通过 bindmessage 来返回参数</p></blockquote><p>比如：</p><ol><li><p>海报生成（H5有现成的 html2canvas，可以轻松实现 dom - 图片的转换）</p></li><li><p>电子签名（drawingboard.js 可轻松实现）</p></li></ol><h2 id="经验-分享机制"><a href="#经验-分享机制" class="headerlink" title="经验 - 分享机制"></a>经验 - 分享机制</h2><blockquote><p>小程序可以设置分享，但是需要一个页面一个页面的设置<br>这也太麻烦了…..用下面的方法可以做到统一代码<br>PS: 下面使用了 uni-app 框架，若为原生小程序，也可以通过扩展运算符的形式加入到 Page options 中</p></blockquote><pre><code class="javascript">import _ from &#39;lodash&#39;import qs from &#39;qs&#39;import Vue from &#39;vue&#39;Vue.prototype.$uni = uni/** *  设置默认分享信息 **/Vue.mixin(&#123;  onShareAppMessage (&#123; from, target = &#123; dataset: &#123;&#125; &#125;, webViewUrl &#125;) &#123;    let pages = getCurrentPages()    let page = pages[ pages.length - 1 ]        return _.defaults(      // 按钮设置的分享消息，优先级最高      &#123;        title: target.dataset.shareTitle,        path: target.dataset.sharePath,        imageUrl: target.dataset.shareImageUrl      &#125;,      // 页面设置的分享消息，优先级中等      &#123;        title: this.shareTitle,        path: this.sharePath,        imageUrl: this.shareImageUrl      &#125;,      // 默认设置的分享消息，优先级最低      &#123;        title: &#39;xxxxx&#39;,        path: page ?          `$&#123; page.route &#125;?$&#123; qs.stringify(page.options || &#123;&#125;) &#125;` :          null,        imageUrl: &#39;xxxxxxxxxx&#39;      &#125;    )  &#125;&#125;)</code></pre><h2 id="填坑-map-markertap-不触发"><a href="#填坑-map-markertap-不触发" class="headerlink" title="填坑 - map markertap 不触发"></a>填坑 - map markertap 不触发</h2><blockquote><p>对应的 marker 数据需要设置 id<br>否则 markertap 不会触发（uni-app 项目测试）</p></blockquote><h2 id="填坑-uni-app-map-事件-markertap-回调参数各平台不一致"><a href="#填坑-uni-app-map-事件-markertap-回调参数各平台不一致" class="headerlink" title="填坑 - uni-app map 事件 markertap 回调参数各平台不一致"></a>填坑 - uni-app map 事件 markertap 回调参数各平台不一致</h2><blockquote><p>markerId 位置不一致</p></blockquote><pre><code class="javascript">// e.markerId 是小程序// e.detail.markerId 是h5let id = e.markerId || e.detail.markerId</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>记载着小程序的开发心得</p><span id="more"></span><h2 id="框架的选择"><a href="#框架的选择" class="headerlink" title="框架的选择"></a>框架的选择</h2><blockquote><p>若原生撸请忽略，但并不推荐<br>原生的开发体验较为差劲，解决方案少<br>现在是 2020.1.3，个人推荐 uni-app 这个框架<br>真心强大！</p></blockquote><h3 id="uni-app"><a href="#uni-app" class="headerlink" title="uni-app"></a>uni-app</h3><blockquote><p><a href="https://github.com/dcloudio/uni-app">https://github.com/dcloudio/uni-app</a><br>非常推荐<br>体验：完全的 vue 开发体验，支持所有 vue 语法，支持跨端，社区完善，并拥有插件平台</p></blockquote><p>碰到的问题…</p><ol><li>使用 <a href="mailto:&#108;&#x6f;&#100;&#97;&#115;&#x68;&#64;&#x34;&#46;&#49;&#55;&#46;&#49;&#x35;">&#108;&#x6f;&#100;&#97;&#115;&#x68;&#64;&#x34;&#46;&#49;&#55;&#46;&#49;&#x35;</a>，dev 正常，pro 报错，降级到 <a href="mailto:&#x6c;&#111;&#x64;&#97;&#x73;&#x68;&#64;&#52;&#x2e;&#x31;&#x36;&#46;&#48;">&#x6c;&#111;&#x64;&#97;&#x73;&#x68;&#64;&#52;&#x2e;&#x31;&#x36;&#46;&#48;</a> 好了</li><li>prop 在 template 中传入时，要用驼峰命名，短横线命名会无效</li></ol><h3 id="wepy"><a href="#wepy" class="headerlink" title="wepy"></a>wepy</h3><blockquote><p><a href="https://github.com/Tencent/wepy">https://github.com/Tencent/wepy</a><br>不推荐<br>体验：类 vue 开发体验，但是区别还是比较大的，有学习成本<br>问题：使用过一段时间，问题比较多…，放弃使用的原因是 repeat 双层循环，内层循环读取不到数据，并且无解决办法</p></blockquote><h3 id="mpvue"><a href="#mpvue" class="headerlink" title="mpvue"></a>mpvue</h3><blockquote><p><a href="https://github.com/Meituan-Dianping/mpvue">https://github.com/Meituan-Dianping/mpvue</a><br>推荐<br>体验：不完全的 vue 开发体验，不支持 filter 等，其他基本相同，支持跨端<br>问题：据说停止维护了….</p></blockquote><hr><h2 id="UI-库的选择"><a href="#UI-库的选择" class="headerlink" title="UI 库的选择"></a>UI 库的选择</h2><blockquote><p>使用好的 UI 组件库，事半功倍</p></blockquote><h3 id="uView-UI"><a href="#uView-UI" class="headerlink" title="uView UI"></a>uView UI</h3><blockquote><p><a href="https://github.com/YanxinNet/uView">https://github.com/YanxinNet/uView</a><br>适配 uni-app 的跨端 UI 框架<br>很强大！</p></blockquote><h3 id="vant-webapp"><a href="#vant-webapp" class="headerlink" title="vant-webapp"></a>vant-webapp</h3><blockquote><p><a href="https://youzan.github.io/vant-weapp/#/intro">https://youzan.github.io/vant-weapp/#/intro</a><br>小程序原生组件库<br>应该是目前最出名的小程序 UI 库吧。。<br>注意：若项目使用的是 uni-app 并且需要跨端（h5）则不能使用</p></blockquote><h3 id="ThorUI"><a href="#ThorUI" class="headerlink" title="ThorUI"></a>ThorUI</h3><blockquote><p><a href="https://thorui.cn/doc/guide.html">https://thorui.cn/doc/guide.html</a><br>最近发现的一个强无敌的组件库<br>内置了很多 vant 没有的组件（图片裁剪，中文转拼音等）<br>有 uni-app 版本（开源、支持跨端）<br>原生小程序版本（不开源，需付费）<br>附带官方的一句话</p></blockquote><pre><code class="text">注：自1.4.2版本之后，ThorUI只对uni-app版本进行开源（后期开始区分会员和非会员版本）小程序原生版付费会员才可使用（￥30），1.4.2版本之前不受影响。如若需要，请联系QQ：3168647172。【目前价格只是对初期支持者优惠，下个版本统一会员价￥99~￥199】</code></pre><p>备注：目前感觉并不是非常健壮，若无跨端需求，还是用 vant-weapp 吧</p><h2 id="云函数"><a href="#云函数" class="headerlink" title="云函数"></a>云函数</h2><blockquote><p>这玩意是眼前一亮的东西<br>简单来说就是用 node 语言写接口文件<br>同步到云函数仓库中，他会自动安装依赖（node_modules）<br>不用管 node 环境 和 数据库等其他因素（内置）<br>只要根据规定的规则去写，就可以出来接口<br>在前端使用官方提供的方法即可调用</p></blockquote><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul><li>微信小程序的云函数和 uni-app 的云函数是两个不同的平台</li><li>微信小程序云函数一旦创建，无法修改名称，无法删除</li></ul><h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul><li>微信的云函数拥有天然鉴权（access_token不用自己管理了），相对于自己的服务器会少写些逻辑代码</li></ul><h3 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h3><ul><li>这玩意眼前一亮但是并不强大，肯定不如自己的服务器环境写逻辑接口，经过测试一些图片库（sharp等）不支持，会报错，接口返回 500</li></ul><h2 id="酷库-html-渲染方案"><a href="#酷库-html-渲染方案" class="headerlink" title="酷库 - html 渲染方案"></a>酷库 - html 渲染方案</h2><h3 id="原生-rich-text-组件"><a href="#原生-rich-text-组件" class="headerlink" title="原生 rich-text 组件"></a>原生 rich-text 组件</h3><blockquote><p>无法主动控制样式，只能想办法改变 html 字符串中的 style<br>非常不灵活</p></blockquote><h3 id="wxParse"><a href="#wxParse" class="headerlink" title="wxParse"></a>wxParse</h3><blockquote><p>github：<a href="https://github.com/icindy/wxParse">https://github.com/icindy/wxParse</a><br>基于原生小程序，若没有使用其他小程序框架就用它吧</p></blockquote><h3 id="gaoyia-parse"><a href="#gaoyia-parse" class="headerlink" title="gaoyia-parse"></a>gaoyia-parse</h3><blockquote><p>github：<a href="https://github.com/gaoyia/parse#readme">https://github.com/gaoyia/parse#readme</a><br>npm：<a href="https://www.npmjs.com/package/gaoyia-parse">https://www.npmjs.com/package/gaoyia-parse</a><br>若为 mpvue uni-app 就用这个</p></blockquote><h2 id="酷库-支持-cookie"><a href="#酷库-支持-cookie" class="headerlink" title="酷库 - 支持 cookie"></a>酷库 - 支持 cookie</h2><blockquote><p>小程序默认不支持 cookie 传输<br>解决方案：<a href="https://github.com/charleslo1/weapp-cookie">https://github.com/charleslo1/weapp-cookie</a><br>使用起来非常方便，只需要引入即可，对开发透明</p></blockquote><hr><h2 id="酷库-优雅的发送请求"><a href="#酷库-优雅的发送请求" class="headerlink" title="酷库 - 优雅的发送请求"></a>酷库 - 优雅的发送请求</h2><blockquote><p>wx-axios 用这个库，同时适配 browser、node.js、微信小程序<br>作者 fork 原本的 axios 实现<br>api 和 axios 完全一样<br>github：<a href="https://github.com/SoloJiang/axios">https://github.com/SoloJiang/axios</a><br>npm：<a href="https://www.npmjs.com/package/wx-axios">https://www.npmjs.com/package/wx-axios</a></p></blockquote><hr><h2 id="酷库-图片拼合，生成海报"><a href="#酷库-图片拼合，生成海报" class="headerlink" title="酷库 - 图片拼合，生成海报"></a>酷库 - 图片拼合，生成海报</h2><h3 id="mp-canvas-drawer"><a href="#mp-canvas-drawer" class="headerlink" title="mp_canvas_drawer"></a>mp_canvas_drawer</h3><blockquote><p><a href="https://github.com/kuckboy1994/mp_canvas_drawer">https://github.com/kuckboy1994/mp_canvas_drawer</a><br>仅支持微信小程序<br>图片高度可以随心所欲的限制<br>纯小程序，不跨端，尽量用这个</p></blockquote><p>坑：</p><ul><li>canvas 本身不会显示内容，需要用 images 标签来显示<blockquote><p>龙弟弟碰到的 bug..</p></blockquote></li></ul><h3 id="json2canvas"><a href="#json2canvas" class="headerlink" title="json2canvas"></a>json2canvas</h3><blockquote><p><a href="https://github.com/willnewii/json2canvas">https://github.com/willnewii/json2canvas</a><br>同时支持 h5 和 小程序</p></blockquote><p>坑：</p><ul><li><p>小程序端，图片高度无法限制，跟随着宽度等比例变化</p><blockquote><p>这是个大坑，插件本身无解决方案！</p></blockquote></li><li><p>uni-app 项目引入较为麻烦</p><blockquote><p>先下载官方例子构件 npm 生成 miniprogram_npm 目录<br>复制到 uni-app 项目的 wxcomponents 目录<br>在 page.json usingComponents 中注册 wxcomponents 目录的组件<br>之后像正常 vue 组件使用即可</p></blockquote></li><li><p>生成的 canvas 有灰色边框</p><blockquote><p>在全局样式中覆盖定义即可 border: none !important</p></blockquote></li><li><p>保存后的图片不全或者完全没内容</p><blockquote><p>这要怪 wx.canvasToTempFilePath 这个方法（bug）<br>在 miniprogram_npm/json2canvas/index.js 中搜索 this.saveImageToLocal()<br>外层包个延迟定时器就好了，如下</p></blockquote></li></ul><pre><code class="javascript">setTimeout(() =&gt; &#123;  this.saveImageToLocal();&#125;, 100)</code></pre><hr><h2 id="酷库-Promise-化小程序-api"><a href="#酷库-Promise-化小程序-api" class="headerlink" title="酷库 - Promise 化小程序 api"></a>酷库 - Promise 化小程序 api</h2><blockquote><p>来自官方的库<br><a href="https://developers.weixin.qq.com/miniprogram/dev/extended/utils/api-promise.html">https://developers.weixin.qq.com/miniprogram/dev/extended/utils/api-promise.html</a></p></blockquote><hr><h2 id="经验-getCurrentPages-使用注意"><a href="#经验-getCurrentPages-使用注意" class="headerlink" title="经验 - getCurrentPages 使用注意"></a>经验 - getCurrentPages 使用注意</h2><blockquote><p>getCurrentPages 方法返回的页面数组中 route 属性无查询字符串<br>查询字符串保存在 options 属性中(对象形式)，想要完整的需要自己拼接<br>建议使用 qs 库做拼接</p></blockquote><img src="/blog/posts/23541/getCurrentPages-route-options.jpg" class=""><hr><h2 id="经验-储存图片到本地"><a href="#经验-储存图片到本地" class="headerlink" title="经验 - 储存图片到本地"></a>经验 - 储存图片到本地</h2><blockquote><p>建议使用 saveImageToPhotosAlbum 这个方法<br>saveFile 保存后，路径很迷，并且无后缀，相册中也找不到<br>saveImageToPhotosAlbum 成功后，微信会自动弹出一个友好提示（水平居中垂直居下的 Toast 弹框）<br>下载图片时，别忘了在微信公众后台增加上 download domain 否则上线后，下载会报错</p></blockquote><hr><h2 id="经验-字体（iconfont）引入"><a href="#经验-字体（iconfont）引入" class="headerlink" title="经验 - 字体（iconfont）引入"></a>经验 - 字体（iconfont）引入</h2><blockquote><p>小程序不支持加载本地字体文件<br>支持加载网络字体 或把字体文件转为 base64</p></blockquote><img src="/blog/posts/23541/iconfont.jpg" class=""><hr><h2 id="经验-button-标签边框"><a href="#经验-button-标签边框" class="headerlink" title="经验 - button 标签边框"></a>经验 - button 标签边框</h2><blockquote><p>button 边框是用 :after 实现的<br>并不是 border 实现</p></blockquote><hr><h2 id="经验-分包"><a href="#经验-分包" class="headerlink" title="经验 - 分包"></a>经验 - 分包</h2><blockquote><p>小程序有代码体积限制（小于 2m）<br>若体积过大就只能用分包的形式<br>建议稍微大一丢丢的项目一开始就考虑分包</p></blockquote><blockquote><p>uni-app 可以强制开启代码压缩缓解在开发环境下体积过大，无法真机预览的问题</p></blockquote><pre><code class="javascript">// vue.config.js// uni-app 强制开启代码压缩module.exports = &#123;  configureWebpack (config) &#123;    // 防止在开发环境文件过大的情况    config.optimization.minimize = true  &#125;&#125;</code></pre><pre><code>// uni-app 的分包优化配置&quot;mp-weixin&quot;: &#123;  &quot;optimization&quot; : &#123;    &quot;subPackages&quot; : true  &#125;&#125;</code></pre><hr><h2 id="经验-map-组件"><a href="#经验-map-组件" class="headerlink" title="经验 - map 组件"></a>经验 - map 组件</h2><h3 id="marker-自定义文字的位置"><a href="#marker-自定义文字的位置" class="headerlink" title="marker 自定义文字的位置"></a>marker 自定义文字的位置</h3><blockquote><p>2020.1.2…<br>建议放弃使用下面的想法，还是改用一张图片实现<br>经过测试有些 bug 无法解决</p></blockquote><ol><li>位置太难对准</li><li>ios 设备上有 marker 和 label 的层叠性问题</li></ol><p>ios 效果如下</p><img src="/blog/posts/23541/map-label-center-2.jpg" class=""><blockquote><p><del>marker callout 只能显示在 marker 的上方，位置不能改变</del><br><del>marker label 可以改变相对于 marker 的位置(大约计算)</del><br><del>但是没有 left，center，right 这种属性</del><br><del>下面例子使用 label 实现文字垂直居中对其</del></p></blockquote><img src="/blog/posts/23541/map-label-center-1.jpg" class=""><pre><code class="javascript">let markerArr = [  &#123;    // ... marker options ...    label: &#123;      // ... label options ...      anchorX: (&#39;自定义文字&#39;.length * 4.7) * -1,      anchorY: -29    &#125;  &#125;,  // ... other marker]</code></pre><hr><h3 id="map-组件影响了页面滚动"><a href="#map-组件影响了页面滚动" class="headerlink" title="map 组件影响了页面滚动"></a>map 组件影响了页面滚动</h3><blockquote><p>设置了 enable-scroll=’false‘ 后安卓手机页面不能滑动</p></blockquote><p>解决办法是用一个 view 标签覆盖在 map 上面，即可解决</p><p>注意1：不要使用 cover-view 标签，这个和 map 一样不支持滑动<br>注意2：将 map 组件的点击事件放在 view 标签上<br>注意3：若想同时实现散点（marker）点击，暂无解决办法….</p><h2 id="经验-input-change-事件不触发"><a href="#经验-input-change-事件不触发" class="headerlink" title="经验 - input change 事件不触发"></a>经验 - input change 事件不触发</h2><blockquote><p>已知基础库 2.9.3 有这个 bug<br>若出现，降级或升级试试看</p></blockquote><hr><h2 id="经验-h5-helper（使用h5页面辅助完成小程序功能）"><a href="#经验-h5-helper（使用h5页面辅助完成小程序功能）" class="headerlink" title="经验 - h5-helper（使用h5页面辅助完成小程序功能）"></a>经验 - h5-helper（使用h5页面辅助完成小程序功能）</h2><blockquote><p>小程序的部分场景功能，可以使用 web-view 引入 h5 网页来实现<br>通过 bindmessage 来返回参数</p></blockquote><p>比如：</p><ol><li><p>海报生成（H5有现成的 html2canvas，可以轻松实现 dom - 图片的转换）</p><img src="/blog/posts/23541/%E6%B5%B7%E6%8A%A5%E7%94%9F%E6%88%90.jpg" class=""></li><li><p>电子签名（drawingboard.js 可轻松实现）</p><img src="/blog/posts/23541/%E7%94%B5%E5%AD%90%E7%AD%BE%E5%90%8D.jpg" class=""></li></ol><h2 id="经验-分享机制"><a href="#经验-分享机制" class="headerlink" title="经验 - 分享机制"></a>经验 - 分享机制</h2><blockquote><p>小程序可以设置分享，但是需要一个页面一个页面的设置<br>这也太麻烦了…..用下面的方法可以做到统一代码<br>PS: 下面使用了 uni-app 框架，若为原生小程序，也可以通过扩展运算符的形式加入到 Page options 中</p></blockquote><pre><code class="javascript">import _ from &#39;lodash&#39;import qs from &#39;qs&#39;import Vue from &#39;vue&#39;Vue.prototype.$uni = uni/** *  设置默认分享信息 **/Vue.mixin(&#123;  onShareAppMessage (&#123; from, target = &#123; dataset: &#123;&#125; &#125;, webViewUrl &#125;) &#123;    let pages = getCurrentPages()    let page = pages[ pages.length - 1 ]        return _.defaults(      // 按钮设置的分享消息，优先级最高      &#123;        title: target.dataset.shareTitle,        path: target.dataset.sharePath,        imageUrl: target.dataset.shareImageUrl      &#125;,      // 页面设置的分享消息，优先级中等      &#123;        title: this.shareTitle,        path: this.sharePath,        imageUrl: this.shareImageUrl      &#125;,      // 默认设置的分享消息，优先级最低      &#123;        title: &#39;xxxxx&#39;,        path: page ?          `$&#123; page.route &#125;?$&#123; qs.stringify(page.options || &#123;&#125;) &#125;` :          null,        imageUrl: &#39;xxxxxxxxxx&#39;      &#125;    )  &#125;&#125;)</code></pre><h2 id="填坑-map-markertap-不触发"><a href="#填坑-map-markertap-不触发" class="headerlink" title="填坑 - map markertap 不触发"></a>填坑 - map markertap 不触发</h2><blockquote><p>对应的 marker 数据需要设置 id<br>否则 markertap 不会触发（uni-app 项目测试）</p></blockquote><h2 id="填坑-uni-app-map-事件-markertap-回调参数各平台不一致"><a href="#填坑-uni-app-map-事件-markertap-回调参数各平台不一致" class="headerlink" title="填坑 - uni-app map 事件 markertap 回调参数各平台不一致"></a>填坑 - uni-app map 事件 markertap 回调参数各平台不一致</h2><blockquote><p>markerId 位置不一致</p></blockquote><pre><code class="javascript">// e.markerId 是小程序// e.detail.markerId 是h5let id = e.markerId || e.detail.markerId</code></pre>]]></content>
       
       
       <categories>
@@ -1760,31 +1612,6 @@
     
     
     <entry>
-      <title>🎯 酷库 - 滚动监听</title>
-      <link href="/blog/posts/57202/"/>
-      <url>/blog/posts/57202/</url>
-      
-        <content type="html"><![CDATA[<h2 id="skrollr"><a href="#skrollr" class="headerlink" title="skrollr"></a>skrollr</h2><blockquote><p>根据页面滚动条的位置，做细微过度动画的库。</p></blockquote><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/Prinzhorn/skrollr"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Prinzhorn&repo=skrollr&show_owner=true"/></a><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><blockquote><p>待</p></blockquote><h2 id="scrollreveal"><a href="#scrollreveal" class="headerlink" title="scrollreveal"></a>scrollreveal</h2><blockquote><p>简单来说就是在页面滚动到指定位置时，给元素加一个动画类。</p></blockquote><h3 id="Github-1"><a href="#Github-1" class="headerlink" title="Github"></a>Github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/jlmakes/scrollreveal"><img src="https://github-readme-stats.vercel.app/api/pin/?username=jlmakes&repo=scrollreveal&show_owner=true"/></a><h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><blockquote><p>待</p></blockquote><h2 id="gumshoe"><a href="#gumshoe" class="headerlink" title="gumshoe"></a>gumshoe</h2><blockquote><p>实现锚点滚动需求</p></blockquote><img src="/blog/posts/57202/example.gif" class=""><h3 id="Github-2"><a href="#Github-2" class="headerlink" title="Github"></a>Github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/cferdinandi/gumshoe"><img src="https://github-readme-stats.vercel.app/api/pin/?username=cferdinandi&repo=gumshoe&show_owner=true"/></a><h3 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h3><blockquote><p>待</p></blockquote>]]></content>
-      
-      
-      <categories>
-          
-          <category> 酷库 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 滚动监听 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>⛲ 学习 - window.opener</title>
       <link href="/blog/posts/22884/"/>
       <url>/blog/posts/22884/</url>
@@ -1810,11 +1637,11 @@
     
     
     <entry>
-      <title>🤺 学习 - 伪类选择器 hover 移动端的表现</title>
-      <link href="/blog/posts/20528/"/>
-      <url>/blog/posts/20528/</url>
+      <title>🤔 学习 - 到底是谁的滚动条</title>
+      <link href="/blog/posts/7263/"/>
+      <url>/blog/posts/7263/</url>
       
-        <content type="html"><![CDATA[<p>用 hover 实现模拟 select，移入显示 option，移出隐藏 option，<br>在做移动端适配时，在 safari 游览器中发现了 bug，<br>做这种效果移动端还是尽量用 JS 绑定 class 的方式实现吧。🙃</p><span id="more"></span><div class="img-wrap"><div class="img-bg"><img class="img" src="example.gif" alt="效果图"/></div><span class="image-caption">效果图</span></div><h2 id="移动端-safari-的奇怪表现"><a href="#移动端-safari-的奇怪表现" class="headerlink" title="移动端 safari 的奇怪表现"></a>移动端 safari 的奇怪表现</h2><ul><li>必须是 a 元素才能触发 :hover。</li><li>将元素修改成了 a 之后，点击页面其他处无法失去 :hover 焦点，除非点击其他 按钮 或 input。</li></ul><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul><li>使用 js 事件加 class 的方式实现</li></ul>]]></content>
+        <content type="html"><![CDATA[<p>网页中默认的滚动条到底是哪个元素的？ body？html？😵</p><span id="more"></span><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote><p>打印输出各大游览器 body 和 html 标签的 scrollTop 属性</p></blockquote><h3 id="chrome"><a href="#chrome" class="headerlink" title="chrome"></a>chrome</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="chrome.jpg" alt="chrome"/></div><span class="image-caption">chrome</span></div><h3 id="firefox"><a href="#firefox" class="headerlink" title="firefox"></a>firefox</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="firefox.jpg" alt="firefox"/></div><span class="image-caption">firefox</span></div><h3 id="ie11"><a href="#ie11" class="headerlink" title="ie11"></a>ie11</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="ie11.jpg" alt="ie11"/></div><span class="image-caption">ie11</span></div><h3 id="safari"><a href="#safari" class="headerlink" title="safari"></a>safari</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="safari.jpg" alt="safari"/></div><span class="image-caption">safari</span></div><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>除去 safari 默认滚动条都是 html 元素的<br>只有 safari 这个奇葩滚动条是使用 body 元素的<br>为啥 safari 这个奇葩总会有各种有问题……</p><h2 id="优雅的获取页面滚动位置"><a href="#优雅的获取页面滚动位置" class="headerlink" title="优雅的获取页面滚动位置"></a>优雅的获取页面滚动位置</h2><pre><code class="javascript">// IE9+window.pageYOffset;// 非 IEwindow.scrollY;// IE8以及以下document.documentElement.scrollTop;// 兼容性最好的写法window.pageYOffset || document.documentElement.scrollTop;</code></pre><h2 id="优雅的滚动页面"><a href="#优雅的滚动页面" class="headerlink" title="优雅的滚动页面"></a>优雅的滚动页面</h2><h3 id="原生方法（推荐）"><a href="#原生方法（推荐）" class="headerlink" title="原生方法（推荐）"></a>原生方法（推荐）</h3><pre><code class="javascript">// 这俩货是一样的....window.scrollTo(x, y);// 相对滚动window.scrollBy(offsetX, offsetY)</code></pre><h3 id="直接赋值（不推荐）"><a href="#直接赋值（不推荐）" class="headerlink" title="直接赋值（不推荐）"></a>直接赋值（不推荐）</h3><pre><code class="javascript">// chrome, ie, 火狐 ...document.documentElement.scrollTop = 100// 奇葩 safaridocument.body.scrollTop = 500</code></pre>]]></content>
       
       
       <categories>
@@ -1835,11 +1662,11 @@
     
     
     <entry>
-      <title>🤔 学习 - 到底是谁的滚动条</title>
-      <link href="/blog/posts/7263/"/>
-      <url>/blog/posts/7263/</url>
+      <title>🤺 学习 - 伪类选择器 hover 移动端的表现</title>
+      <link href="/blog/posts/20528/"/>
+      <url>/blog/posts/20528/</url>
       
-        <content type="html"><![CDATA[<p>网页中默认的滚动条到底是哪个元素的？ body？html？😵</p><span id="more"></span><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><blockquote><p>打印输出各大游览器 body 和 html 标签的 scrollTop 属性</p></blockquote><h3 id="chrome"><a href="#chrome" class="headerlink" title="chrome"></a>chrome</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="chrome.jpg" alt="chrome"/></div><span class="image-caption">chrome</span></div><h3 id="firefox"><a href="#firefox" class="headerlink" title="firefox"></a>firefox</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="firefox.jpg" alt="firefox"/></div><span class="image-caption">firefox</span></div><h3 id="ie11"><a href="#ie11" class="headerlink" title="ie11"></a>ie11</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="ie11.jpg" alt="ie11"/></div><span class="image-caption">ie11</span></div><h3 id="safari"><a href="#safari" class="headerlink" title="safari"></a>safari</h3><div class="img-wrap"><div class="img-bg"><img class="img" src="safari.jpg" alt="safari"/></div><span class="image-caption">safari</span></div><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>除去 safari 默认滚动条都是 html 元素的<br>只有 safari 这个奇葩滚动条是使用 body 元素的<br>为啥 safari 这个奇葩总会有各种有问题……</p><h2 id="优雅的获取页面滚动位置"><a href="#优雅的获取页面滚动位置" class="headerlink" title="优雅的获取页面滚动位置"></a>优雅的获取页面滚动位置</h2><pre><code class="javascript">// IE9+window.pageYOffset;// 非 IEwindow.scrollY;// IE8以及以下document.documentElement.scrollTop;// 兼容性最好的写法window.pageYOffset || document.documentElement.scrollTop;</code></pre><h2 id="优雅的滚动页面"><a href="#优雅的滚动页面" class="headerlink" title="优雅的滚动页面"></a>优雅的滚动页面</h2><h3 id="原生方法（推荐）"><a href="#原生方法（推荐）" class="headerlink" title="原生方法（推荐）"></a>原生方法（推荐）</h3><pre><code class="javascript">// 这俩货是一样的....window.scrollTo(x, y);// 相对滚动window.scrollBy(offsetX, offsetY)</code></pre><h3 id="直接赋值（不推荐）"><a href="#直接赋值（不推荐）" class="headerlink" title="直接赋值（不推荐）"></a>直接赋值（不推荐）</h3><pre><code class="javascript">// chrome, ie, 火狐 ...document.documentElement.scrollTop = 100// 奇葩 safaridocument.body.scrollTop = 500</code></pre>]]></content>
+        <content type="html"><![CDATA[<p>用 hover 实现模拟 select，移入显示 option，移出隐藏 option，<br>在做移动端适配时，在 safari 游览器中发现了 bug，<br>做这种效果移动端还是尽量用 JS 绑定 class 的方式实现吧。🙃</p><span id="more"></span><div class="img-wrap"><div class="img-bg"><img class="img" src="example.gif" alt="效果图"/></div><span class="image-caption">效果图</span></div><h2 id="移动端-safari-的奇怪表现"><a href="#移动端-safari-的奇怪表现" class="headerlink" title="移动端 safari 的奇怪表现"></a>移动端 safari 的奇怪表现</h2><ul><li>必须是 a 元素才能触发 :hover。</li><li>将元素修改成了 a 之后，点击页面其他处无法失去 :hover 焦点，除非点击其他 按钮 或 input。</li></ul><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><ul><li>使用 js 事件加 class 的方式实现</li></ul>]]></content>
       
       
       <categories>
@@ -1887,7 +1714,7 @@
     
     
     <entry>
-      <title>💵 生活 - 工资算法</title>
+      <title>💵 学习 - 工资算法</title>
       <link href="/blog/posts/61371/"/>
       <url>/blog/posts/61371/</url>
       
@@ -1896,14 +1723,39 @@
       
       <categories>
           
-          <category> 生活 </category>
+          <category> 学习 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> 工作 </tag>
+            <tag> 工资算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>🎯 酷库 - 滚动监听</title>
+      <link href="/blog/posts/57202/"/>
+      <url>/blog/posts/57202/</url>
+      
+        <content type="html"><![CDATA[<h2 id="skrollr"><a href="#skrollr" class="headerlink" title="skrollr"></a>skrollr</h2><blockquote><p>根据页面滚动条的位置，做细微过度动画的库。</p></blockquote><h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/Prinzhorn/skrollr"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Prinzhorn&repo=skrollr&show_owner=true"/></a><h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><blockquote><p>待</p></blockquote><h2 id="scrollreveal"><a href="#scrollreveal" class="headerlink" title="scrollreveal"></a>scrollreveal</h2><blockquote><p>简单来说就是在页面滚动到指定位置时，给元素加一个动画类。</p></blockquote><h3 id="Github-1"><a href="#Github-1" class="headerlink" title="Github"></a>Github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/jlmakes/scrollreveal"><img src="https://github-readme-stats.vercel.app/api/pin/?username=jlmakes&repo=scrollreveal&show_owner=true"/></a><h3 id="用法-1"><a href="#用法-1" class="headerlink" title="用法"></a>用法</h3><blockquote><p>待</p></blockquote><h2 id="gumshoe"><a href="#gumshoe" class="headerlink" title="gumshoe"></a>gumshoe</h2><blockquote><p>实现锚点滚动需求</p></blockquote><img src="/blog/posts/57202/example.gif" class=""><h3 id="Github-2"><a href="#Github-2" class="headerlink" title="Github"></a>Github</h3><a class="ghcard" rel="external nofollow noopener noreferrer" href="https://github.com/cferdinandi/gumshoe"><img src="https://github-readme-stats.vercel.app/api/pin/?username=cferdinandi&repo=gumshoe&show_owner=true"/></a><h3 id="用法-2"><a href="#用法-2" class="headerlink" title="用法"></a>用法</h3><blockquote><p>待</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 酷库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 滚动监听 </tag>
             
         </tags>
       

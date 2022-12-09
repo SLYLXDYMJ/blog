@@ -26,7 +26,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>🏻 记录 - vuex 统一的 mutation 方法 - JASON BLOG</title>
+  <title>🏻 学习 - vuex 统一的 mutation 方法 - JASON BLOG</title>
   
     <meta name="keywords" content="vue,vuex,统一">
   
@@ -2899,7 +2899,7 @@ article > p {
     
     
       <h1 class="title">
-        🏻 记录 - vuex 统一的 mutation 方法
+        🏻 学习 - vuex 统一的 mutation 方法
       </h1>
       <div class='new-meta-box'>
         
@@ -2919,13 +2919,13 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：413 字</p>
+      <p>字数：427 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
-      <p>时长：1 分钟</p>
+      <p>时长：2 分钟</p>
     </a>
   </div>
 
@@ -2944,38 +2944,40 @@ article > p {
 <span id="more"></span>
 
 <pre><code class="javascript">// 定义在全局，通过路径的方式可以直接修改子模块的 state
-mutations: &#123;
-  /**
-   *  全局统一更新 state 的方法
-   *
-   *  @requires lodash
-   *
-   *  @param &#123; Object | Array &#125; payload
-   *
-   *  @param &#123; String &#125; [payload.path] - 要修改的字段路径
-   *  @param &#123; String &#125; payload[].path - 要修改的字段路径
-   *
-   *  @param &#123; Any &#125; [payload.value] - 要修改的字段值
-   *  @param &#123; Any &#125; payload[].value - 要修改的字段值
-   *
-   *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
-   *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
-   **/
-  UPDATE_STATE: function (state, payload) &#123;
-    var arr = [].concat(payload)
-    
-    arr.forEach(function (item) &#123;
-      var path = item.path
-      var value = item.value
+new Vuex.Store(&#123;
+  mutations: &#123;
+    /**
+     *  全局统一更新 state 的方法
+     *
+     *  @requires lodash
+     *
+     *  @param &#123; Object | Array &#125; payload
+     *
+     *  @param &#123; String &#125; [payload.path] - 要修改的字段路径
+     *  @param &#123; String &#125; payload[].path - 要修改的字段路径
+     *
+     *  @param &#123; Any &#125; [payload.value] - 要修改的字段值
+     *  @param &#123; Any &#125; payload[].value - 要修改的字段值
+     *
+     *  @param &#123; String &#125; [payload.comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
+     *  @param &#123; String &#125; [payload[].comment] - 提交 mutation 的备注，仅为了 vue-devtool 方便测试，无实际用途
+     **/
+    UPDATE_STATE: function (state, payload) &#123;
+      var arr = [].concat(payload)
       
-      if (!path) &#123;
-        throw new Error(&#39;来自 vuex mutation UPDATE_VALUE 的报错：path 不能为空&#39;)
-      &#125;
-      
-      _.set(state, path, value)
-    &#125;)
+      arr.forEach(function (item) &#123;
+        var path = item.path
+        var value = item.value
+        
+        if (!path) &#123;
+          throw new Error(&#39;来自 vuex mutation UPDATE_VALUE 的报错：path 不能为空&#39;)
+        &#125;
+        
+        _.set(state, path, value)
+      &#125;)
+    &#125;
   &#125;
-&#125;
+&#125;)
 </code></pre>
 <pre><code class="javascript">// 使用
 
@@ -3005,17 +3007,21 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
 // 如果是在 modules 里 namespaced 为 true 的情况下
 // 在 actions 里提交 mutation
 // 需要在 commit 方法的第三个参数里设置 root: true
-&#123;
-  namespaced: true,
-  actions: &#123;
-    handler: function (context) &#123;
-      context.commit(&#39;UPDATE_STATE&#39;, &#123;
-        path: &#39;any.any&#39;,
-        value: 10086
-      &#125;, &#123; root: true &#125;)
+new Vuex.Store(&#123;
+  modules: &#123;
+    any: &#123;
+      namespaced: true,
+      actions: &#123;
+        handler: function (context) &#123;
+          context.commit(&#39;UPDATE_STATE&#39;, &#123;
+            path: &#39;any.any&#39;,
+            value: 10086
+          &#125;, &#123; root: true &#125;)
+        &#125;
+      &#125;
     &#125;
   &#125;
-&#125;
+&#125;)
 </code></pre>
 
   
@@ -3040,7 +3046,7 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fad fa-folder-open EMERALD fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+      <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
     </a>
   </div>
 
@@ -3056,10 +3062,10 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-12-08T02:19:01+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-12-09T07:43:38+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年12月8日</p>
+    <p>更新于：2022年12月9日</p>
   </a>
 </div>
 
@@ -3166,7 +3172,7 @@ this.$store.commit(&#39;UPDATE_VALUE&#39;, [
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="🏻 记录 - vuex 统一的 mutation 方法";
+  pdata.postTitle="🏻 学习 - vuex 统一的 mutation 方法";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
