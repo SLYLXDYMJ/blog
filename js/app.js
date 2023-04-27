@@ -198,8 +198,8 @@ const VolantisApp = (() => {
       const scrollTop = $(window).scrollTop()
       const del = scrollTop - pos
       if (del >= 50 && scrollTop > 100) { // 向下滚动50px
-        pos = scrollTop
-        volantis.$.wrapper.addClass('sub') // <---- 二级导航显示
+        // pos = scrollTop
+        // volantis.$.wrapper.addClass('sub') // <---- 二级导航显示
       }
       else if (del <= -50) { // 向上滚动50px
         pos = scrollTop
