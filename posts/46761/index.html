@@ -10,8 +10,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -28,9 +26,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：原生属性 - SLYLXDYMJ BLOG</title>
+  <title>🚄 酷库 - 虚拟列表 - SLYLXDYMJ BLOG</title>
+  
+    <meta name="keywords" content="虚拟列表">
   
 
+  
+    <meta name="description" content="整合各种情况下虚拟列表的实用库">
   
 
   <!-- feed -->
@@ -2810,7 +2812,7 @@ article > p {
   
     
       <!-- see: /layout/_partial/scripts/coverCtrl.ejs -->
-        <div id="none" class='cover-wrapper  search' style="display: none;">
+        <div id="none" class='cover-wrapper post search' style="display: none;">
           
             <div class='cover-bg' style='background-image:url()'></div>
           
@@ -2887,78 +2889,193 @@ article > p {
           
 
 
-
 <div id="l_main" class=''>
+  <article class=" article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        🚄 酷库 - 虚拟列表
+      </h1>
+      <div class='new-meta-box'>
         
           
+            
+<div class='new-meta-item author'>
+  <a class='author' href="https://slylxdymj.github.io/blog/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/28495915?v=4">
+    <p>SLYLXDYMJ</p>
+  </a>
+</div>
+
+          
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/43539/">
-        🤔 学习 - 傻傻分不清的 DOM 尺寸
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>做效果有时需要知道 DOM 元素的尺寸，尺寸并不是简单的宽度和高度，<br>算不算 padding、border，😵 需不需要考虑内容的真实高度（用于内容滚动的情况），<br>都需要不同的计算，🧐 这里记录/学习原生属性和方法来获取各种尺寸。</p>
-    
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
+      <p>字数：245 字</p>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2019-11-08</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
+      <p>时长：1 分钟</p>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  
+  <p>整合各种情况下虚拟列表的实用库</p>
+<span id="more"></span>
+
+<h2 id="vue-virtual-scroller"><a href="#vue-virtual-scroller" class="headerlink" title="vue-virtual-scroller"></a>vue-virtual-scroller</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/Akryum/vue-virtual-scroller">https://github.com/Akryum/vue-virtual-scroller</a></p>
+</blockquote>
+<a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/Akryum/vue-virtual-scroller"><img src="https://github-readme-stats.vercel.app/api/pin/?username=Akryum&repo=vue-virtual-scroller&show_owner=true"/></a>
+
+<h3 id="使用例子"><a href="#使用例子" class="headerlink" title="使用例子"></a>使用例子</h3><blockquote>
+<p>用 scroll-end 事件可以实现滚动加载<br>不支持 table 结构，不过用 div 模拟 table 结构可以实现</p>
+</blockquote>
+<pre><code class="vue">  &lt;!-- items 和 item-size 是必须传入的 --&gt;
+  &lt;!-- item-size 可以不写，代表动态高度，需要在项数据里指定 size 表示高度 --&gt;
+  &lt;Recycle-Scroller
+    :items=&quot;list&quot;
+    :item-size=&quot;32&quot;&gt;
+
+    &lt;template slot=&quot;before&quot;&gt;
+      before
+    &lt;/template&gt;
+
+    &lt;template slot-scope=&quot;&#123; item, index &#125;&quot;&gt;
+      &lt;div class=&quot;td&quot;&gt;&#123;&#123; item.name &#125;&#125;&lt;/div&gt;
+    &lt;/template&gt;
+    
+    &lt;template slot=&quot;after&quot;&gt;
+      after
+    &lt;/template&gt;
+
+  &lt;/Recycle-Scroller&gt;
+</code></pre>
+<hr>
+<h2 id="vue-virtual-scroll-list"><a href="#vue-virtual-scroll-list" class="headerlink" title="vue-virtual-scroll-list"></a>vue-virtual-scroll-list</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/tangbc/vue-virtual-scroll-list">https://github.com/tangbc/vue-virtual-scroll-list</a></p>
+</blockquote>
+<a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/tangbc/vue-virtual-scroll-list"><img src="https://github-readme-stats.vercel.app/api/pin/?username=tangbc&repo=vue-virtual-scroll-list&show_owner=true"/></a>
+
+<h3 id="使用例子-1"><a href="#使用例子-1" class="headerlink" title="使用例子"></a>使用例子</h3><blockquote>
+<p>暂时没用过，感觉不如 vue-virtual-scroller，不能使用 slot。</p>
+</blockquote>
+<hr>
+<h2 id="wchbrad-vue-easy-tree"><a href="#wchbrad-vue-easy-tree" class="headerlink" title="@wchbrad/vue-easy-tree"></a>@wchbrad/vue-easy-tree</h2><blockquote>
+<p>树状结构虚拟列表，基于 element-ui 和 vue-virtual-scroller</p>
+</blockquote>
+<a class="ghcard" rel="external nofollow noopener noreferrer noopener" target="_blank" href="https://github.com/wchbrad/vue-easy-tree"><img src="https://github-readme-stats.vercel.app/api/pin/?username=wchbrad&repo=vue-easy-tree&show_owner=true"/></a>
+
+<h3 id="使用例子-2"><a href="#使用例子-2" class="headerlink" title="使用例子"></a>使用例子</h3><blockquote>
+<p>相对于 element-ui 的 tree 好像只加了 height prop 即可实现。</p>
+</blockquote>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/43539/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/43539/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
-</div>
 
-          </div>
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fad fa-folder-open EMERALD fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/blog/categories/%E9%85%B7%E5%BA%93/">酷库</a>
+    </a>
+  </div>
+
+
         
       
-    
-  </section>
+        
+          
   
-    
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/blog/tags/%E8%99%9A%E6%8B%9F%E5%88%97%E8%A1%A8/" rel="nofollow"><i class="fad fa-hashtag WETASPHALT fa-fw" aria-hidden="true"></i><p>虚拟列表</p></a></div>
 
 
-    
+        
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-07-26T09:02:10+00:00">
+  <a class='notlink'>
+    <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
+    <p>更新于：2023年7月26日</p>
+  </a>
+</div>
+
+        
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fad fa-calendar-alt TURQUOISE fa-fw" aria-hidden="true"></i>
+    <p>发布于：2023年7月26日</p>
+  </a>
+</div>
+
+        
+      
+    </div>
+  </div>
+
+
   
+  
+
+  <!-- 强制隐藏上一篇和下一篇，因为可能会暴露日记内容 -->
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fad fa-comments POMEGRANATE'></i> 评论</p>
+    
+    <div id="twikoo_container">
+  <i class="fad fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside id='l_side'>
   
@@ -3006,203 +3123,22 @@ article > p {
     
     
 
-<section class="widget shadow desktop">
-  
-  <header>
-    
-      <i class="fad fa-award ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
 
 
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>74 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2019/06/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>31.7k </div>
-        </div>
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Wed Jul 26 2023 09:02:42 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2023-07-26 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2023-07-26 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/categories/'><i class="fad fa-folder-open CARROT fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fad fa-list ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E5%8F%A5%E5%AD%90/" href="/blog/categories/%E5%8F%A5%E5%AD%90/"
-            id="blogcategoriesE58FA5E5AD90"
-            ><div class='name'>句子</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
-            id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(29)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E8%AE%B0%E5%BD%95/" href="/blog/categories/%E8%AE%B0%E5%BD%95/"
-            id="blogcategoriesE8AEB0E5BD95"
-            ><div class='name'>记录</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E9%85%B7%E5%BA%93/" href="/blog/categories/%E9%85%B7%E5%BA%93/"
-            id="blogcategoriesE985B7E5BA93"
-            ><div class='name'>酷库</div><div class='badge'>(39)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-virtual-scroller"><span class="toc-text">vue-virtual-scroller</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BE%8B%E5%AD%90"><span class="toc-text">使用例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-virtual-scroll-list"><span class="toc-text">vue-virtual-scroll-list</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BE%8B%E5%AD%90-1"><span class="toc-text">使用例子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wchbrad-vue-easy-tree"><span class="toc-text">@wchbrad&#x2F;vue-easy-tree</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E4%BE%8B%E5%AD%90-2"><span class="toc-text">使用例子</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-
-<section class="widget list shadow desktop mobile">
-  
-  <header>
-    
-      <i class="fad fa-align-justify POMEGRANATE fa-fw" aria-hidden="true"></i><span class='name'>更多</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation">
-      
-        <li><a class="flat-box" title="/blog/docs/lodash/collection" href="/blog/docs/lodash/collection"
-          
-          
-          id="blogdocslodashcollection"
-          >
-          <div class='name'>
-            
-            更好的 lodash 文档
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/parsing" href="/blog/docs/moment/parsing"
-          
-          
-          id="blogdocsmomentparsing"
-          >
-          <div class='name'>
-            
-            更好的 moment 文档
-          </div>
-          
-        </a></li>
-      
-    </ul>
-  </div>
-</section>
 
   
 
@@ -3210,13 +3146,14 @@ article > p {
 </aside>
 
 
+
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="🚄 酷库 - 虚拟列表";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs
