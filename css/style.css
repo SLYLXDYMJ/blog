@@ -2752,29 +2752,6 @@ div.fancybox .image-caption:empty {
     transform: rotate(360deg);
   }
 }
-.OwO .OwO-body {
-  color: #c0c0c0 !important;
-  background-color: #252627 !important;
-  border-color: #4a4b50 !important;
-}
-.OwO .OwO-body .OwO-bar {
-  border-top: 1px solid #4a4b50 !important;
-  background: #4a4b50 !important;
-  color: #ccc !important;
-}
-.OwO .OwO-body .OwO-bar .OwO-packages li:hover {
-  background-color: #252627 !important;
-}
-.OwO .OwO-body .OwO-bar .OwO-packages .OwO-package-active {
-  background-color: #252627 !important;
-}
-.OwO .OwO-body .OwO-items .OwO-item {
-  background: #4a4b50 !important;
-  color: #ccc !important;
-}
-.OwO .OwO-body .OwO-items-image .OwO-item:hover {
-  background-color: #252627 !important;
-}
 p,
 input,
 pre>span,
