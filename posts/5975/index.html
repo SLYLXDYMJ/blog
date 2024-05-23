@@ -2920,7 +2920,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：308 字</p>
+      <p>字数：318 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2963,8 +2963,9 @@ article > p {
   text-overflow: ellipsis;
 &#125;
 
-/* 使用伪元素在文本后面占一个位置，但是宽度设置为 0 */
-.txt:after &#123;
+/* 使用伪元素 before 占一个位置，但是宽度设置为 0 */
+/* 注意：这里一定是 before，after 位置会不对 */
+.txt:before &#123;
   content: &quot;&quot;;
   float: right;
   width: 0;
@@ -3011,7 +3012,7 @@ article > p {
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2024-05-23T08:56:34+00:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2024-05-23T09:02:35+00:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
     <p>更新于：2024年5月23日</p>
