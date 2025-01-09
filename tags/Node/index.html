@@ -28,7 +28,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：Node - SLYLXDYMJ BLOG</title>
+  <title>标签：node - SLYLXDYMJ BLOG</title>
   
 
   
@@ -2911,34 +2911,32 @@ article > p {
   
     
     <h2 class="article-title" >
-      <a href="/blog/posts/54009/">
-        🐂 酷库 - Strapi
+      <a href="/blog/posts/10982/">
+        ✨ 学习 - nvm
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>Strapi 是一个 “无前端” Node CMS 框架，<br>他只关注后端数据层，并通过 “自动化” 的方式生成一个😍 非常强大 😍 并且完全可扩展的管理后台，<br>同时它采用了 ORM 的方式操作数据库，弱化后端。</p>
-<p>我认为他是我迈入 “全栈工程师” 的一个很重要的框架，<br>关注了很长时间，随着版本的完善，社区也渐渐出现了各种好用的库。</p>
-<p>PS: 国人用的较少…并且适合国人环境的现成解决方案较少…</p>
+      <p>切换 node 和 npm 版本是项目中常见的需求，<br>用常规的方式升降版本，只能重新下载、安装 node，<br>这里介绍一个 node、npm 版本管理工具 “nvm”，<br>他可以做到同时本地存储多个 node、npm 版本，<br>以命令行的形式切换使用，并且每个版本都有自己的 node_modules, 相互不共享。😍</p>
     
   </div>
   
     <div class='meta-v3' line_style='hidden'>
       <div>
         
-        <time>2021-07-21</time>
+        <time>2021-05-27</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E9%85%B7%E5%BA%93/">酷库</a>
+          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
         
       </div>
       
         <div>
-          <!-- <a class='readmore' href='/blog/posts/54009/'>
+          <!-- <a class='readmore' href='/blog/posts/10982/'>
             <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
           </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/54009/">
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/10982/">
             <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
             <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
           </a>
@@ -3056,7 +3054,7 @@ article > p {
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Thu Jan 09 2025 06:06:57 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update" style="display: none;">Thu Jan 09 2025 14:08:17 GMT+0800 (GMT+08:00)</div>
             <div id="last-update-show">2025-01-09 日</div>
           
         </div>
@@ -3996,6 +3994,16 @@ document.addEventListener("pjax:success", listennSidebarTOC);
 
     document.addEventListener('pjax:error', function (e) {
       // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+    </div>
+    <div id="BKG"></div>
+  </body>
+</html>
+
       volantis.pjax.method.error.start();
       window.location.href = e.triggerElement.href;
     });
