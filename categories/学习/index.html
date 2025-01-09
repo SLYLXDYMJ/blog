@@ -2930,6 +2930,58 @@ article > p {
   
     
     <h2 class="article-title" >
+      <a href="/blog/posts/2601/">
+        🤨 学习 - vue3 的 $attrs 和 emit 声明
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>爷孙组件的事件传递和 vue2 的写法不一样了</p>
+<p>$listeners 在 3 中删除了，将事件合并到了 $attrs 中</p>
+<p>需要使用 v-bind 递归绑定 $attrs 传递事件而不是 v-on</p>
+<p>$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀<br>例：@sort -&gt; { onSort }，@on-sort -&gt; { onOnSort }</p>
+<p>emit 里声明的事件，将从 $attrs 里删除，无法继续递归传递</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2025-01-09</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/2601/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/2601/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/blog/posts/57599/">
         😅 学习 - 移动设备的安全距离
       </a>
@@ -3353,54 +3405,6 @@ article > p {
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/64077/">
-        📢 学习 - 监听游览器页面的关闭
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>项目中常见在页面/游览器关闭时，需要做某些特定操作，<br>难点在于如何的监听，原生的使用方法有点绕。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2021-06-22</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/64077/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/64077/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -3409,7 +3413,7 @@ article > p {
       <div class="prev-next">
         
         <p class="current">
-          1 / 3
+          1 / 4
         </p>
         
           <a class="next" rel="next" href="/blog/categories/%E5%AD%A6%E4%B9%A0/page/2/">
@@ -3486,7 +3490,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>79 篇</div>
+          <div>80 篇</div>
         </div>
       
 
@@ -3508,7 +3512,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>32.7k </div>
+          <div>33.3k </div>
         </div>
       
 
@@ -3520,8 +3524,8 @@ article > p {
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Fri Sep 27 2024 06:22:23 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2024-09-27 日</div>
+            <div id="last-update" style="display: none;">Thu Jan 09 2025 06:06:56 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2025-01-09 日</div>
           
         </div>
         
@@ -3571,7 +3575,7 @@ article > p {
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2024-09-27 日';
+            document.getElementById('last-update-show').innerHTML = '2025-01-09 日';
           }
         </script>
         
@@ -3607,7 +3611,7 @@ article > p {
           <li><a class="flat-box"
             title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
             id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(30)</div></a></li>
+            ><div class='name'>学习</div><div class='badge'>(31)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E8%AE%B0%E5%BD%95/" href="/blog/categories/%E8%AE%B0%E5%BD%95/"
