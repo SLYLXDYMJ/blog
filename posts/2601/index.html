@@ -33,7 +33,7 @@
     <meta name="description" content="爷孙组件的事件传递和 vue2 的写法不一样了
 $listeners 在 3 中删除了，将事件合并到了 $attrs 中
 需要使用 v-bind 递归绑定 $attrs 传递事件而不是 v-on
-$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀例：@sort -&gt; { onSort }，@on-...">
+$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀例：@sort 在 $attrs 中的 key 为 onS...">
   
 
   <!-- feed -->
@@ -2921,7 +2921,7 @@ article > p {
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
-      <p>字数：579 字</p>
+      <p>字数：588 字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -2945,7 +2945,7 @@ article > p {
   <p>爷孙组件的事件传递和 vue2 的写法不一样了</p>
 <p>$listeners 在 3 中删除了，将事件合并到了 $attrs 中</p>
 <p>需要使用 v-bind 递归绑定 $attrs 传递事件而不是 v-on</p>
-<p>$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀<br>例：@sort -&gt; { onSort }，@on-sort -&gt; { onOnSort }</p>
+<p>$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀<br>例：<br>@sort 在 $attrs 中的 key 为 onSort<br>@on-sort 在 $attrs 中的 key onOnSort</p>
 <p>emit 里声明的事件，将从 $attrs 里删除，无法继续递归传递</p>
 <span id="more"></span>
 
@@ -3056,10 +3056,10 @@ $listeners 对象在 Vue 3 中已被移除。事件监听器现在是 $attrs 的
         
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2025-01-09T09:39:13+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2025-02-27T10:14:32+08:00">
   <a class='notlink'>
     <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
-    <p>更新于：2025年1月9日</p>
+    <p>更新于：2025年2月27日</p>
   </a>
 </div>
 

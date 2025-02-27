@@ -2930,6 +2930,55 @@ article > p {
   
     
     <h2 class="article-title" >
+      <a href="/blog/posts/15168/">
+        🥽 学习 - vue-router@4 不规范的 params 传参导致接收不到数据
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>在 vue2 中，若想在单页面项目中跳转页面时，不把参数暴漏在 url 中<br>可以通过不定义 prop，但是 $router.push 时在 params 里加上参数<br>在目标页面通过 $route.params.xxx 也能获取到</p>
+<p>但是这种方式在 vue3 vue-router@4 中行不通了。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2025-02-27</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/15168/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/15168/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/blog/posts/2601/">
         🤨 学习 - vue3 的 $attrs 和 emit 声明
       </a>
@@ -2940,7 +2989,7 @@ article > p {
       <p>爷孙组件的事件传递和 vue2 的写法不一样了</p>
 <p>$listeners 在 3 中删除了，将事件合并到了 $attrs 中</p>
 <p>需要使用 v-bind 递归绑定 $attrs 传递事件而不是 v-on</p>
-<p>$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀<br>例：@sort -&gt; { onSort }，@on-sort -&gt; { onOnSort }</p>
+<p>$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀<br>例：<br>@sort 在 $attrs 中的 key 为 onSort<br>@on-sort 在 $attrs 中的 key onOnSort</p>
 <p>emit 里声明的事件，将从 $attrs 里删除，无法继续递归传递</p>
     
   </div>
@@ -3357,54 +3406,6 @@ article > p {
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/54200/">
-        🧐 学习 - 递归函数
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>工作用用到了递归函数，写起来感觉奇奇怪怪的，这里总结一下逻辑。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2021-08-12</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E5%AD%A6%E4%B9%A0/">学习</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/54200/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/54200/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -3490,7 +3491,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>80 篇</div>
+          <div>81 篇</div>
         </div>
       
 
@@ -3512,7 +3513,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>33.3k </div>
+          <div>33.5k </div>
         </div>
       
 
@@ -3524,8 +3525,8 @@ article > p {
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Mon Jan 13 2025 16:48:21 GMT+0800 (GMT+08:00)</div>
-            <div id="last-update-show">2025-01-13 日</div>
+            <div id="last-update" style="display: none;">Thu Feb 27 2025 10:33:35 GMT+0800 (GMT+08:00)</div>
+            <div id="last-update-show">2025-02-27 日</div>
           
         </div>
         
@@ -3575,7 +3576,7 @@ article > p {
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2025-01-13 日';
+            document.getElementById('last-update-show').innerHTML = '2025-02-27 日';
           }
         </script>
         
@@ -3611,7 +3612,7 @@ article > p {
           <li><a class="flat-box"
             title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
             id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(31)</div></a></li>
+            ><div class='name'>学习</div><div class='badge'>(32)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E8%AE%B0%E5%BD%95/" href="/blog/categories/%E8%AE%B0%E5%BD%95/"
