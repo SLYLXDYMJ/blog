@@ -10,8 +10,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -28,9 +26,11 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2023/8 - SLYLXDYMJ BLOG</title>
+  <title>🏽 学习 - view-ui-plus - SLYLXDYMJ BLOG</title>
   
 
+  
+    <meta name="description" content="vue3 的 iview 改名为了 view-ui-plus">
   
 
   <!-- feed -->
@@ -2810,7 +2810,7 @@ article > p {
   
     
       <!-- see: /layout/_partial/scripts/coverCtrl.ejs -->
-        <div id="none" class='cover-wrapper  search' style="display: none;">
+        <div id="none" class='cover-wrapper post search' style="display: none;">
           
             <div class='cover-bg' style='background-image:url()'></div>
           
@@ -2888,124 +2888,149 @@ article > p {
 
 
 <div id="l_main" class=''>
-	
-		
-  <section class="post-list">
+  <article class=" article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
-      
+    
+    
+      <h1 class="title">
+        🏽 学习 - view-ui-plus
+      </h1>
+      <div class='new-meta-box'>
         
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="https://slylxdymj.github.io/blog/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/28495915?v=4">
+    <p>SLYLXDYMJ</p>
+  </a>
+</div>
+
           
         
           
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/57781/">
-        🏁 酷库 - iview
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>项目中一直用的 iview，这里记录下使用心得</p>
-    
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fad fa-keyboard PETERRIVE fa-fw" aria-hidden="true"></i>
+      <p>字数：131 字</p>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
-        
-        <time>2023-08-21</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E9%85%B7%E5%BA%93/">酷库</a>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fad fa-hourglass-half BELIZEHOLE fa-fw" aria-hidden="true"></i>
+      <p>时长：1 分钟</p>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  
+  <p>vue3 的 iview 改名为了 view-ui-plus</p>
+<span id="more"></span>
+
+<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.iviewui.com/view-ui-plus/guide/introduce">https://www.iviewui.com/view-ui-plus/guide/introduce</a></p>
+</blockquote>
+<h2 id="定制主题"><a href="#定制主题" class="headerlink" title="定制主题"></a>定制主题</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.iviewui.com/view-ui-plus/guide/theme">https://www.iviewui.com/view-ui-plus/guide/theme</a></p>
+</blockquote>
+<p>需要装 less,然后跟着文档走即可</p>
+<pre><code>npm i -save-dev less
+</code></pre>
+<p>自定义的主题代码例子：</p>
+<pre><code class="less">@import &#39;../../../node_modules/view-ui-plus/src/styles/index.less&#39;;
+
+@link-color: #558ED5;
+@primary-color: #558ED5;
+</code></pre>
+<p>定制主题后图标不显示，重新定义下 less 变量即可</p>
+<pre><code class="less">// 不写图标会不显示
+// https://github.com/view-design/ViewUIPlus/issues/212
+@ionicons-font-path: &quot;../../../node_modules/view-ui-plus/src/styles/common/iconfont/fonts&quot;;
+</code></pre>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/57781/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/57781/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          
+
+        
+      
+        
+          
+
+        
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2025-03-18T18:26:19+08:00">
+  <a class='notlink'>
+    <i class="fad fa-edit GREENSEA fa-fw" aria-hidden="true"></i>
+    <p>更新于：2025年3月18日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/blog/posts/59632/">
-        🦍 记录 - 将对象里的所有值转为Number
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      <p>做前端项目时，经常会碰到后端的返回值类型不定<br>比如：有时返回 Number 的 1，有时返回 String 的 ‘1’<br>会导致类型检查严格时的 bug</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='hidden'>
-      <div>
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fad fa-calendar-alt TURQUOISE fa-fw" aria-hidden="true"></i>
+    <p>发布于：2025年3月18日</p>
+  </a>
+</div>
+
         
-        <time>2023-08-07</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
-        
-      </div>
-      
-        <div>
-          <!-- <a class='readmore' href='/blog/posts/59632/'>
-            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
-          </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/59632/">
-            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
-            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
-          </a>
-        </div>
       
     </div>
+  </div>
+
+
+  
   
 
-</div>
-
-          </div>
-        
-      
-    
-  </section>
+  <!-- 强制隐藏上一篇和下一篇，因为可能会暴露日记内容 -->
   
-    
+</article>
+
+
+  
+
   
 
 
-	
+
+
+
+
 </div>
 <aside id='l_side'>
   
@@ -3053,203 +3078,22 @@ article > p {
     
     
 
-<section class="widget shadow desktop">
-  
-  <header>
-    
-      <i class="fad fa-award ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
 
 
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>82 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="03/24/2020 21:34:09"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2019/06/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>33.6k </div>
-        </div>
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Tue Mar 18 2025 18:26:53 GMT+0800 (香港标准时间)</div>
-            <div id="last-update-show">2025-03-18 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2025-03-18 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/categories/'><i class="fad fa-folder-open CARROT fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fad fa-list ASBESTOS fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E5%8F%A5%E5%AD%90/" href="/blog/categories/%E5%8F%A5%E5%AD%90/"
-            id="blogcategoriesE58FA5E5AD90"
-            ><div class='name'>句子</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
-            id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(32)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E8%AE%B0%E5%BD%95/" href="/blog/categories/%E8%AE%B0%E5%BD%95/"
-            id="blogcategoriesE8AEB0E5BD95"
-            ><div class='name'>记录</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/blog/categories/%E9%85%B7%E5%BA%93/" href="/blog/categories/%E9%85%B7%E5%BA%93/"
-            id="blogcategoriesE985B7E5BA93"
-            ><div class='name'>酷库</div><div class='badge'>(41)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="toc-text">官方文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E5%88%B6%E4%B8%BB%E9%A2%98"><span class="toc-text">定制主题</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-
-<section class="widget list shadow desktop mobile">
-  
-  <header>
-    
-      <i class="fad fa-align-justify POMEGRANATE fa-fw" aria-hidden="true"></i><span class='name'>更多</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation">
-      
-        <li><a class="flat-box" title="/blog/docs/lodash/collection" href="/blog/docs/lodash/collection"
-          
-          
-          id="blogdocslodashcollection"
-          >
-          <div class='name'>
-            
-            更好的 lodash 文档
-          </div>
-          
-        </a></li>
-      
-        <li><a class="flat-box" title="/blog/docs/moment/parsing" href="/blog/docs/moment/parsing"
-          
-          
-          id="blogdocsmomentparsing"
-          >
-          <div class='name'>
-            
-            更好的 moment 文档
-          </div>
-          
-        </a></li>
-      
-    </ul>
-  </div>
-</section>
 
   
 
@@ -3257,13 +3101,14 @@ article > p {
 </aside>
 
 
+
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="🏽 学习 - view-ui-plus";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   //  see: /layout/_partial/scripts/coverCtrl.ejs

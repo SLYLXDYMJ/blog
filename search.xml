@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>🏽 学习 - view-ui-plus</title>
+      <link href="/blog/posts/51096/"/>
+      <url>/blog/posts/51096/</url>
+      
+        <content type="html"><![CDATA[<p>vue3 的 iview 改名为了 view-ui-plus</p><span id="more"></span><h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a>官方文档</h2><blockquote><p><a href="https://www.iviewui.com/view-ui-plus/guide/introduce">https://www.iviewui.com/view-ui-plus/guide/introduce</a></p></blockquote><h2 id="定制主题"><a href="#定制主题" class="headerlink" title="定制主题"></a>定制主题</h2><blockquote><p><a href="https://www.iviewui.com/view-ui-plus/guide/theme">https://www.iviewui.com/view-ui-plus/guide/theme</a></p></blockquote><p>需要装 less,然后跟着文档走即可</p><pre><code>npm i -save-dev less</code></pre><p>自定义的主题代码例子：</p><pre><code class="less">@import &#39;../../../node_modules/view-ui-plus/src/styles/index.less&#39;;@link-color: #558ED5;@primary-color: #558ED5;</code></pre><p>定制主题后图标不显示，重新定义下 less 变量即可</p><pre><code class="less">// 不写图标会不显示// https://github.com/view-design/ViewUIPlus/issues/212@ionicons-font-path: &quot;../../../node_modules/view-ui-plus/src/styles/common/iconfont/fonts&quot;;</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>🥽 学习 - vue-router@4 不规范的 params 传参导致接收不到数据</title>
       <link href="/blog/posts/15168/"/>
       <url>/blog/posts/15168/</url>
