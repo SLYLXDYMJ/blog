@@ -2903,6 +2903,20 @@ article > p {
         
           
         
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
       
     
     
@@ -2916,21 +2930,22 @@ article > p {
   
     
     <h2 class="article-title" >
-      <a href="/blog/posts/59632/">
-        🦍 记录 - 将对象里的所有值转为Number
+      <a href="/blog/posts/15168/">
+        🥽 记录 - vue-router@4 不规范的 params 传参导致接收不到数据
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>做前端项目时，经常会碰到后端的返回值类型不定<br>比如：有时返回 Number 的 1，有时返回 String 的 ‘1’<br>会导致类型检查严格时的 bug</p>
+      <p>在 vue2 中，若想在单页面项目中跳转页面时，不把参数暴漏在 url 中<br>可以通过不定义 prop，但是 $router.push 时在 params 里加上参数<br>在目标页面通过 $route.params.xxx 也能获取到</p>
+<p>但是这种方式在 vue3 vue-router@4 中行不通了。</p>
     
   </div>
   
     <div class='meta-v3' line_style='hidden'>
       <div>
         
-        <time>2023-08-07</time>
+        <time>2025-02-27</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
@@ -2938,10 +2953,10 @@ article > p {
       </div>
       
         <div>
-          <!-- <a class='readmore' href='/blog/posts/59632/'>
+          <!-- <a class='readmore' href='/blog/posts/15168/'>
             <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
           </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/59632/">
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/15168/">
             <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
             <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
           </a>
@@ -2964,22 +2979,25 @@ article > p {
   
     
     <h2 class="article-title" >
-      <a href="/blog/posts/26213/">
-        😅 记录 - JS 将对象里 Number 值转为 String 类型
+      <a href="/blog/posts/2601/">
+        🤨 记录 - vue3 的 $attrs 和 emit 声明
       </a>
     </h2>
   
   <div class='md'>
     
-      <p>🤖 此段代码来源于实现一个表单 select 功能<br>后端返回的选中值为 String 类型<br>但是返回的 option 数据里的 key 值为 Number 类型<br>用 iview select 组件，会因为类型不同，导致没有选中状态（内部应该是用了全等）</p>
-<p>PS：经测试，原生的 select value 可以隐式类型转换</p>
+      <p>爷孙组件的事件传递和 vue2 的写法不一样了</p>
+<p>$listeners 在 3 中删除了，将事件合并到了 $attrs 中</p>
+<p>需要使用 v-bind 递归绑定 $attrs 传递事件而不是 v-on</p>
+<p>$attrs 里的事件名会转为驼峰，并且自动加上 on 前缀<br>例：<br>@sort 在 $attrs 中的 key 为 onSort<br>@on-sort 在 $attrs 中的 key onOnSort</p>
+<p>emit 里声明的事件，将从 $attrs 里删除，无法继续递归传递</p>
     
   </div>
   
     <div class='meta-v3' line_style='hidden'>
       <div>
         
-        <time>2023-04-13</time>
+        <time>2025-01-09</time>
         
           <span class="dot"></span>
           <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
@@ -2987,10 +3005,202 @@ article > p {
       </div>
       
         <div>
-          <!-- <a class='readmore' href='/blog/posts/26213/'>
+          <!-- <a class='readmore' href='/blog/posts/2601/'>
             <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
           </a> -->
-          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/26213/">
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/2601/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/57599/">
+        😅 记录 - 移动设备的安全距离
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>ios vh 单位有问题，100vh 总会高一块，是因为 ios 算上了底部的 “安全距离”，<br>同事给了解决办法，非常好用</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2024-04-25</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/57599/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/57599/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/5415/">
+        😇 记录 - 获取指定元素下的所有文本节点
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>如题目。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2023-07-04</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/5415/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/5415/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/56036/">
+        🚅 记录 - 使元素出现在视口
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>✨ scrollIntoView：滚动父级容器，使得元素出现在视口</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2023-03-29</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/56036/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/56036/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/10561/">
+        🏻 记录 - vuex 统一的 mutation 方法
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>mutation 的定义比较迷…<br>个人喜欢不管是不是异步逻辑，都放在 action 中处理，然后提交 mutation<br>但是如果一个 state 就定义一个 mutation 方法，就太累了<br>这里记录定义一个统一的方法<br>PS：基于 lodash 的 set 方法实现</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2022-11-25</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/10561/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/10561/">
             <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
             <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
           </a>
@@ -3052,9 +3262,168 @@ article > p {
           </div>
         
       
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/45099/">
+        🔭 记录 - 用CSS判断同级别元素的数量并做出样式控制
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>有时需要判断同级别，元素的数量<br>根据不同的数量，显示不同的样式，一般这种需求需要用 JS 去控制<br>终于有一天我认为只用 css 没准也能实现，百度了一下，结果就来了~</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2022-08-01</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/45099/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/45099/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/41860/">
+        🔄 记录 - 递归组件
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>比较常见的例子是 “树状结构” 和 “模态框的嵌套弹出”。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2022-03-30</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/41860/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/41860/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/blog/posts/16357/">
+        🖨️ 记录 - 打印网页
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      <p>几年前的我 “嗯，这个功能用的比较少，呸，应该就不会用到”，没想到真的在项目中碰到了。</p>
+    
+  </div>
+  
+    <div class='meta-v3' line_style='hidden'>
+      <div>
+        
+        <time>2021-10-25</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/blog/categories/%E8%AE%B0%E5%BD%95/">记录</a>
+        
+      </div>
+      
+        <div>
+          <!-- <a class='readmore' href='/blog/posts/16357/'>
+            <i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多
+          </a> -->
+          <a class="link-fx-1 color-contrast-higher" href="/blog/posts/16357/">
+            <span><i class="fad fa-books fa-fw" aria-hidden="true" title="Read Me"></i> 阅读更多</span>
+            <svg class="icon" viewBox="0 0 32 32" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="16" r="15.5"/><line x1="10" y1="18" x2="16" y2="12"/><line x1="16" y1="12" x2="22" y2="18" /></g></svg>
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
     
   </section>
   
+    
+      <br>
+      <div class="prev-next">
+        
+        <p class="current">
+          1 / 3
+        </p>
+        
+          <a class="next" rel="next" href="/blog/categories/%E8%AE%B0%E5%BD%95/page/2/">
+            <section class="post next white-box shadow">
+              &nbsp;下一页&nbsp;<i class="fad fa-chevron-right" aria-hidden="true"></i>
+            </section>
+          </a>
+        
+      </div>
     
   
 
@@ -3122,7 +3491,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>84 篇</div>
+          <div>76 篇</div>
         </div>
       
 
@@ -3144,7 +3513,7 @@ article > p {
       
         <div class="webinfo-item">
           <div>本站总字数：</div>
-          <div>35.4k </div>
+          <div>31.7k </div>
         </div>
       
 
@@ -3156,8 +3525,8 @@ article > p {
         <div class="webinfo-item">
           <div>最后活动时间：</div>
           
-            <div id="last-update" style="display: none;">Fri Mar 27 2026 12:42:55 GMT+0000 (Coordinated Universal Time)</div>
-            <div id="last-update-show">2026-03-27 日</div>
+            <div id="last-update" style="display: none;">Tue Apr 21 2026 01:31:16 GMT+0000 (Coordinated Universal Time)</div>
+            <div id="last-update-show">2026-04-21 日</div>
           
         </div>
         
@@ -3207,7 +3576,7 @@ article > p {
           try {
             document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
           } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2026-03-27 日';
+            document.getElementById('last-update-show').innerHTML = '2026-04-21 日';
           }
         </script>
         
@@ -3241,14 +3610,9 @@ article > p {
             ><div class='name'>句子</div><div class='badge'>(2)</div></a></li>
         
           <li><a class="flat-box"
-            title="/blog/categories/%E5%AD%A6%E4%B9%A0/" href="/blog/categories/%E5%AD%A6%E4%B9%A0/"
-            id="blogcategoriesE5ADA6E4B9A0"
-            ><div class='name'>学习</div><div class='badge'>(32)</div></a></li>
-        
-          <li><a class="flat-box"
             title="/blog/categories/%E8%AE%B0%E5%BD%95/" href="/blog/categories/%E8%AE%B0%E5%BD%95/"
             id="blogcategoriesE8AEB0E5BD95"
-            ><div class='name'>记录</div><div class='badge'>(3)</div></a></li>
+            ><div class='name'>记录</div><div class='badge'>(27)</div></a></li>
         
           <li><a class="flat-box"
             title="/blog/categories/%E9%85%B7%E5%BA%93/" href="/blog/categories/%E9%85%B7%E5%BA%93/"
